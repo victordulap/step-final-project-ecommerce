@@ -1,0 +1,12 @@
+@import '../vars.scss';
+
+.footer {
+  width: 100%;
+  background-color: $neutral-dark;
+  color: $neutral-light;
+  font-size: 2rem;
+
+  .container {
+    padding-block: 1em;
+  }
+}

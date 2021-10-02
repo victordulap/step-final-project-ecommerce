@@ -1,0 +1,90 @@
+@import '../vars.scss';
+
+.navbar {
+  width: 100%;
+  background-color: $neutral-dark;
+  color: $neutral-light;
+
+  .container {
+    font-size: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+    padding-block: 0.5em;
+
+    .logo {
+      flex: 1 0 auto;
+      font-size: 1.4em;
+    }
+
+    .search-bar {
+      flex: 1 1 100%;
+      display: flex;
+      align-items: center;
+      background: $neutral-light;
+      color: $neutral-dark;
+      border-radius: 10em;
+      overflow: hidden;
+
+      * {
+        background-color: inherit;
+        color: inherit;
+      }
+
+      input,
+      .search-icon {
+        display: block;
+      }
+
+      input {
+        flex: 1 1 100%;
+        height: 100%;
+        padding: 1em 1.5em;
+      }
+
+      .search-icon {
+        flex: 1 1 auto;
+        display: grid;
+        place-items: center;
+        font-size: 1em;
+        padding-inline: 0.5em;
+        height: 100%;
+
+        .icon {
+          font-size: 1.25em;
+        }
+      }
+    }
+
+    .icons {
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+      font-size: 1em;
+      justify-content: flex-end;
+    }
+
+    @media screen and (max-width: $screen-size-s) {
+      flex-wrap: wrap;
+      gap: 1em;
+      padding-block: 1em;
+
+      .logo {
+        flex: 1 1 auto;
+        order: 0;
+      }
+
+      .search-bar {
+        flex: 1 1 100%;
+        order: 2;
+      }
+
+      .icons {
+        flex: 1 1 auto;
+        order: 1;
+      }
+    }
+  }
+}

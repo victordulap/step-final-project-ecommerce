@@ -1,32 +1,15 @@
-import './style.css';
+import './style.scss';
 import { Link } from 'react-router-dom';
+import { brands } from '../../data/brands';
 
 export function HomePage() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div style={{ fontSize: 20 }}>
+      {brands.map((brand) => (
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {brand.name}, id: {brand.id}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-
-      <div className="App-line"></div>
-
-      <main className="App-main">
-        <p>Page 1</p>
-
-        <Link to="/page2" className="App-link">
-          Next Page
-        </Link>
-      </main>
+      ))}
     </div>
   );
 }
