@@ -78,12 +78,12 @@ h6 {
 /* end reset styles */
 
 .container {
-  max-width: 145rem;
+  max-width: 120rem;
   padding: 0 2rem;
   margin: 0 auto;
 
   @media screen and (max-width: $screen-size-s) {
-    padding: 0 3rem;
+    padding: 0 1rem;
   }
 }
 

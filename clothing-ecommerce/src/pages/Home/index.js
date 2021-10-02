@@ -1,12 +1,14 @@
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { brands } from '../../data/brands';
+import { useSelector } from 'react-redux';
 
 export function HomePage() {
+  const brands = useSelector((state) => state.brands.value);
+
   return (
-    <div style={{ fontSize: 20 }}>
+    <div className="container">
       {brands.map((brand) => (
-        <p>
+        <p key={brand.id}>
           {brand.name}, id: {brand.id}
         </p>
       ))}
