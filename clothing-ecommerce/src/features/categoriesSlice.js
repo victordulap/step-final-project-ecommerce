@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { brands } from '../data/brands';
+import { categories } from '../data/categories';
 
 const initialState = {
-  value: [...brands],
+  value: [...categories],
 };
 
 export const brandSlice = createSlice({
-  name: 'brands',
+  name: 'categories',
   initialState,
   reducers: {},
 });
