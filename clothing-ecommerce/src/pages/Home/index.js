@@ -1,6 +1,7 @@
 import './style.scss';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Button from '../../components/Button';
 
 export function HomePage() {
   const brands = useSelector((state) => state.brands.value);
@@ -8,11 +9,10 @@ export function HomePage() {
   return (
     <main>
       <div className="container">
-        {brands.map((brand) => (
-          <p key={brand.id}>
-            {brand.name}, id: {brand.id}
-          </p>
-        ))}
+        <div className="hero">
+          <h1>Welcome to VD&nbsp;Clothes</h1>
+          <Button text="SHOP" size="l" dark={true} />
+        </div>
       </div>
     </main>
   );

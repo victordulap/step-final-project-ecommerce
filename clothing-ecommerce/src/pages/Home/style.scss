@@ -1,0 +1,23 @@
+@import '../../vars.scss';
+
+main {
+  font-size: 1rem;
+  .container {
+    .hero {
+      background-color: red; //$neutral-light;
+      color: $neutral-dark;
+      text-align: center;
+      font-size: 2rem;
+      padding: 3em 1em;
+
+      h1 {
+        font-size: 4em;
+        margin-bottom: 0.5em;
+      }
+
+      .btn {
+        margin: 0 auto;
+      }
+    }
+  }
+}

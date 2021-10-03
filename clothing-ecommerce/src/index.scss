@@ -92,6 +92,8 @@ h6 {
   height: 100%;
   flex-direction: column;
   min-height: 100vh;
+  background-color: $neutral-light;
+  color: $neutral-dark;
 
   main {
     flex: 1;

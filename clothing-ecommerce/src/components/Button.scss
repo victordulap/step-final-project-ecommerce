@@ -1,0 +1,45 @@
+@import '../vars.scss';
+
+.btn {
+  display: inline-block;
+  background-color: $neutral-light;
+  color: $neutral-dark;
+  font-size: 1.4rem;
+  border: 0.2rem solid $neutral-dark;
+  padding: 1.5em 3rem;
+  transition: all 0.25s ease;
+  line-height: 1;
+
+  &:hover,
+  &:active {
+    background-color: $neutral-dark;
+    color: $neutral-light;
+    border-color: $neutral-light;
+  }
+
+  &-dark {
+    background-color: $neutral-dark;
+    color: $neutral-light;
+    border: 0.2rem solid $neutral-light;
+
+    &:hover,
+    &:active {
+      background-color: $neutral-light;
+      color: $neutral-dark;
+      border-color: $neutral-dark;
+    }
+  }
+
+  &-s {
+    font-size: 1rem;
+    padding: 0.5em 3rem;
+  }
+  &-m {
+    font-size: 1.4rem;
+    padding: 0.5em 3.4rem;
+  }
+  &-l {
+    font-size: 2rem;
+    padding: 0.5em 3.8rem;
+  }
+}

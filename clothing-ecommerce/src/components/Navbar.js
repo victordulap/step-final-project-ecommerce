@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="container">
-        <div className="logo">Clothes Shop</div>
+        <div className="logo">VD Clothes</div>
         <div className="search-bar">
           <input
             type="text"
