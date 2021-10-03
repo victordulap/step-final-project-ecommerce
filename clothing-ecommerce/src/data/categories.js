@@ -51,4 +51,10 @@ export const categories = [
       'https://images.asos-media.com/products/boss-mens-blue-dial-bracelet-watch-in-silver-1513907/201012724-1-silver?$n_640w$&wid=513&fit=constrain'
     ),
   },
+  {
+    ...new Category(
+      'Underwear',
+      'https://images.asos-media.com/products/polo-ralph-lauren-trunks-with-gold-logo-in-navy/200847321-1-navy?$n_640w$&wid=513&fit=constrain'
+    ),
+  },
 ];

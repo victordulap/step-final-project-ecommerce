@@ -4,19 +4,75 @@ main {
   font-size: 1rem;
   .container {
     .hero {
-      background-color: red; //$neutral-light;
+      background-color: $neutral-light;
       color: $neutral-dark;
       text-align: center;
-      font-size: 2rem;
-      padding: 3em 1em;
+      font-size: 1.7rem;
+      padding: 8em 1em;
 
       h1 {
         font-size: 4em;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.7em;
+        line-height: 1.2;
       }
 
       .btn {
         margin: 0 auto;
+      }
+    }
+
+    .categories {
+      font-size: 4rem;
+      padding: 0.5em 0;
+      margin: 0.5em 0;
+
+      h2 {
+        font-weight: 700;
+        text-align: center;
+        line-height: 3;
+        // margin-bottom: 1em;
+      }
+
+      .categories-cards {
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 1rem;
+
+        .category-card {
+          text-transform: capitalize;
+          transition: transform 0.25s ease;
+          background-color: $neutral-light-300;
+          color: $neutral-dark;
+
+          &:hover {
+            transform: scale(1.01);
+          }
+
+          .category-image-container {
+            width: 100%;
+            flex: 1 1 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+              max-width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .category-text {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            padding-block: 1em;
+          }
+        }
       }
     }
   }
