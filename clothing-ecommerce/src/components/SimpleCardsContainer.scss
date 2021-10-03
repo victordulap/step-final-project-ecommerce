@@ -1,0 +1,68 @@
+@import '../vars.scss';
+
+.cards {
+  font-size: 4rem;
+  padding: 0 0 0.5em 0;
+  margin: 0.5em 0;
+
+  h2 {
+    font-weight: 700;
+    text-align: center;
+    // line-height: 3;
+    padding: 1em;
+    // margin-bottom: 1em;
+  }
+
+  .cards-container {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+
+    .card {
+      text-transform: capitalize;
+      transition: transform 0.25s ease;
+      background-color: $neutral-dark;
+      color: $neutral-light-300;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+
+      &-dark {
+        background-color: $neutral-light-300;
+        color: $neutral-dark;
+      }
+
+      &:hover {
+        transform: scale(1.01);
+      }
+
+      .card-image-container {
+        width: 100%;
+        flex: 1 1 auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: $neutral-light-300;
+        color: $neutral-dark;
+
+        img {
+          max-width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .card-text {
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+        padding-block: 1em;
+      }
+    }
+  }
+}
