@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './SimpleCardsContainer.scss';
 
 const SimpleCardsContainer = ({ cardsData, title, darkCards }) => {
@@ -8,7 +9,15 @@ const SimpleCardsContainer = ({ cardsData, title, darkCards }) => {
         <h2>{title}</h2>
         <div className="cards-container">
           {cardsData.map((card) => (
-            <div
+            <Link
+              to={{
+                pathname: `${title.toLowerCase()}/${card.name.toLowerCase()}`,
+                state: {
+                  id: card.id,
+                  title: title.toLowerCase(),
+                  name: card.name.toLowerCase(),
+                },
+              }}
               className={`card ${darkCards ? 'card-dark' : ''}`}
               key={card.id}
             >
@@ -16,7 +25,7 @@ const SimpleCardsContainer = ({ cardsData, title, darkCards }) => {
                 <img src={card.imageUrl} alt={card.name} />
               </main>
               <footer className="card-text">{card.name}</footer>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

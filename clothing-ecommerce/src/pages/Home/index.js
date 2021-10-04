@@ -1,5 +1,4 @@
 import './style.scss';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import SimpleCardsContainer from '../../components/SimpleCardsContainer';
@@ -18,13 +17,16 @@ export function HomePage() {
           <Button text="SHOP" size="l" dark={true} linkTo="#Categories" />
         </section>
       </div>
-      <div className="container container-dark">
-        <SimpleCardsContainer
-          cardsData={categories}
-          title="Categories"
-          darkCards
-        />
+      <div className="categories-wrapper">
+        <div className="container container-dark">
+          <SimpleCardsContainer
+            cardsData={categories}
+            title="Categories"
+            darkCards
+          />
+        </div>
       </div>
+
       <div className="container">
         <SimpleCardsContainer cardsData={brands} title="Brands" />
       </div>

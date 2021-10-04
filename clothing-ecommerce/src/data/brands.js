@@ -12,7 +12,7 @@ export const brands = [
   {
     ...new Brand(
       'Nike',
-      'https://www.pittwatergolfcentre.com.au/wp-content/uploads/2014/11/nike-logo-square.png'
+      'http://www.mmksoccer.com/wp-content/uploads/2015/12/nike-logo-png-download-nike-logo-png-images-transparent-gallery-advertisement-1024.png'
     ),
   },
   {
@@ -25,6 +25,12 @@ export const brands = [
     ...new Brand(
       'Puma',
       'https://www.step.org.uk/app/uploads/2018/07/Puma-logo-PNG-Transparent-Background.png'
+    ),
+  },
+  {
+    ...new Brand(
+      'Reebok',
+      'https://logodownload.org/wp-content/uploads/2017/06/reebok-logo-5.png'
     ),
   },
 ];

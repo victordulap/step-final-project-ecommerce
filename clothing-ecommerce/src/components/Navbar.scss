@@ -5,6 +5,28 @@
   background-color: $neutral-dark;
   color: $neutral-light;
 
+  .search-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: $neutral-light-700;
+    padding-top: 4rem;
+
+    .close-modal {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 2.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0.5em;
+      background: transparent;
+    }
+  }
+
   .container {
     font-size: 2rem;
     display: flex;
@@ -17,6 +39,7 @@
     .logo {
       flex: 1 0 auto;
       font-size: 1.4em;
+      color: inherit;
     }
 
     .search-bar {
@@ -62,8 +85,13 @@
       flex: 1 0 auto;
       display: flex;
       align-items: center;
-      font-size: 1em;
+      font-size: 1.3em;
       justify-content: flex-end;
+      gap: 0.5em;
+
+      .icon {
+        cursor: pointer;
+      }
     }
 
     @media screen and (max-width: $screen-size-s) {
