@@ -5,12 +5,19 @@ const initialState = {
   value: [...categories],
 };
 
-export const brandSlice = createSlice({
+export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
-  reducers: {},
+  reducers: {
+    getCategoryByName: (state, action) => {
+      // const name = action.payload.name;
+      // return state.value.find(
+      //   (category) => category.name.toLowerCase() === name.toLowerCase()
+      // );
+    },
+  },
 });
 
-export const {} = brandSlice.actions;
+export const { getCategoryByName } = categoriesSlice.actions;
 
-export default brandSlice.reducer;
+export default categoriesSlice.reducer;

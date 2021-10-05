@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
       </div>
       {showSearchModal && (
-        <div class="search-modal">
+        <div className="search-modal">
           <button
             className="close-modal"
             onClick={() => setShowSearchModal(false)}

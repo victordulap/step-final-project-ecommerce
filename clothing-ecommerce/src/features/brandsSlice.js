@@ -8,7 +8,14 @@ const initialState = {
 export const brandSlice = createSlice({
   name: 'brands',
   initialState,
-  reducers: {},
+  reducers: {
+    getBrandByName: (state, action) => {
+      // const name = action.payload.name;
+      // return state.value.find(
+      //   (brand) => brand.name.toLowerCase() === name.toLowerCase()
+      // );
+    },
+  },
 });
 
 export const {} = brandSlice.actions;

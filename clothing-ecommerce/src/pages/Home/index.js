@@ -7,8 +7,6 @@ export function HomePage() {
   const brands = useSelector((state) => state.brands.value);
   const categories = useSelector((state) => state.categories.value);
 
-  console.log(categories);
-
   return (
     <main>
       <div className="container">
