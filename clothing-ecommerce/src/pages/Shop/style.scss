@@ -1,60 +1,117 @@
-.App {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: #282c34;
-  text-align: center;
-}
+@import '../../vars.scss';
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+main {
+  font-size: 1rem;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .header {
+    text-align: center;
+    // background-color: #f005;
+
+    .title {
+      padding: 1em 0;
+      font-size: 3em;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .filter-sort-section {
+      background-color: $neutral-light-700;
+      width: 100%;
+      display: flex;
+
+      button {
+        flex: 1 0 auto;
+        font-size: 1.55rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 0.75em 0;
+        border-style: solid;
+        border-color: $neutral-light-900;
+        border-top-width: 0.05em;
+        border-bottom-width: 0.05em;
+        color: $neutral-dark-100;
+        position: relative;
+
+        &:last-of-type {
+          &::before {
+            height: 50%;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            // border-style: solid;
+            // border-color: $neutral-light-900;
+            width: 0.05em;
+            background-color: $neutral-light-900;
+          }
+        }
+      }
+    }
   }
-}
 
-.App-header {  
-  width: 45%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  .items {
+    margin: 1rem 0;
 
-.App-link {
-  color: #61dafb;
-}
+    .items-found {
+      font-size: 1.35rem;
+      font-weight: 300;
+      text-align: center;
+      margin: 1em 0;
+    }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+    .item-cards-container {
+      width: 100%;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 1fr;
+      gap: 1rem;
+      justify-content: center;
+      font-size: 1.25rem;
+      line-height: 1.2;
+
+      .item-card {
+        display: block;
+        text-transform: capitalize;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+
+        &-image-container {
+          width: 100%;
+          flex: 1 1 auto;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          background-color: $neutral-light-300;
+          color: $neutral-dark;
+
+          img {
+            max-height: 100%;
+            width: 100%;
+            object-fit: contain;
+          }
+        }
+
+        &-title {
+          margin: 1rem 0;
+        }
+
+        &-color,
+        &-price {
+          margin-bottom: 1rem;
+          text-transform: lowercase;
+          color: $neutral-dark-0;
+        }
+
+        &-price {
+          font-weight: 700;
+          margin-bottom: 2.5em;
+        }
+      }
+    }
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.App-line {
-  height: 50%;
-  width: 2px;
-  background-color: white;
-}
-
-.App-main {  
-  height: 100%;
-  width: 45%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }

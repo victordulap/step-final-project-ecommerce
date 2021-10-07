@@ -1,17 +1,17 @@
 import './style.scss';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryByName } from '../../features/categoriesSlice';
 import { items } from '../../data/items';
 
-const filterItemsByCategory = (categoryFilter) => {
+const filterItemsByCategoryOrBrand = (filter) => {
   return items
     .map((item) => {
       if (
+        item.brand.name.toLowerCase() === filter.toLowerCase() ||
         item.categories.find(
-          (category) =>
-            category.name.toLowerCase() === categoryFilter.toLowerCase()
+          (category) => category.name.toLowerCase() === filter.toLowerCase()
         )
       )
         return item;
@@ -21,31 +21,47 @@ const filterItemsByCategory = (categoryFilter) => {
 };
 
 const Shop = () => {
-  const location = useLocation();
-  const urlState = location.state;
   const urlSearch = useParams();
 
   const { brands, categories } = useSelector((state) => state);
+  const [shopItems, setShopItems] = useState([]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (urlSearch.type === 'categories') {
-      // set shop items with categories
-      console.log('categories');
-      const filteredItems = filterItemsByCategory(urlSearch.name);
-      console.log(filteredItems);
-    } else if (urlSearch.type === 'brands') {
-      // set shop items with brands
-      console.log('brands');
-    }
+    const filteredItems = filterItemsByCategoryOrBrand(urlSearch.name);
+    setShopItems(filteredItems);
+    // console.log(filteredItems);
   }, []);
 
   return (
     <main>
-      <section className="title">
+      <header className="header">
         <div className="container">
-          <h1>{urlSearch.name}</h1>
+          <h1 className="title">{urlSearch.name}</h1>
+        </div>
+        <div className="filter-sort-section">
+          <button>Sort</button>
+          <button>Filter</button>
+        </div>
+      </header>
+      <section className="items">
+        <div className="container">
+          <p className="items-found">10 items found</p>
+          <div className="item-cards-container">
+            {shopItems.map((item) => (
+              <div key={item.id} className="item-card">
+                <div className="item-card-image-container">
+                  <img src={item.imgUrl} alt={item.title} />
+                </div>
+                <h3 className="item-card-title">
+                  {item.brand.name} {item.title}
+                </h3>
+                <p className="item-card-color">{item.color}</p>
+                <p className="item-card-price">${item.price}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>
