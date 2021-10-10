@@ -11,6 +11,9 @@ const App = () => (
       <Navbar />
       <Switch>
         <Route path="/" exact component={HomePage} />
+        <Route path="/shop/search?=:query">
+          <Shop />
+        </Route>
         <Route path="/:type/:name">
           <Shop />
         </Route>

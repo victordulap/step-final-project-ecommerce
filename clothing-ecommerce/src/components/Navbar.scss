@@ -10,9 +10,10 @@
     top: 0;
     left: 0;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: $neutral-light-700;
     padding-top: 5rem;
+    z-index: 999;
 
     .close-modal {
       position: absolute;
@@ -24,6 +25,7 @@
       align-items: center;
       margin: 0.5em;
       background: transparent;
+      z-index: 999;
     }
   }
 

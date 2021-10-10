@@ -4,34 +4,23 @@ import { useLocation, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryByName } from '../../features/categoriesSlice';
 import { items } from '../../data/items';
-
-const filterItemsByCategoryOrBrand = (filter) => {
-  return items
-    .map((item) => {
-      if (
-        item.brand.name.toLowerCase() === filter.toLowerCase() ||
-        item.categories.find(
-          (category) => category.name.toLowerCase() === filter.toLowerCase()
-        )
-      )
-        return item;
-      else return null;
-    })
-    .filter((item) => item !== null);
-};
+import { setShopItems } from '../../features/shopItemsSlice';
+import { filterItemsByCategoryOrBrandExact } from '../../utils/data/filterItems';
 
 const Shop = () => {
   const urlSearch = useParams();
 
-  const { brands, categories } = useSelector((state) => state);
-  const [shopItems, setShopItems] = useState([]);
+  const shopItems = useSelector((state) => state.shopItems.value);
+  console.log('shopItems: ', shopItems);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const filteredItems = filterItemsByCategoryOrBrand(urlSearch.name);
-    setShopItems(filteredItems);
-    // console.log(filteredItems);
+    const filteredItems = filterItemsByCategoryOrBrandExact(
+      items,
+      urlSearch.name
+    );
+    dispatch(setShopItems(filteredItems));
   }, []);
 
   return (
@@ -47,7 +36,9 @@ const Shop = () => {
       </header>
       <section className="items">
         <div className="container">
-          <p className="items-found">10 items found</p>
+          <p className="items-found">
+            {shopItems.length} item{shopItems.length === 1 || 's'} found
+          </p>
           <div className="item-cards-container">
             {shopItems.map((item) => (
               <div key={item.id} className="item-card">

@@ -7,21 +7,15 @@ const initialState = {
 };
 
 export const shopItemsSlice = createSlice({
-  name: 'categories',
+  name: 'shopItems',
   initialState,
   reducers: {
     setShopItems: (state, action) => {
-      const { title } = action.payload;
-      if (title.type === 'categories') {
-        // state.value = getCate;
-      } else if (title.type === 'brands') {
-      } else {
-        throw new Error('undefined title: ', title);
-      }
+      state.value = action.payload;
     },
   },
 });
 
-export const {} = shopItemsSlice.actions;
+export const { setShopItems } = shopItemsSlice.actions;
 
 export default shopItemsSlice.reducer;

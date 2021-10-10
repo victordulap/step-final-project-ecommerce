@@ -8,6 +8,11 @@ import {
 import { Link } from 'react-router-dom';
 import { useWindowDimensions } from '../customHooks/useWindowDimesions';
 import SearchBar from './SearchBar';
+import { items } from '../data/items';
+import { filterItems } from '../utils/data/filterItems';
+import { setShopItems } from '../features/shopItemsSlice';
+
+const SEARCH_AFTER_MS = 1000;
 
 const Navbar = () => {
   const { width } = useWindowDimensions();
@@ -18,13 +23,27 @@ const Navbar = () => {
     setIsBigScreen(width > 650);
   }, [width]);
 
+  const handleSearch = (searchValue) => {
+    // filter items by searchValue
+
+    // filter all items
+    if (searchValue.length > 2) {
+      const filteredItems = filterItems(items, searchValue);
+      console.log(filteredItems);
+    }
+    // and set shop items
+    // setShopItems(filteredItems);
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
         <Link to="/" className="logo">
           VD Clothes
         </Link>
-        {isBigScreen && <SearchBar />}
+        {isBigScreen && (
+          <SearchBar searchCallback={handleSearch} afterMs={SEARCH_AFTER_MS} />
+        )}
 
         <div className="icons">
           {!isBigScreen && (
@@ -45,7 +64,10 @@ const Navbar = () => {
             <AiOutlineClose />
           </button>
           <div className="container">
-            <SearchBar />
+            <SearchBar
+              searchCallback={handleSearch}
+              afterMs={SEARCH_AFTER_MS}
+            />
           </div>
         </div>
       )}
