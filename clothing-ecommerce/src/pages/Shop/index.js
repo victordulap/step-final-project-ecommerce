@@ -16,6 +16,8 @@ const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const filteredItems = filterItemsByCategoryOrBrandExact(
       items,
       urlSearch.name
@@ -30,8 +32,11 @@ const Shop = () => {
           <h1 className="title">{urlSearch.name}</h1>
         </div>
         <div className="filter-sort-section">
-          <button>Sort</button>
-          <button>Filter</button>
+          <div className="sort">
+            <label for="sort">Sort</label>
+            <select name="sort"></select>
+          </div>
+          <button className="filter">Filter</button>
         </div>
       </header>
       <section className="items">

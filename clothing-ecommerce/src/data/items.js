@@ -33,7 +33,7 @@ export const items = [
       [categories[1]],
       [40, 41, 42, 43, 44, 45],
       'white',
-      99,
+      89,
       'Matte leather upper',
       'https://images.asos-media.com/products/nike-air-force-1-07-in-white/23916587-1-white?$n_640w$&wid=513&fit=constrain'
     ),
@@ -45,7 +45,7 @@ export const items = [
       [categories[1]],
       [40, 41, 42, 43, 44, 45],
       'white',
-      99,
+      199,
       'Matte leather upper',
       'https://images.asos-media.com/products/nike-air-force-1-07-in-white/23916587-1-white?$n_640w$&wid=513&fit=constrain'
     ),

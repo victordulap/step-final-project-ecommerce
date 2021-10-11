@@ -10,7 +10,6 @@ import { useWindowDimensions } from '../customHooks/useWindowDimesions';
 import SearchBar from './SearchBar';
 import { items } from '../data/items';
 import { filterItems } from '../utils/data/filterItems';
-import { setShopItems } from '../features/shopItemsSlice';
 
 const SEARCH_AFTER_MS = 1000;
 
@@ -31,8 +30,10 @@ const Navbar = () => {
       const filteredItems = filterItems(items, searchValue);
       console.log(filteredItems);
     }
-    // and set shop items
-    // setShopItems(filteredItems);
+
+    // set suggestions
+
+    // show suggestions
   };
 
   return (
