@@ -4,6 +4,7 @@ import { items } from '../data/items';
 
 const initialState = {
   value: [],
+  currentItem: {},
 };
 
 export const shopItemsSlice = createSlice({
@@ -13,9 +14,12 @@ export const shopItemsSlice = createSlice({
     setShopItems: (state, action) => {
       state.value = action.payload;
     },
+    getItemById: (state, action) => {
+      state.currentItem = items.find((item) => item.id === action.payload.id);
+    },
   },
 });
 
-export const { setShopItems } = shopItemsSlice.actions;
+export const { setShopItems, getItemById } = shopItemsSlice.actions;
 
 export default shopItemsSlice.reducer;

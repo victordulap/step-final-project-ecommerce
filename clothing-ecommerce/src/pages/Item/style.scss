@@ -1,0 +1,40 @@
+@import '../../vars.scss';
+
+main {
+  font-size: 1rem;
+  .item-image-container {
+    width: 100%;
+
+    .item-img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  p {
+    font-size: 1.4em;
+    color: $neutral-dark-0;
+    margin: 1rem 0;
+  }
+
+  .item-title {
+    font-size: 2.6em;
+    font-weight: 300;
+    margin: 0.5em 0;
+  }
+
+  .item-price {
+    line-height: 1.5;
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+
+  .item-color {
+    margin-bottom: 2em;
+    text-transform: capitalize;
+
+    strong {
+      text-transform: uppercase;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { getCategoryByName } from '../../features/categoriesSlice';
 import { items } from '../../data/items';
 import { setShopItems } from '../../features/shopItemsSlice';
 import { filterItemsByCategoryOrBrandExact } from '../../utils/data/filterItems';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
   const urlSearch = useParams();
@@ -33,7 +34,7 @@ const Shop = () => {
         </div>
         <div className="filter-sort-section">
           <div className="sort">
-            <label for="sort">Sort</label>
+            <label htmlFor="sort">Sort</label>
             <select name="sort"></select>
           </div>
           <button className="filter">Filter</button>
@@ -46,7 +47,7 @@ const Shop = () => {
           </p>
           <div className="item-cards-container">
             {shopItems.map((item) => (
-              <div key={item.id} className="item-card">
+              <Link to={`/item/${item.id}`} key={item.id} className="item-card">
                 <div className="item-card-image-container">
                   <img src={item.imgUrl} alt={item.title} />
                 </div>
@@ -54,8 +55,8 @@ const Shop = () => {
                   {item.brand.name} {item.title}
                 </h3>
                 <p className="item-card-color">{item.color}</p>
-                <p className="item-card-price">${item.price}</p>
-              </div>
+                <p className="item-card-price">&#36;{item.price}</p>
+              </Link>
             ))}
           </div>
         </div>
