@@ -73,12 +73,12 @@ const Item = () => {
         </h1>
         <p className="item-price">&#36;{currentItem.price}</p>
         <p className="item-color">
-          <strong>COLOR:</strong> {currentItem.color}
+          <strong className="letter-spacing">COLOR:</strong> {currentItem.color}
         </p>
         <div className="item-size">
           {sizeError && <p className="item-size-error">Please select size</p>}
           <p>
-            <strong>SIZE:</strong>
+            <strong className="letter-spacing">SIZE:</strong>
             {/* TODO: add drop box */}
             <select name="sizes" id="sizes" onChange={handleSizeChange}>
               <option defaultValue value={NO_VALUE}>
@@ -94,7 +94,7 @@ const Item = () => {
         </div>
         <div className="item-description">
           <p className="item-description-header">
-            <strong>Product details</strong>
+            <strong className="letter-spacing">Product details</strong>
           </p>
           <p className="item-description-text">{currentItem.description}</p>
         </div>

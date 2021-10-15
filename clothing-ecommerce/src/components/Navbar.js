@@ -53,7 +53,9 @@ const Navbar = () => {
               onClick={() => setShowSearchModal(true)}
             />
           )}
-          <AiOutlineShoppingCart className="icon" />
+          <Link to="/cart">
+            <AiOutlineShoppingCart className="icon" />
+          </Link>
         </div>
       </div>
       {showSearchModal && (

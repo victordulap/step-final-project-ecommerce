@@ -90,9 +90,16 @@
       font-size: 1.3em;
       justify-content: flex-end;
       gap: 0.5em;
+      color: $neutral-light-100;
 
       .icon {
         cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        height: auto;
+        height: 1em;
       }
     }
   }
