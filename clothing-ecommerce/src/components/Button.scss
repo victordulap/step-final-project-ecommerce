@@ -20,7 +20,6 @@
   &-dark {
     background-color: $neutral-dark;
     color: $neutral-light;
-    border: 0.2rem solid $neutral-light;
 
     &:hover,
     &:active {
@@ -41,5 +40,9 @@
   &-l {
     font-size: 2rem;
     padding: 0.75em 4rem;
+  }
+
+  &-block {
+    width: 100%;
   }
 }

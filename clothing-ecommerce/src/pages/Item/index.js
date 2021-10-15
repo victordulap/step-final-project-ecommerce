@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import Button from '../../components/Button';
 import { getItemById } from '../../features/shopItemsSlice';
 import './style.scss';
 
@@ -50,8 +51,23 @@ const Item = () => {
           <p>
             <strong>SIZE:</strong>
             {/* TODO: add drop box */}
+            <select name="sizes" id="sizes">
+              <option defaultValue value={null}>
+                select size
+              </option>
+              {currentItem.sizes.map((size) => (
+                <option value={size}>{size}</option>
+              ))}
+            </select>
           </p>
         </div>
+        <div className="item-description">
+          <p className="item-description-header">
+            <strong>Product details</strong>
+          </p>
+          <p className="item-description-text">{currentItem.description}</p>
+        </div>
+        <Button block size={'l'} text={'ADD TO CART'} />
       </div>
     </main>
   );

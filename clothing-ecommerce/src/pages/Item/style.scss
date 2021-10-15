@@ -1,6 +1,13 @@
 @import '../../vars.scss';
 
 main {
+  margin: 1rem 0;
+  .container {
+    @media screen and (max-width: $screen-size-s) {
+      padding: 0 1rem;
+    }
+  }
+
   font-size: 1rem;
   .item-image-container {
     width: 100%;
@@ -17,10 +24,16 @@ main {
     margin: 1rem 0;
   }
 
+  strong {
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
   .item-title {
-    font-size: 2.6em;
+    font-size: 2.7em;
     font-weight: 300;
-    margin: 0.5em 0;
+    margin: 0.6em 0;
+    color: $neutral-dark-100;
   }
 
   .item-price {
@@ -32,9 +45,43 @@ main {
   .item-color {
     margin-bottom: 2em;
     text-transform: capitalize;
+  }
 
+  .item-size {
     strong {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+
+    select {
+      display: block;
+      width: 100%;
+      border: 1px solid $neutral-light-900;
+      font-size: 1.6rem;
+      padding: 0.5em 0.5rem;
+      position: relative;
       text-transform: uppercase;
+      color: $neutral-dark-0;
+
+      &::after {
+        position: absolute;
+        content: '';
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #f00 transparent transparent transparent;
+      }
+    }
+  }
+
+  .item-description {
+    margin: 2em 0;
+    font-size: 1rem;
+
+    &-text {
+      color: $neutral-dark-200;
     }
   }
 }
