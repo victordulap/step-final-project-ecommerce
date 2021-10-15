@@ -1,7 +1,7 @@
 @import '../../vars.scss';
 
 main {
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
   .container {
     @media screen and (max-width: $screen-size-s) {
       padding: 0 1rem;
@@ -48,6 +48,12 @@ main {
   }
 
   .item-size {
+    &-error {
+      background-color: #f001;
+      color: #600;
+      padding: 1em 1rem;
+    }
+
     strong {
       display: block;
       margin-bottom: 0.5em;

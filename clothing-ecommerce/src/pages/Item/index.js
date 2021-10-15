@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Button from '../../components/Button';
+import { addToCart } from '../../features/cartSlice';
 import { getItemById } from '../../features/shopItemsSlice';
 import './style.scss';
 
+const NO_VALUE = 'no value';
+
 const Item = () => {
+  const selectedSize = useRef(NO_VALUE);
+  const [sizeError, setSizeError] = useState(false);
+
   const urlSearch = useParams();
   const itemId = urlSearch.id;
 
@@ -17,7 +23,7 @@ const Item = () => {
   }, []);
 
   useEffect(() => {
-    console.log(currentItem);
+    // console.log(currentItem);
   }, [currentItem]);
 
   if (!currentItem || !currentItem.title) {
@@ -29,6 +35,28 @@ const Item = () => {
       </main>
     );
   }
+
+  const handleSizeChange = (event) => {
+    selectedSize.current = event.target.value;
+
+    if (selectedSize.current !== NO_VALUE) {
+      setSizeError(false);
+    }
+  };
+
+  const handleAddToCard = () => {
+    if (selectedSize.current === NO_VALUE) {
+      setSizeError(true);
+    } else {
+      // add to cart
+      dispatch(
+        addToCart({
+          item: currentItem,
+          selectedSize: selectedSize.current,
+        })
+      );
+    }
+  };
 
   return (
     <main>
@@ -48,15 +76,18 @@ const Item = () => {
           <strong>COLOR:</strong> {currentItem.color}
         </p>
         <div className="item-size">
+          {sizeError && <p className="item-size-error">Please select size</p>}
           <p>
             <strong>SIZE:</strong>
             {/* TODO: add drop box */}
-            <select name="sizes" id="sizes">
-              <option defaultValue value={null}>
+            <select name="sizes" id="sizes" onChange={handleSizeChange}>
+              <option defaultValue value={NO_VALUE}>
                 select size
               </option>
-              {currentItem.sizes.map((size) => (
-                <option value={size}>{size}</option>
+              {currentItem.sizes.map((size, index) => (
+                <option value={size} key={`size-option-${index}`}>
+                  {size}
+                </option>
               ))}
             </select>
           </p>
@@ -67,7 +98,13 @@ const Item = () => {
           </p>
           <p className="item-description-text">{currentItem.description}</p>
         </div>
-        <Button block size={'l'} text={'ADD TO CART'} />
+        <Button
+          onClick={handleAddToCard}
+          block
+          size={'l'}
+          text={'ADD TO CART'}
+          dark
+        />
       </div>
     </main>
   );
