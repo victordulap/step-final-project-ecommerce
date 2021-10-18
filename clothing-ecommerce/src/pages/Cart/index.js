@@ -40,7 +40,9 @@ const Cart = () => {
               </div>
               <div className="cart-item-info-container">
                 <p className="cart-item-price">
-                  <strong>&#36;{cartItem.item.price}</strong>
+                  <strong>
+                    &#36;{(cartItem.item.price * cartItem.count).toFixed(2)}
+                  </strong>
                 </p>
                 <p className="cart-item-title">
                   {cartItem.item.brand.name} {cartItem.item.title}

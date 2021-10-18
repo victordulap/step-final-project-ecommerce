@@ -35,7 +35,7 @@ main.cart {
         height: 1px;
         bottom: -1.5rem;
         left: 0;
-        background-color: $neutral-light-900;
+        background-color: rgba($neutral-light-900, 0.5);
       }
 
       &:last-of-type {
