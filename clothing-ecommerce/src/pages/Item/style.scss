@@ -89,4 +89,12 @@ main {
       color: $neutral-dark-200;
     }
   }
+
+  .added-to-cart-notification {
+    color: $neutral-dark-300;
+    background-color: rgba($neutral-dark-0, 0.2);
+    margin-bottom: 1em;
+    font-size: 1.5rem;
+    padding: 1em 1rem;
+  }
 }

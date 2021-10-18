@@ -11,6 +11,7 @@ const NO_VALUE = 'no value';
 const Item = () => {
   const selectedSize = useRef(NO_VALUE);
   const [sizeError, setSizeError] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const urlSearch = useParams();
   const itemId = urlSearch.id;
@@ -47,6 +48,7 @@ const Item = () => {
   const handleAddToCard = () => {
     if (selectedSize.current === NO_VALUE) {
       setSizeError(true);
+      setAddedToCart(false);
     } else {
       // add to cart
       dispatch(
@@ -55,11 +57,14 @@ const Item = () => {
           selectedSize: selectedSize.current,
         })
       );
+
+      // display notification, added to cart
+      setAddedToCart((oldState) => (oldState ? 'more' : true));
     }
   };
 
   return (
-    <main>
+    <main style={{ position: 'relative' }}>
       <div className="item-image-container">
         <img
           src={currentItem.imgUrl}
@@ -98,11 +103,17 @@ const Item = () => {
           </p>
           <p className="item-description-text">{currentItem.description}</p>
         </div>
+
+        {addedToCart && (
+          <div className="added-to-cart-notification">
+            {addedToCart === 'more' ? 'Added more to cart' : 'Added to cart'}
+          </div>
+        )}
         <Button
           onClick={handleAddToCard}
           block
           size={'l'}
-          text={'ADD TO CART'}
+          text={addedToCart ? 'ADD MORE' : 'ADD TO CART'}
           dark
         />
       </div>
