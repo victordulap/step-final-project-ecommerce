@@ -7,6 +7,7 @@ import './style.scss';
 
 import { FaTimes } from 'react-icons/fa';
 import { DELIEVERY_PRICE } from '../../utils/constants';
+import { removeFromCart } from '../../features/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,18 @@ const Cart = () => {
                 </div>
               </div>
               <div className="cart-item-remove">
-                <button>{<FaTimes className="cart-item-remove-icon" />}</button>
+                <button
+                  onClick={() => {
+                    dispatch(
+                      removeFromCart({
+                        id: cartItem.item.id,
+                        selectedSize: cartItem.selectedSize,
+                      })
+                    );
+                  }}
+                >
+                  {<FaTimes className="cart-item-remove-icon" />}
+                </button>
               </div>
             </div>
           ))}
