@@ -1,10 +1,10 @@
 import './style.scss';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+import { Redirect, useLocation, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryByName } from '../../features/categoriesSlice';
 import { items } from '../../data/items';
-import { setShopItems } from '../../features/shopItemsSlice';
+import { setShopItems, sortShopItems } from '../../features/shopItemsSlice';
 import { filterItemsByCategoryOrBrandExact } from '../../utils/data/filterItems';
 import { Link } from 'react-router-dom';
 import { SORT_OPTIONS } from '../../utils/constants';
@@ -13,8 +13,6 @@ const Shop = () => {
   const urlSearch = useParams();
 
   const shopItems = useSelector((state) => state.shopItems.value);
-  console.log('shopItems: ', shopItems);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +25,12 @@ const Shop = () => {
     dispatch(setShopItems(filteredItems));
   }, []);
 
+  const handleSortSelect = (event) => {
+    const selectedOption = event.target.value;
+
+    dispatch(sortShopItems({ sortOption: selectedOption }));
+  };
+
   return (
     <main>
       <header className="header">
@@ -35,9 +39,11 @@ const Shop = () => {
         </div>
         <div className="filter-sort-section">
           <div className="sort">
-            <select name="sort">
-              {SORT_OPTIONS.map((option) => (
-                <option value={option}>{option}</option>
+            <select name="sort" onChange={handleSortSelect}>
+              {Object.keys(SORT_OPTIONS).map((key) => (
+                <option key={`sort-option-${key}`} value={SORT_OPTIONS[key]}>
+                  {SORT_OPTIONS[key]}
+                </option>
               ))}
             </select>
           </div>
