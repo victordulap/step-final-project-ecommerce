@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
-import { v4 as uuid } from 'uuid';
-import { items } from '../../data/items';
 import './style.scss';
 
 import { FaTimes } from 'react-icons/fa';
@@ -43,9 +41,12 @@ const Cart = () => {
           {cart.length > 0 ? (
             cart.map((cartItem) => (
               <div className="cart-item" key={cartItem.id}>
-                <div className="cart-item-img-container">
+                <Link
+                  to={`/item/${cartItem.item.id}`}
+                  className="cart-item-img-container"
+                >
                   <img src={cartItem.item.imgUrl} alt={cartItem.item.title} />
-                </div>
+                </Link>
                 <div className="cart-item-info-container">
                   <p className="cart-item-price">
                     <strong>

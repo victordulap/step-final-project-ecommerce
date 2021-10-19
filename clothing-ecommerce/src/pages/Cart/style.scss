@@ -48,9 +48,9 @@ main.cart {
 
       .cart-item-img-container {
         flex: 0 1 27.5%;
+        cursor: pointer;
 
         img {
-          // max-width: 100%;
           width: 100%;
           height: auto;
           object-fit: cover;
