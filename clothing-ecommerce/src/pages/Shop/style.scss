@@ -22,7 +22,7 @@ main {
       .filter,
       .sort {
         display: block;
-        flex: 1 0 auto;
+        flex: 1 0 50%;
         font-size: 1.55rem;
         font-weight: 600;
         text-transform: uppercase;
@@ -52,6 +52,22 @@ main {
         display: flex;
         align-items: center;
         justify-content: center;
+
+        select {
+          text-transform: uppercase;
+          color: inherit;
+          appearance: none;
+          border: 0;
+          outline: 0;
+          font: inherit;
+          /* Personalize */
+          height: 100%;
+          width: 90%;
+          background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Arrow-down.svg)
+            no-repeat right 0.8em center / 1.4em;
+          cursor: pointer;
+          text-align: center;
+        }
       }
     }
   }

@@ -7,6 +7,7 @@ import { items } from '../../data/items';
 import { setShopItems } from '../../features/shopItemsSlice';
 import { filterItemsByCategoryOrBrandExact } from '../../utils/data/filterItems';
 import { Link } from 'react-router-dom';
+import { SORT_OPTIONS } from '../../utils/constants';
 
 const Shop = () => {
   const urlSearch = useParams();
@@ -34,8 +35,11 @@ const Shop = () => {
         </div>
         <div className="filter-sort-section">
           <div className="sort">
-            <label htmlFor="sort">Sort</label>
-            <select name="sort"></select>
+            <select name="sort">
+              {SORT_OPTIONS.map((option) => (
+                <option value={option}>{option}</option>
+              ))}
+            </select>
           </div>
           <button className="filter">Filter</button>
         </div>
