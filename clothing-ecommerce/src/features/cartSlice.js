@@ -5,6 +5,10 @@ const initialState = {
   value: [],
 };
 
+const findIndexOfItemById = (items, id) => {
+  return items.findIndex((item) => item.id === id);
+};
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -18,6 +22,7 @@ export const cartSlice = createSlice({
       // if item exists increment count
       if (index > -1) {
         state.value[index] = {
+          ...state.value[index],
           item: action.payload.item,
           selectedSize: action.payload.selectedSize,
           count: state.value[index].count + 1,
@@ -32,20 +37,35 @@ export const cartSlice = createSlice({
       }
     },
     removeFromCart(state, action) {
-      console.log(
-        state.value.filter(
-          (cartItem) =>
-            cartItem.selectedSize !== action.payload.selectedSize &&
-            cartItem.item.id !== action.payload.id
-        )
-      );
+      // console.log(
+      //   state.value.filter(
+      //     (cartItem) =>
+      //       cartItem.selectedSize !== action.payload.selectedSize &&
+      //       cartItem.item.id !== action.payload.id
+      //   )
+      // );
       state.value = state.value.filter(
         (cartItem) => cartItem.id !== action.payload.id
       );
     },
+    incrementCount(state, action) {
+      const index = findIndexOfItemById(state.value, action.payload.id);
+      state.value[index].count++;
+    },
+    decrementCount(state, action) {
+      const index = findIndexOfItemById(state.value, action.payload.id);
+      state.value[index].count--;
+      if (state.value[index].count === 0) {
+        // remove item
+        state.value = state.value.filter(
+          (cartItem) => cartItem.id !== action.payload.id
+        );
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, incrementCount, decrementCount } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

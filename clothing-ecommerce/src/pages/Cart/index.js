@@ -7,7 +7,11 @@ import './style.scss';
 
 import { FaTimes } from 'react-icons/fa';
 import { DELIEVERY_PRICE } from '../../utils/constants';
-import { removeFromCart } from '../../features/cartSlice';
+import {
+  decrementCount,
+  incrementCount,
+  removeFromCart,
+} from '../../features/cartSlice';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +40,7 @@ const Cart = () => {
           <h1 className="letter-spacing">my bag</h1>
         </section>
         <section className="cart-items">
-          {cartTotal > 0 ? (
+          {cart.length > 0 ? (
             cart.map((cartItem) => (
               <div className="cart-item" key={cartItem.id}>
                 <div className="cart-item-img-container">
@@ -54,7 +58,27 @@ const Cart = () => {
                   <div className="cart-item-info">
                     <p className="cart-item-color">{cartItem.item.color}</p>
                     <p className="cart-item-size">{cartItem.selectedSize}</p>
-                    <p className="cart-item-quantity">Qty: {cartItem.count}</p>
+                    <div className="cart-item-quantity">
+                      <div className="cart-item-quantity-change">
+                        <button
+                          onClick={() =>
+                            dispatch(decrementCount({ id: cartItem.id }))
+                          }
+                        >
+                          -
+                        </button>
+                      </div>
+                      <p>Qty: {cartItem.count}</p>
+                      <div className="cart-item-quantity-change">
+                        <button
+                          onClick={() =>
+                            dispatch(incrementCount({ id: cartItem.id }))
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="cart-item-remove">
