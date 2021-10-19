@@ -25,7 +25,7 @@ const Cart = () => {
 
   useEffect(() => {
     setCartTotal(getCartTotal());
-  }, []);
+  }, [cart]);
 
   return (
     <main className="cart">
@@ -35,7 +35,7 @@ const Cart = () => {
         </section>
         <section className="cart-items">
           {cart.map((cartItem) => (
-            <div className="cart-item" key={`cart-item-${uuid()}`}>
+            <div className="cart-item" key={cartItem.id}>
               <div className="cart-item-img-container">
                 <img src={cartItem.item.imgUrl} alt={cartItem.item.title} />
               </div>
@@ -59,8 +59,7 @@ const Cart = () => {
                   onClick={() => {
                     dispatch(
                       removeFromCart({
-                        id: cartItem.item.id,
-                        selectedSize: cartItem.selectedSize,
+                        id: cartItem.id,
                       })
                     );
                   }}

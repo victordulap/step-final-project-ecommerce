@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuid } from 'uuid';
 
 const initialState = {
   value: [],
@@ -14,6 +15,7 @@ export const cartSlice = createSlice({
           cartItem.item.id === action.payload.item.id &&
           cartItem.selectedSize === action.payload.selectedSize
       );
+      // if item exists increment count
       if (index > -1) {
         state.value[index] = {
           item: action.payload.item,
@@ -22,6 +24,7 @@ export const cartSlice = createSlice({
         };
       } else {
         state.value.push({
+          id: uuid(),
           item: action.payload.item,
           selectedSize: action.payload.selectedSize,
           count: 1,
@@ -29,11 +32,15 @@ export const cartSlice = createSlice({
       }
     },
     removeFromCart(state, action) {
-      // TODO: add remove from cart to work
-      return state.value.filter(
-        (cartItem) =>
-          cartItem.selectedSize !== action.payload.selectedSize &&
-          cartItem.item.id !== action.payload.id
+      console.log(
+        state.value.filter(
+          (cartItem) =>
+            cartItem.selectedSize !== action.payload.selectedSize &&
+            cartItem.item.id !== action.payload.id
+        )
+      );
+      state.value = state.value.filter(
+        (cartItem) => cartItem.id !== action.payload.id
       );
     },
   },
