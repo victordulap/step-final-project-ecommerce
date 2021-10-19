@@ -8,6 +8,8 @@ import './style.scss';
 import { FaTimes } from 'react-icons/fa';
 import { DELIEVERY_PRICE } from '../../utils/constants';
 import { removeFromCart } from '../../features/cartSlice';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -34,41 +36,51 @@ const Cart = () => {
           <h1 className="letter-spacing">my bag</h1>
         </section>
         <section className="cart-items">
-          {cart.map((cartItem) => (
-            <div className="cart-item" key={cartItem.id}>
-              <div className="cart-item-img-container">
-                <img src={cartItem.item.imgUrl} alt={cartItem.item.title} />
-              </div>
-              <div className="cart-item-info-container">
-                <p className="cart-item-price">
-                  <strong>
-                    &#36;{(cartItem.item.price * cartItem.count).toFixed(2)}
-                  </strong>
-                </p>
-                <p className="cart-item-title">
-                  {cartItem.item.brand.name} {cartItem.item.title}
-                </p>
-                <div className="cart-item-info">
-                  <p className="cart-item-color">{cartItem.item.color}</p>
-                  <p className="cart-item-size">{cartItem.selectedSize}</p>
-                  <p className="cart-item-quantity">Qty: {cartItem.count}</p>
+          {cartTotal > 0 ? (
+            cart.map((cartItem) => (
+              <div className="cart-item" key={cartItem.id}>
+                <div className="cart-item-img-container">
+                  <img src={cartItem.item.imgUrl} alt={cartItem.item.title} />
+                </div>
+                <div className="cart-item-info-container">
+                  <p className="cart-item-price">
+                    <strong>
+                      &#36;{(cartItem.item.price * cartItem.count).toFixed(2)}
+                    </strong>
+                  </p>
+                  <p className="cart-item-title">
+                    {cartItem.item.brand.name} {cartItem.item.title}
+                  </p>
+                  <div className="cart-item-info">
+                    <p className="cart-item-color">{cartItem.item.color}</p>
+                    <p className="cart-item-size">{cartItem.selectedSize}</p>
+                    <p className="cart-item-quantity">Qty: {cartItem.count}</p>
+                  </div>
+                </div>
+                <div className="cart-item-remove">
+                  <button
+                    onClick={() => {
+                      dispatch(
+                        removeFromCart({
+                          id: cartItem.id,
+                        })
+                      );
+                    }}
+                  >
+                    {<FaTimes className="cart-item-remove-icon" />}
+                  </button>
                 </div>
               </div>
-              <div className="cart-item-remove">
-                <button
-                  onClick={() => {
-                    dispatch(
-                      removeFromCart({
-                        id: cartItem.id,
-                      })
-                    );
-                  }}
-                >
-                  {<FaTimes className="cart-item-remove-icon" />}
-                </button>
+            ))
+          ) : (
+            <div className="cart-empty-container">
+              <div>
+                <AiOutlineShoppingCart className="cart-empty-icon" />
               </div>
+              <p>Your cart is empty</p>
+              <Button linkTo={'/'} size="l" text="Go shopping" />
             </div>
-          ))}
+          )}
         </section>
         <section className="total">
           <p>
@@ -100,7 +112,13 @@ const Cart = () => {
             className="checkout-btn
           "
           >
-            <Button dark size="l" block text="CHECKOUT" />
+            <Button
+              dark
+              size="l"
+              block
+              text="CHECKOUT"
+              disabled={cartTotal <= 0}
+            />
           </div>
         </section>
       </div>
