@@ -10,11 +10,21 @@
   transition: all 0.25s ease;
   line-height: 1;
 
+  &[disabled] {
+    background-color: $neutral-light-900;
+    border: 0.2rem solid $neutral-dark-0;
+    cursor: not-allowed;
+  }
+
   &:hover,
   &:active {
     background-color: $neutral-dark;
     color: $neutral-light;
     border-color: $neutral-light;
+
+    &[disabled] {
+      border: 0.2rem solid $neutral-dark-0;
+    }
   }
 
   &-dark {
@@ -26,6 +36,15 @@
       background-color: $neutral-light;
       color: $neutral-dark;
       border-color: $neutral-dark;
+
+      &[disabled] {
+        color: $neutral-light;
+      }
+    }
+
+    &[disabled] {
+      background-color: $neutral-dark-0;
+      color: $neutral-light;
     }
   }
 

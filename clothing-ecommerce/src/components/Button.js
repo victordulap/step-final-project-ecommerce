@@ -4,7 +4,16 @@ import './Button.scss';
 
 const sizes = ['s', 'm', 'l'];
 
-const Button = ({ text, size, dark, linkTo, routeTo, onClick, block }) => {
+const Button = ({
+  text,
+  size,
+  dark,
+  linkTo,
+  routeTo,
+  onClick,
+  block,
+  ...rest
+}) => {
   if (!sizes.includes(size)) size = 'm';
 
   const classes = `btn btn-${size} ${dark ? 'btn-dark' : ''} ${
@@ -13,7 +22,7 @@ const Button = ({ text, size, dark, linkTo, routeTo, onClick, block }) => {
 
   if (routeTo) {
     return (
-      <Link href={routeTo} className={classes} onClick={onClick}>
+      <Link href={routeTo} className={classes} onClick={onClick} {...rest}>
         {text}
       </Link>
     );
@@ -21,14 +30,14 @@ const Button = ({ text, size, dark, linkTo, routeTo, onClick, block }) => {
 
   if (linkTo) {
     return (
-      <a href={linkTo} className={classes} onClick={onClick}>
+      <a href={linkTo} className={classes} onClick={onClick} {...rest}>
         {text}
       </a>
     );
   }
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button className={classes} onClick={onClick} {...rest}>
       {text}
     </button>
   );
