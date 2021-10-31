@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Air Force 1",
+    "brandId": "617eea31868b5181b26bb737",
+    "categoryIds": ["617eed4a7cebea8f9b5702f8"],
+    "sizes": ["40 eu", "41 eu", "42 eu", "43 eu", "44 eu", "45 eu"],
+    "color": "white",
+    "price": 89,
+    "description": "Matte leather upper",
+    "imgUrl":
+      "https://images.asos-media.com/products/nike-air-force-1-07-in-white/23916587-1-white?$n_640w$&wid=513&fit=constrain"
+  },
+  {
+    "title": "Club C",
+    "brandId": "617eea31868b5181b26bb73a",
+    "categoryIds": ["617eed4a7cebea8f9b5702f8"],
+    "sizes": ["39eu", "40 eu", "41 eu", "42 eu", "43 eu", "44 eu"],
+    "color": "chalk",
+    "price": 75,
+    "description": "Leather upper",
+    "imgUrl":
+      "https://images.asos-media.com/products/reebok-club-c-trainers-in-chalk/11036007-1-white?$n_640w$&wid=513&fit=constrain"
+  },
+  {
+    "title": "Blazer Low 77 VNTG",
+    "brandId": "617eea31868b5181b26bb737",
+    "categoryIds": ["617eed4a7cebea8f9b5702f8"],
+    "sizes": ["39eu", "41 eu", "42 eu", "43 eu", "44 eu"],
+    "color": "white",
+    "price": 79,
+    "description": "Leather and suede upper",
+    "imgUrl":
+      "https://images.asos-media.com/products/nike-blazer-low-77-vntg-trainers-in-white-black/22497420-1-whiteblack?$n_640w$&wid=513&fit=constrain"
+  },
+  {
+    "title": "Ozweego",
+    "brandId": "617eea31868b5181b26bb738",
+    "categoryIds": ["617eed4a7cebea8f9b5702f8"],
+    "sizes": ["41 eu", "42 eu", "43 eu", "44 eu"],
+    "color": "beige",
+    "price": 89,
+    "description": "Leather and mesh upper",
+    "imgUrl":
+      "https://images.asos-media.com/products/adidas-originals-ozweego-trainers-in-beige/21907360-1-beige?$n_640w$&wid=513&fit=constrain"
+  },
+  {
+    "title": "Wild Rider",
+    "brandId": "617eea31868b5181b26bb739",
+    "categoryIds": ["617eed4a7cebea8f9b5702f8"],
+    "sizes": ["41 eu", "42 eu", "43 eu", "44 eu", "45 eu"],
+    "color": "gray",
+    "price": 79,
+    "description": "Textile and faux-suede upper ",
+    "imgUrl":
+      "https://images.asos-media.com/products/puma-wild-rider-trainers-in-grey-and-white/24211521-1-nimbuscloudgrayvi?$n_640w$&wid=513&fit=constrain"
+  }
+]

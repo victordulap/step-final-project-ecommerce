@@ -6,12 +6,12 @@ const CategorySchema = mongoose.Schema({
     trim: true,
     required: [true, 'Please provide item title'],
   },
-  brand: {
+  brandId: {
     type: mongoose.Schema.ObjectId,
     ref: 'Brand',
     required: true,
   },
-  categories: {
+  categoryIds: {
     type: [mongoose.Schema.ObjectId],
     ref: 'Category',
     required: true,
@@ -21,7 +21,7 @@ const CategorySchema = mongoose.Schema({
     required: true,
   },
   color: {
-    type: [String],
+    type: String,
     required: true,
   },
   price: {
@@ -42,4 +42,4 @@ const CategorySchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('Item', CategorySchema);

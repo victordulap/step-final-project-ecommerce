@@ -1,0 +1,26 @@
+[
+  {
+    
+      "name": "Nike",
+      "imgUrl": "http://www.mmksoccer.com/wp-content/uploads/2015/12/nike-logo-png-download-nike-logo-png-images-transparent-gallery-advertisement-1024.png"
+    
+  },
+  {
+    
+      "name": "Adidas",
+      "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2560px-Adidas_Logo.svg.png"
+    
+  },
+  {
+    
+      "name": "Puma",
+      "imgUrl": "https://www.step.org.uk/app/uploads/2018/07/Puma-logo-PNG-Transparent-Background.png"
+    
+  },
+  {
+    
+      "name": "Reebok",
+      "imgUrl": "https://logodownload.org/wp-content/uploads/2017/06/reebok-logo-5.png"
+    
+  }
+]
