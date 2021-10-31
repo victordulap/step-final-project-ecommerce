@@ -5,13 +5,13 @@ const getAllCategories = async (req, res) => {
   const queryObject = {};
 
   if (name) {
-    queryObject.name = name;
+    queryObject.name = { $regex: name, $options: 'i' };
   }
 
   let result = Category.find(queryObject);
 
   const categories = await result;
-  res.status(200).json({ products: categories, nbHits: categories.length });
+  res.status(200).json({ categories, nbHits: categories.length });
 };
 
 module.exports = {
