@@ -1,7 +1,7 @@
 const Item = require('../models/Item');
 
 const getAllItems = async (req, res) => {
-  const { title, brandId, categoryId, colors, sort, fields, numericFilters } =
+  const { title, brandIds, categoryIds, colors, sort, fields, numericFilters } =
     req.query;
   const queryObject = {
     available: true,
@@ -11,11 +11,13 @@ const getAllItems = async (req, res) => {
     const filter = colors.split(',');
     queryObject.color = { $in: filter };
   }
-  if (brandId) {
-    queryObject.brandId = brandId;
+  if (brandIds) {
+    const filter = brandIds.split(',');
+    queryObject.brandId = filter;
   }
-  if (categoryId) {
-    queryObject.categoryId = categoryId;
+  if (categoryIds) {
+    const filter = categoryIds.split(',');
+    queryObject.categoryId = filter;
   }
   if (title) {
     queryObject.title = { $regex: title, $options: 'i' };
