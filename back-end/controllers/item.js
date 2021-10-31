@@ -1,17 +1,24 @@
 const Item = require('../models/Item');
 
 const getAllItems = async (req, res) => {
-  const { featured, company, name, sort, fields, numericFilters } = req.query;
-  const queryObject = {};
+  const { title, brandId, categoryId, colors, sort, fields, numericFilters } =
+    req.query;
+  const queryObject = {
+    available: true,
+  };
 
-  // if (featured) {
-  //   queryObject.featured = featured === 'true' ? true : false;
-  // }
-  // if (company) {
-  //   queryObject.company = company;
-  // }
-  if (name) {
-    queryObject.name = { $regex: name, $options: 'i' };
+  if (colors) {
+    const filter = colors.split(',');
+    queryObject.color = { $in: filter };
+  }
+  if (brandId) {
+    queryObject.brandId = brandId;
+  }
+  if (categoryId) {
+    queryObject.categoryId = categoryId;
+  }
+  if (title) {
+    queryObject.title = { $regex: title, $options: 'i' };
   }
 
   // if (numericFilters) {
