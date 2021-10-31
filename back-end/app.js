@@ -6,6 +6,7 @@ const app = express();
 const connectDB = require('./db/connect');
 const categoryRoute = require('./routes/category');
 const brandRoute = require('./routes/brand');
+const itemRoute = require('./routes/item');
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/brands', brandRoute);
+app.use('/api/v1/items', itemRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
