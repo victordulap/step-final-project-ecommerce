@@ -1,5 +1,6 @@
 const Item = require('../models/Item');
 const Brand = require('../models/Brand');
+const Category = require('../models/Category');
 const mongoose = require('mongoose');
 const { ObjectId, Array: MongoArray } = mongoose.Types;
 
@@ -13,6 +14,7 @@ const getAllItems = async (req, res) => {
       sort,
       fields,
       numericFilters,
+      search,
     } = req.query;
     const queryObject = {
       available: true,
@@ -36,6 +38,27 @@ const getAllItems = async (req, res) => {
     }
     if (title) {
       queryObject.title = { $regex: title, $options: 'i' };
+    }
+    if (search) {
+      queryObject.title = { $regex: search, $options: 'i' };
+
+      // let searchedBrandIds = await Brand.find({
+      //   name: { $regex: search, $options: 'i' },
+      // }).select('_id');
+      // if (searchedBrandIds) {
+      //   searchedBrandIds = searchedBrandIds.map((id) => id._id);
+      //   console.log(searchedBrandIds);
+      //   queryObject.brandId = { $in: searchedBrandIds };
+      // }
+
+      // let searchedCategoryIds = await Category.find({
+      //   name: { $regex: search, $options: 'i' },
+      // }).select('_id');
+      // if (searchedCategoryIds) {
+      //   searchedCategoryIds = searchedCategoryIds.map((id) => id._id);
+      //   console.log(searchedCategoryIds);
+      //   queryObject.categoryIds = { $in: searchedCategoryIds };
+      // }
     }
 
     // if (numericFilters) {
