@@ -19,7 +19,6 @@ export const getAllItemsByCategoryId = createAsyncThunk(
 
 const initialState = {
   value: [],
-  currentItem: {},
 };
 
 export const shopItemsSlice = createSlice({

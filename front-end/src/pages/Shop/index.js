@@ -30,7 +30,7 @@ const Shop = () => {
     return () => {
       dispatch(resetState());
     };
-  }, [dispatch]);
+  }, [dispatch, urlSearch]);
 
   const handleSortSelect = (event) => {
     const selectedOption = event.target.value;

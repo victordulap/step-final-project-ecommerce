@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Button from '../../components/Button';
 import { addToCart } from '../../features/cartSlice';
-import { getItemById } from '../../features/shopItemsSlice';
+import { getItemById } from '../../features/selectedItemSlice';
 import './style.scss';
 
 const NO_VALUE = 'no value';
@@ -17,17 +17,19 @@ const Item = () => {
   const itemId = urlSearch.id;
 
   const dispatch = useDispatch();
-  const currentItem = useSelector((state) => state.shopItems.currentItem);
+  const item = useSelector((state) => state.selectedItem.value);
+  const brandDetails = useSelector((state) => state.selectedItem.brandDetails);
+  const isLoading = useSelector((state) => state.selectedItem.isLoading);
 
   useEffect(() => {
-    // dispatch(getItemById({ id: itemId }));
-  }, []);
+    dispatch(getItemById(itemId));
+  }, [dispatch, itemId]);
 
   useEffect(() => {
     // console.log(currentItem);
-  }, [currentItem]);
+  }, [item]);
 
-  if (!currentItem || !currentItem.title) {
+  if (!item || !item.title) {
     return (
       <main>
         <h1 style={{ fontSize: 20, textAlign: 'center', lineHeight: 10 }}>
@@ -53,7 +55,7 @@ const Item = () => {
       // add to cart
       dispatch(
         addToCart({
-          item: currentItem,
+          item: item,
           selectedSize: selectedSize.current,
         })
       );
@@ -66,30 +68,25 @@ const Item = () => {
   return (
     <main style={{ position: 'relative' }}>
       <div className="item-image-container">
-        <img
-          src={currentItem.imgUrl}
-          alt={currentItem.title}
-          className="item-img"
-        />
+        <img src={item.imgUrl} alt={item.title} className="item-img" />
       </div>
       <div className="container">
         <h1 className="item-title">
-          {currentItem.brand.name} {currentItem.title}
+          {brandDetails.name} {item.title}
         </h1>
-        <p className="item-price">&#36;{currentItem.price}</p>
+        <p className="item-price">&#36;{item.price}</p>
         <p className="item-color">
-          <strong className="letter-spacing">COLOR:</strong> {currentItem.color}
+          <strong className="letter-spacing">COLOR:</strong> {item.color}
         </p>
         <div className="item-size">
           {sizeError && <p className="item-size-error">Please select size</p>}
           <p>
             <strong className="letter-spacing">SIZE:</strong>
-            {/* TODO: add drop box */}
             <select name="sizes" id="sizes" onChange={handleSizeChange}>
               <option defaultValue value={NO_VALUE}>
                 select size
               </option>
-              {currentItem.sizes.map((size, index) => (
+              {item.sizes.map((size, index) => (
                 <option value={size} key={`size-option-${index}`}>
                   {size}
                 </option>
@@ -101,7 +98,7 @@ const Item = () => {
           <p className="item-description-header">
             <strong className="letter-spacing">Product details</strong>
           </p>
-          <p className="item-description-text">{currentItem.description}</p>
+          <p className="item-description-text">{item.description}</p>
         </div>
 
         {addedToCart && (
