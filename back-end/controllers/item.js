@@ -18,7 +18,7 @@ const getAllItems = async (req, res) => {
   }
   if (categoryIds) {
     const filter = categoryIds.split(',');
-    queryObject.categoryId = filter;
+    queryObject.categoryIds = filter;
   }
   if (title) {
     queryObject.title = { $regex: title, $options: 'i' };
