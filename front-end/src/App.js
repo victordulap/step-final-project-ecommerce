@@ -22,7 +22,7 @@ const App = () => (
         <Route path="/shop/search?=:query">
           <Shop />
         </Route>
-        <Route path="/:type/:name">
+        <Route path="/:type/:id">
           <Shop />
         </Route>
       </Switch>

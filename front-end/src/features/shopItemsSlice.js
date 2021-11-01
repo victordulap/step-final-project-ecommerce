@@ -1,7 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { categories } from '../data/categories';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { items } from '../data/items';
+import { itemsService } from '../services/itemsService';
 import { SORT_OPTIONS } from '../utils/constants';
+
+export const getAllItemsByBrandId = createAsyncThunk(
+  'get/allItemsByBrandId',
+  async (id) => {
+    const res = await itemsService.getAllItemsByBrandId(id);
+    return res.data;
+  }
+);
 
 const initialState = {
   value: [],
@@ -32,6 +40,19 @@ export const shopItemsSlice = createSlice({
         console.log('default');
         state.value = items;
       }
+    },
+  },
+  extraReducers: {
+    [getAllItemsByBrandId.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getAllItemsByBrandId.fulfilled]: (state, action) => {
+      state.value = action.payload.items;
+      state.isLoading = false;
+    },
+    [getAllItemsByBrandId.rejected]: (state, action) => {
+      state.value = [];
+      state.isLoading = false;
     },
   },
 });

@@ -12,7 +12,7 @@ const SimpleCardsContainer = ({ cardsData, title, darkCards }) => {
             cardsData.map((card) => (
               <Link
                 to={{
-                  pathname: `${title.toLowerCase()}/${card.name.toLowerCase()}`,
+                  pathname: `${title.toLowerCase()}/${card._id}`,
                 }}
                 className={`card ${darkCards ? 'card-dark' : ''}`}
                 key={card._id || card.id}
