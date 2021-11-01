@@ -74,7 +74,7 @@ const Shop = () => {
                   <img src={item.imgUrl} alt={item.title} />
                 </div>
                 <h3 className="item-card-title">
-                  {item.brandId} {item.title}
+                  {item.brand[0].name} {item.title}
                 </h3>
                 <p className="item-card-color">{item.color}</p>
                 <p className="item-card-price">&#36;{item.price}</p>
