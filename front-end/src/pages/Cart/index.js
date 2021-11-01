@@ -54,7 +54,7 @@ const Cart = () => {
                     </strong>
                   </p>
                   <p className="cart-item-title">
-                    {cartItem.item.brand.name} {cartItem.item.title}
+                    {cartItem.item.brand[0].name} {cartItem.item.title}
                   </p>
                   <div className="cart-item-info">
                     <p className="cart-item-color">{cartItem.item.color}</p>
