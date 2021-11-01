@@ -20,7 +20,7 @@ const Item = () => {
   const currentItem = useSelector((state) => state.shopItems.currentItem);
 
   useEffect(() => {
-    dispatch(getItemById({ id: itemId }));
+    // dispatch(getItemById({ id: itemId }));
   }, []);
 
   useEffect(() => {

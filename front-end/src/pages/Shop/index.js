@@ -1,15 +1,12 @@
 import './style.scss';
 import React, { useEffect, useState } from 'react';
-import { Redirect, useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategoryByName } from '../../features/categoriesSlice';
-import { items } from '../../data/items';
 import {
   getAllItemsByBrandId,
-  setShopItems,
-  sortShopItems,
+  getAllItemsByCategoryId,
+  resetState,
 } from '../../features/shopItemsSlice';
-import { filterItemsByCategoryOrBrandExact } from '../../utils/data/filterItems';
 import { Link } from 'react-router-dom';
 import { SORT_OPTIONS } from '../../utils/constants';
 
@@ -26,13 +23,20 @@ const Shop = () => {
 
     if (searchBy === 'brands') {
       dispatch(getAllItemsByBrandId(urlSearch.id));
+    } else if (searchBy === 'categories') {
+      dispatch(getAllItemsByCategoryId(urlSearch.id));
     }
+
+    return () => {
+      dispatch(resetState());
+    };
   }, [dispatch]);
 
   const handleSortSelect = (event) => {
     const selectedOption = event.target.value;
 
-    dispatch(sortShopItems({ sortOption: selectedOption }));
+    // sort
+    // dispatch(sortShopItems({ sortOption: selectedOption }));
   };
 
   return (
