@@ -71,6 +71,16 @@ const getAllItems = async (req, res) => {
   res.status(200).json({ items, nbHits: items.length });
 };
 
+const getItemById = async (req, res) => {
+  const { id } = req.params;
+
+  let result = Item.findOne({ _id: id });
+
+  const item = await result;
+  res.status(200).json({ item });
+};
+
 module.exports = {
   getAllItems,
+  getItemById,
 };
