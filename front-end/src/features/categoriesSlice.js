@@ -1,23 +1,37 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { categories } from '../data/categories';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { categoriesService } from '../services/categoriesService';
+
+export const getAllCategories = createAsyncThunk(
+  'get/allCategories',
+  async () => {
+    const res = await categoriesService.getAllCategories();
+    return res.data;
+  }
+);
 
 const initialState = {
-  value: [...categories],
+  value: { categories: [] },
 };
 
 export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
-  reducers: {
-    getCategoryByName: (state, action) => {
-      // const name = action.payload.name;
-      // return state.value.find(
-      //   (category) => category.name.toLowerCase() === name.toLowerCase()
-      // );
+  reducers: {},
+  extraReducers: {
+    [getAllCategories.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getAllCategories.fulfilled]: (state, action) => {
+      state.value = action.payload.categories;
+      state.isLoading = false;
+    },
+    [getAllCategories.rejected]: (state, action) => {
+      state.value = [];
+      state.isLoading = false;
     },
   },
 });
 
-export const { getCategoryByName } = categoriesSlice.actions;
+export const {} = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

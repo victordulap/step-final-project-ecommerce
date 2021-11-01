@@ -4,16 +4,22 @@ import Button from '../../components/Button';
 import SimpleCardsContainer from '../../components/SimpleCardsContainer';
 import { useEffect } from 'react';
 import { getAllBrands } from '../../features/brandsSlice';
+import { getAllCategories } from '../../features/categoriesSlice';
 
 export function HomePage() {
   const isLoadingBrands = useSelector((state) => state.brands.isloading);
-  const brands = useSelector((state) => state.brands.value.brands);
+  const brands = useSelector((state) => state.brands.value);
+  const isLoadingCategories = useSelector(
+    (state) => state.categories.isLoading
+  );
   const categories = useSelector((state) => state.categories.value);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllBrands());
-  }, []);
+    dispatch(getAllCategories());
+  }, [dispatch]);
 
   return (
     <main>
@@ -25,11 +31,15 @@ export function HomePage() {
       </div>
       <div className="categories-wrapper">
         <div className="container container-dark">
-          <SimpleCardsContainer
-            cardsData={categories}
-            title="Categories"
-            darkCards
-          />
+          {isLoadingCategories && categories ? (
+            'loading'
+          ) : (
+            <SimpleCardsContainer
+              cardsData={categories}
+              title="Categories"
+              darkCards
+            />
+          )}
         </div>
       </div>
 
