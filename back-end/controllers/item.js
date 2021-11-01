@@ -1,4 +1,5 @@
 const Item = require('../models/Item');
+const Brand = require('../models/Brand');
 
 const getAllItems = async (req, res) => {
   const { title, brandIds, categoryIds, colors, sort, fields, numericFilters } =
@@ -74,10 +75,12 @@ const getAllItems = async (req, res) => {
 const getItemById = async (req, res) => {
   const { id } = req.params;
 
-  let result = Item.findOne({ _id: id });
+  const item = await Item.findOne({ _id: id });
 
-  const item = await result;
-  res.status(200).json({ item });
+  const brandIdFromItem = item.brandId;
+  const brandFromItem = await Brand.findOne({ _id: brandIdFromItem });
+
+  res.status(200).json({ item, brandDetails: brandFromItem });
 };
 
 module.exports = {
