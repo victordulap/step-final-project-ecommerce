@@ -54,16 +54,18 @@ const getAllItems = async (req, res) => {
   //   result = result.sort('createdAt');
   // }
 
-  // if (fields) {
-  //   const fieldsList = fields.split(',').join(' ');
-  //   result = result.select(fieldsList);
-  // }
-  // const page = Number(req.query.page) || 1;
-  // const limit = Number(req.query.limit) || 10;
-  // const skip = (page - 1) * limit;
-  // result = result.skip(skip).limit(limit);
-  // // 23
-  //  // 4 7 7 7 2
+  if (fields) {
+    const fieldsList = fields.split(',').join(' ');
+    result = result.select(fieldsList);
+  }
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  result = result.skip(skip).limit(limit);
+  // 23 items
+  // 4 pages
+  // items per page - 7 7 7 2
 
   const items = await result;
   res.status(200).json({ items, nbHits: items.length });
