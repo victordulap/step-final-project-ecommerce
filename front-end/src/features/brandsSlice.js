@@ -1,19 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { brands } from '../data/brands';
+import { brandsService } from '../services/brandsService';
+
+export const getAllBrands = createAsyncThunk('get/allBrands', async () => {
+  const res = await brandsService.getAllBrands();
+  console.log(res.data);
+  return res.data;
+});
 
 const initialState = {
-  value: [...brands],
+  value: { brands: [] },
 };
 
 export const brandSlice = createSlice({
   name: 'brands',
   initialState,
-  reducers: {
-    getBrandByName: (state, action) => {
-      // const name = action.payload.name;
-      // return state.value.find(
-      //   (brand) => brand.name.toLowerCase() === name.toLowerCase()
-      // );
+  reducers: {},
+  extraReducers: {
+    [getAllBrands.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getAllBrands.fulfilled]: (state, action) => {
+      state.value = action.payload;
+      state.isLoading = false;
+    },
+    [getAllBrands.rejected]: (state, action) => {
+      state.value.brands = [];
+      state.isLoading = false;
     },
   },
 });

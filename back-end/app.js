@@ -2,11 +2,18 @@ require('dotenv').config();
 require('express-async-errors');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 const connectDB = require('./db/connect');
 const categoryRoute = require('./routes/category');
 const brandRoute = require('./routes/brand');
 const itemRoute = require('./routes/item');
+
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');

@@ -5,3 +5,5 @@ export const SORT_OPTIONS = {
   lowUp: 'Price low to up',
   upLow: 'Price up to low',
 };
+
+export const BASE_URL = 'http://localhost:5000/api/v1';

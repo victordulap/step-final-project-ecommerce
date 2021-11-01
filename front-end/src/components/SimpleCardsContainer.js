@@ -14,10 +14,10 @@ const SimpleCardsContainer = ({ cardsData, title, darkCards }) => {
                 pathname: `${title.toLowerCase()}/${card.name.toLowerCase()}`,
               }}
               className={`card ${darkCards ? 'card-dark' : ''}`}
-              key={card.id}
+              key={card._id || card.id}
             >
               <main className="card-image-container">
-                <img src={card.imageUrl} alt={card.name} />
+                <img src={card.imgUrl || card.imageUrl} alt={card.name} />
               </main>
               <footer className="card-text">{card.name}</footer>
             </Link>

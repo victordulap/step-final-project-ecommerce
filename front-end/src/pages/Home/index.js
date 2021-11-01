@@ -1,11 +1,19 @@
 import './style.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import SimpleCardsContainer from '../../components/SimpleCardsContainer';
+import { useEffect } from 'react';
+import { getAllBrands } from '../../features/brandsSlice';
 
 export function HomePage() {
-  const brands = useSelector((state) => state.brands.value);
+  const isLoadingBrands = useSelector((state) => state.brands.isloading);
+  const brands = useSelector((state) => state.brands.value.brands);
   const categories = useSelector((state) => state.categories.value);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllBrands());
+  }, []);
 
   return (
     <main>
@@ -26,7 +34,11 @@ export function HomePage() {
       </div>
 
       <div className="container">
-        <SimpleCardsContainer cardsData={brands} title="Brands" />
+        {isLoadingBrands && brands ? (
+          'loading'
+        ) : (
+          <SimpleCardsContainer cardsData={brands} title="Brands" />
+        )}
       </div>
     </main>
   );
