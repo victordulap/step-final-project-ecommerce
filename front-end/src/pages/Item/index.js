@@ -77,7 +77,7 @@ const Item = () => {
       </div>
       <div className="container">
         <h1 className="item-title">
-          {item.brand.name} {item.title}
+          {item.brand[0].name} {item.title}
         </h1>
         <p className="item-price">&#36;{item.price}</p>
         <p className="item-color">
