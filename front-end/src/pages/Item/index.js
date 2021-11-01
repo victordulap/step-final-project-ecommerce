@@ -18,16 +18,21 @@ const Item = () => {
 
   const dispatch = useDispatch();
   const item = useSelector((state) => state.selectedItem.value);
-  const brandDetails = useSelector((state) => state.selectedItem.brandDetails);
   const isLoading = useSelector((state) => state.selectedItem.isLoading);
 
   useEffect(() => {
     dispatch(getItemById(itemId));
   }, [dispatch, itemId]);
 
-  useEffect(() => {
-    // console.log(currentItem);
-  }, [item]);
+  if (isLoading) {
+    return (
+      <main>
+        <h1 style={{ fontSize: 20, textAlign: 'center', lineHeight: 10 }}>
+          Loading
+        </h1>
+      </main>
+    );
+  }
 
   if (!item || !item.title) {
     return (
@@ -72,7 +77,7 @@ const Item = () => {
       </div>
       <div className="container">
         <h1 className="item-title">
-          {brandDetails.name} {item.title}
+          {item.brand.name} {item.title}
         </h1>
         <p className="item-price">&#36;{item.price}</p>
         <p className="item-color">

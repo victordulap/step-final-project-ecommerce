@@ -94,7 +94,7 @@ const getItemById = async (req, res) => {
     },
   ]);
 
-  res.status(200).json({ item });
+  res.status(200).json({ item: item[0] });
 };
 
 module.exports = {

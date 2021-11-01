@@ -24,7 +24,6 @@ export const selectedItemSlice = createSlice({
     },
     [getItemById.fulfilled]: (state, action) => {
       state.value = action.payload.item;
-      state.brandDetails = action.payload.brandDetails;
       state.isLoading = false;
     },
     [getItemById.rejected]: (state, action) => {
