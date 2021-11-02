@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './Navbar.scss';
 import {
   AiOutlineClose,
@@ -23,15 +23,17 @@ const Navbar = () => {
     setIsBigScreen(width > 650);
   }, [width]);
 
-  const handleSearch = async (searchValue) => {
+  const handleSearch = useCallback(async (searchValue) => {
     if (searchValue.length > 1) {
       // make request to back, save data
       const resp = await searchService.getSearchSuggestions(searchValue);
 
       // set suggestions to req data
       setSearchSuggestions(resp.data.items);
+    } else {
+      setSearchSuggestions([]);
     }
-  };
+  }, []);
 
   return (
     <nav className="navbar">
@@ -68,6 +70,10 @@ const Navbar = () => {
               searchSuggestions={searchSuggestions}
               searchCallback={handleSearch}
               afterMs={SEARCH_AFTER_MS}
+              closeModal={() => {
+                setShowSearchModal(false);
+                setSearchSuggestions([]);
+              }}
             />
           </div>
         </div>

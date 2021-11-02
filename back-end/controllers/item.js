@@ -120,9 +120,7 @@ const getAllItems = async (req, res) => {
         (prev, curr) => ({ ...prev, [curr]: 1 }),
         {}
       );
-
       aggregateArr.push({ $project: fieldsList });
-      console.log(aggregateArr);
     }
 
     let result = Item.aggregate(aggregateArr);

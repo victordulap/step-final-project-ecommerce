@@ -1,0 +1,64 @@
+@import '../vars.scss';
+
+.search-bar-container {
+  display: block;
+  width: 100%;
+  font-size: 1.5rem;
+
+  .search-bar {
+    flex: 1 1 100%;
+    display: flex;
+    align-items: center;
+    background: $neutral-light;
+    color: $neutral-dark;
+    border-radius: 10em;
+    overflow: hidden;
+    font-size: 1em;
+
+    * {
+      background-color: inherit;
+      color: inherit;
+    }
+
+    input,
+    .search-icon {
+      display: block;
+    }
+
+    input {
+      flex: 1 1 100%;
+      height: 100%;
+      padding: 1em 1.5em;
+      font-size: 1em;
+    }
+
+    .search-icon {
+      flex: 1 1 auto;
+      display: grid;
+      place-items: center;
+      font-size: 1em;
+      padding-inline: 1.2em;
+      height: 100%;
+
+      .icon {
+        font-size: 1.25em;
+      }
+    }
+  }
+
+  .search-bar-suggestions {
+    font-size: 1em;
+    margin-top: 1em;
+
+    .search-suggestion {
+      display: block;
+      color: $neutral-dark-0;
+      padding: 1em 1.5em;
+      font-size: 1em;
+
+      &:hover {
+        background-color: $neutral-light-900;
+      }
+    }
+  }
+}

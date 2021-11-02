@@ -6,7 +6,7 @@
   color: $neutral-light;
 
   .search-modal {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
@@ -42,45 +42,6 @@
       flex: 1 0 auto;
       font-size: 1.4em;
       color: inherit;
-    }
-
-    .search-bar {
-      flex: 1 1 100%;
-      display: flex;
-      align-items: center;
-      background: $neutral-light;
-      color: $neutral-dark;
-      border-radius: 10em;
-      overflow: hidden;
-
-      * {
-        background-color: inherit;
-        color: inherit;
-      }
-
-      input,
-      .search-icon {
-        display: block;
-      }
-
-      input {
-        flex: 1 1 100%;
-        height: 100%;
-        padding: 1em 1.5em;
-      }
-
-      .search-icon {
-        flex: 1 1 auto;
-        display: grid;
-        place-items: center;
-        font-size: 1em;
-        padding-inline: 0.5em;
-        height: 100%;
-
-        .icon {
-          font-size: 1.25em;
-        }
-      }
     }
 
     .icons {
