@@ -18,6 +18,7 @@ const Shop = () => {
 
   const shopItems = useSelector((state) => state.shopItems.value);
   const shopTitle = useSelector((state) => state.shopItems.shopTitle);
+  const noMoreToLoad = useSelector((state) => state.shopItems.noMoreToLoad);
   const dispatch = useDispatch();
 
   const page = useRef(1);
@@ -95,7 +96,7 @@ const Shop = () => {
       <section className="items">
         <div className="container">
           <p className="items-found">
-            {/* {shopItems.length} item{shopItems.length === 1 || 's'} found */}
+            {shopItems.length === 0 && '0 items found'}
           </p>
           <div className="item-cards-container">
             {shopItems.map((item) => (
@@ -116,7 +117,11 @@ const Shop = () => {
             ))}
           </div>
           <div className="load-more-btn">
-            <Button onClick={loadMore} text="LOAD MORE" size="l" />
+            {noMoreToLoad ? (
+              shopItems.length > 0 && <p>{shopItems.length} items above</p>
+            ) : (
+              <Button onClick={loadMore} text="LOAD MORE" size="l" />
+            )}
           </div>
         </div>
       </section>

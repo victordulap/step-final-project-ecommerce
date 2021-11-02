@@ -43,6 +43,7 @@ export const getAllItemsByBrandIdSortedByPrice = createAsyncThunk(
 
 const initialState = {
   value: [],
+  noMoreToLoad: false,
 };
 
 export const shopItemsSlice = createSlice({
@@ -52,6 +53,7 @@ export const shopItemsSlice = createSlice({
     resetState: (state, action) => {
       state.value = [];
       state.shopTitle = '';
+      state.noMoreToLoad = false;
     },
   },
   extraReducers: {
@@ -60,6 +62,7 @@ export const shopItemsSlice = createSlice({
     },
     [getAllItemsByBrandId.fulfilled]: (state, action) => {
       state.value = [...state.value, ...action.payload.items];
+      state.noMoreToLoad = action.payload.nbHits < 10;
       state.isLoading = false;
       state.shopTitle = action.payload.shopTitle;
     },
@@ -74,6 +77,7 @@ export const shopItemsSlice = createSlice({
     },
     [getAllItemsByCategoryId.fulfilled]: (state, action) => {
       state.value = [...state.value, ...action.payload.items];
+      state.noMoreToLoad = action.payload.nbHits < 10;
       state.shopTitle = action.payload.shopTitle;
       state.isLoading = false;
     },
@@ -88,6 +92,7 @@ export const shopItemsSlice = createSlice({
     },
     [getAllItemsByCategoryIdSortedByPrice.fulfilled]: (state, action) => {
       state.value = [...state.value, ...action.payload.items];
+      state.noMoreToLoad = action.payload.nbHits < 10;
       state.shopTitle = action.payload.shopTitle;
       state.isLoading = false;
     },
@@ -102,6 +107,7 @@ export const shopItemsSlice = createSlice({
     },
     [getAllItemsByBrandIdSortedByPrice.fulfilled]: (state, action) => {
       state.value = [...state.value, ...action.payload.items];
+      state.noMoreToLoad = action.payload.nbHits < 10;
       state.shopTitle = action.payload.shopTitle;
       state.isLoading = false;
     },
