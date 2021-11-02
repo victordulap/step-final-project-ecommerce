@@ -21,7 +21,7 @@ const getAllItems = async (req, res) => {
       available: true,
     };
 
-    shopTitle = [];
+    shopTitleArr = [];
 
     if (colors) {
       const filter = colors.split(',');
@@ -36,7 +36,7 @@ const getAllItems = async (req, res) => {
       if (shopTitle) {
         const brands = await Brand.find({ _id: { $in: filter } });
         const brandNames = brands.map((b) => b.name);
-        shopTitle.push(...brandNames);
+        shopTitleArr.push(...brandNames);
       }
     }
     if (categoryIds) {
@@ -48,7 +48,7 @@ const getAllItems = async (req, res) => {
       if (shopTitle) {
         const categories = await Category.find({ _id: { $in: filter } });
         const categoryNames = categories.map((c) => c.name);
-        shopTitle.push(...categoryNames);
+        shopTitleArr.push(...categoryNames);
       }
     }
     if (title) {
@@ -135,7 +135,7 @@ const getAllItems = async (req, res) => {
 
     const items = await result;
     res.status(200).json({
-      shopTitle: shopTitle ? shopTitle.join(' ') : 'n/a',
+      shopTitle: shopTitleArr ? shopTitleArr.join(' ') : 'n/a',
       items,
       nbHits: items.length,
     });

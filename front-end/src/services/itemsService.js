@@ -2,11 +2,11 @@ const { BASE_URL } = require('../utils/constants');
 const { request } = require('./index');
 
 const getAllItemsByBrandId = (id) => {
-  return request.get(`${BASE_URL}/items?brandIds=${id}`);
+  return request.get(`${BASE_URL}/items?brandIds=${id}&shopTitle=true`);
 };
 
 const getAllItemsByCategoryId = (id) => {
-  return request.get(`${BASE_URL}/items?categoryIds=${id}`);
+  return request.get(`${BASE_URL}/items?categoryIds=${id}&shopTitle=true`);
 };
 
 const getItemById = (id) => {

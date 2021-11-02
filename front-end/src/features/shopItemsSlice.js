@@ -27,6 +27,7 @@ export const shopItemsSlice = createSlice({
   reducers: {
     resetState: (state, action) => {
       state.value = [];
+      state.shopTitle = '';
     },
   },
   extraReducers: {
@@ -36,10 +37,12 @@ export const shopItemsSlice = createSlice({
     [getAllItemsByBrandId.fulfilled]: (state, action) => {
       state.value = action.payload.items;
       state.isLoading = false;
+      state.shopTitle = action.payload.shopTitle;
     },
     [getAllItemsByBrandId.rejected]: (state, action) => {
       state.value = [];
       state.isLoading = false;
+      state.shopTitle = '';
     },
 
     [getAllItemsByCategoryId.pending]: (state, action) => {
@@ -47,10 +50,12 @@ export const shopItemsSlice = createSlice({
     },
     [getAllItemsByCategoryId.fulfilled]: (state, action) => {
       state.value = action.payload.items;
+      state.shopTitle = action.payload.shopTitle;
       state.isLoading = false;
     },
     [getAllItemsByCategoryId.rejected]: (state, action) => {
       state.value = [];
+      state.shopTitle = '';
       state.isLoading = false;
     },
   },

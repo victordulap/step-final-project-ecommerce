@@ -14,6 +14,7 @@ const Shop = () => {
   const urlSearch = useParams();
 
   const shopItems = useSelector((state) => state.shopItems.value);
+  const shopTitle = useSelector((state) => state.shopItems.shopTitle);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const Shop = () => {
     <main>
       <header className="header">
         <div className="container">
-          <h1 className="title">title: {urlSearch.name}</h1>
+          <h1 className="title">{shopTitle}</h1>
         </div>
         <div className="filter-sort-section">
           <div className="sort">
