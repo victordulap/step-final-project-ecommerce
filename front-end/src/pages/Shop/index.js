@@ -59,6 +59,20 @@ const Shop = () => {
     }
   };
 
+  const loadMore = () => {
+    const searchBy = urlSearch.type;
+
+    page.current = page.current + 1;
+
+    if (searchBy === 'brands') {
+      dispatch(getAllItemsByBrandId({ id: urlSearch.id, page: page.current }));
+    } else if (searchBy === 'categories') {
+      dispatch(
+        getAllItemsByCategoryId({ id: urlSearch.id, page: page.current })
+      );
+    }
+  };
+
   return (
     <main>
       <header className="header">
@@ -102,7 +116,7 @@ const Shop = () => {
             ))}
           </div>
           <div className="load-more-btn">
-            <Button text="LOAD MORE" size="l" />
+            <Button onClick={loadMore} text="LOAD MORE" size="l" />
           </div>
         </div>
       </section>
