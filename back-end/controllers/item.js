@@ -125,13 +125,11 @@ const getAllItems = async (req, res) => {
 
     let result = Item.aggregate(aggregateArr);
 
-    // // sort
-    // if (sort) {
-    //   const sortList = sort.split(',').join(' ');
-    //   result = result.sort(sortList);
-    // } else {
-    //   result = result.sort('createdAt');
-    // }
+    // sort
+    if (sort) {
+      const sortList = sort.split(',').join(' ');
+      result = result.sort(sortList);
+    }
 
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
