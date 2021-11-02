@@ -17,6 +17,25 @@ export const getAllItemsByCategoryId = createAsyncThunk(
   }
 );
 
+export const getAllItemsByCategoryIdSortedByPrice = createAsyncThunk(
+  'get/allItemsByCategoryIdSorted',
+  async ({ id, asc }) => {
+    const res = await itemsService.getAllItemsByCategoryIdSortedByPrice(
+      id,
+      asc
+    );
+    return res.data;
+  }
+);
+
+export const getAllItemsByBrandIdSortedByPrice = createAsyncThunk(
+  'get/allItemsByBrandIdSorted',
+  async ({ id, asc }) => {
+    const res = await itemsService.getAllItemsByBrandIdSortedByPrice(id, asc);
+    return res.data;
+  }
+);
+
 const initialState = {
   value: [],
 };
@@ -54,6 +73,34 @@ export const shopItemsSlice = createSlice({
       state.isLoading = false;
     },
     [getAllItemsByCategoryId.rejected]: (state, action) => {
+      state.value = [];
+      state.shopTitle = '';
+      state.isLoading = false;
+    },
+
+    [getAllItemsByCategoryIdSortedByPrice.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getAllItemsByCategoryIdSortedByPrice.fulfilled]: (state, action) => {
+      state.value = action.payload.items;
+      state.shopTitle = action.payload.shopTitle;
+      state.isLoading = false;
+    },
+    [getAllItemsByCategoryIdSortedByPrice.rejected]: (state, action) => {
+      state.value = [];
+      state.shopTitle = '';
+      state.isLoading = false;
+    },
+
+    [getAllItemsByBrandIdSortedByPrice.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getAllItemsByBrandIdSortedByPrice.fulfilled]: (state, action) => {
+      state.value = action.payload.items;
+      state.shopTitle = action.payload.shopTitle;
+      state.isLoading = false;
+    },
+    [getAllItemsByBrandIdSortedByPrice.rejected]: (state, action) => {
       state.value = [];
       state.shopTitle = '';
       state.isLoading = false;

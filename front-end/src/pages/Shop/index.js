@@ -4,7 +4,9 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllItemsByBrandId,
+  getAllItemsByBrandIdSortedByPrice,
   getAllItemsByCategoryId,
+  getAllItemsByCategoryIdSortedByPrice,
   resetState,
 } from '../../features/shopItemsSlice';
 import { Link } from 'react-router-dom';
@@ -34,9 +36,24 @@ const Shop = () => {
   }, [dispatch, urlSearch]);
 
   const handleSortSelect = (event) => {
-    // const selectedOption = event.target.value;
-    // sort
-    // dispatch(sortShopItems({ sortOption: selectedOption }));
+    const searchBy = urlSearch.type;
+    const selectedOption = event.target.value;
+    if (selectedOption === SORT_OPTIONS.none) {
+      if (searchBy === 'brands') {
+        dispatch(getAllItemsByBrandId(urlSearch.id));
+      } else if (searchBy === 'categories') {
+        dispatch(getAllItemsByCategoryId(urlSearch.id));
+      }
+      return;
+    }
+
+    const asc = selectedOption === SORT_OPTIONS.lowUp;
+
+    if (searchBy === 'brands') {
+      dispatch(getAllItemsByBrandIdSortedByPrice({ id: urlSearch.id, asc }));
+    } else if (searchBy === 'categories') {
+      dispatch(getAllItemsByCategoryIdSortedByPrice({ id: urlSearch.id, asc }));
+    }
   };
 
   return (
