@@ -8,20 +8,14 @@ import {
 import { Link } from 'react-router-dom';
 import { useWindowDimensions } from '../customHooks/useWindowDimesions';
 import SearchBar from './SearchBar';
-import { request } from '../services';
 import { searchService } from '../services/searchService';
 
 const SEARCH_AFTER_MS = 1000;
 
 const Navbar = () => {
   const { width } = useWindowDimensions();
-  const [isBigScreen, setIsBigScreen] = useState(width > 650);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState(null);
-
-  useEffect(() => {
-    setIsBigScreen(width > 650);
-  }, [width]);
 
   const handleSearch = useCallback(async (searchValue) => {
     if (searchValue.length > 1) {
@@ -41,17 +35,13 @@ const Navbar = () => {
         <Link to="/" className="logo">
           VD Clothes
         </Link>
-        {isBigScreen && (
-          <SearchBar searchCallback={handleSearch} afterMs={SEARCH_AFTER_MS} />
-        )}
 
         <div className="icons">
-          {!isBigScreen && (
-            <AiOutlineSearch
-              className="icon"
-              onClick={() => setShowSearchModal(true)}
-            />
-          )}
+          <AiOutlineSearch
+            className="icon"
+            onClick={() => setShowSearchModal(true)}
+          />
+
           <Link to="/cart">
             <AiOutlineShoppingCart className="icon" />
           </Link>
