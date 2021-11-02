@@ -17,7 +17,7 @@ const Navbar = () => {
   const { width } = useWindowDimensions();
   const [isBigScreen, setIsBigScreen] = useState(width > 650);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [searchSuggestions, setSearchSuggestions] = useState(null);
 
   useEffect(() => {
     setIsBigScreen(width > 650);
@@ -31,7 +31,7 @@ const Navbar = () => {
       // set suggestions to req data
       setSearchSuggestions(resp.data.items);
     } else {
-      setSearchSuggestions([]);
+      setSearchSuggestions(null);
     }
   }, []);
 
@@ -72,7 +72,7 @@ const Navbar = () => {
               afterMs={SEARCH_AFTER_MS}
               closeModal={() => {
                 setShowSearchModal(false);
-                setSearchSuggestions([]);
+                setSearchSuggestions(null);
               }}
             />
           </div>
