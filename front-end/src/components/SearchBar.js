@@ -40,7 +40,7 @@ const SearchBar = ({
         </button>
       </div>
       <div className="search-bar-suggestions">
-        {searchSuggestions &&
+        {searchSuggestions && searchSuggestions.length > 0 ? (
           searchSuggestions.map((suggestion) => (
             <Link
               onClick={closeModal}
@@ -50,7 +50,10 @@ const SearchBar = ({
             >
               {suggestion.brand[0].name} {suggestion.title} ({suggestion.color})
             </Link>
-          ))}
+          ))
+        ) : (
+          <div className="search-suggestion">no items found</div>
+        )}
       </div>
     </div>
   );
