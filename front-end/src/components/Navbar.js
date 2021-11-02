@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './Navbar.scss';
 import {
   AiOutlineClose,
@@ -6,14 +6,12 @@ import {
   AiOutlineShoppingCart,
 } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { useWindowDimensions } from '../customHooks/useWindowDimesions';
 import SearchBar from './SearchBar';
 import { searchService } from '../services/searchService';
 
 const SEARCH_AFTER_MS = 1000;
 
 const Navbar = () => {
-  const { width } = useWindowDimensions();
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState(null);
 

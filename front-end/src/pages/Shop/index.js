@@ -1,5 +1,5 @@
 import './style.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -34,8 +34,7 @@ const Shop = () => {
   }, [dispatch, urlSearch]);
 
   const handleSortSelect = (event) => {
-    const selectedOption = event.target.value;
-
+    // const selectedOption = event.target.value;
     // sort
     // dispatch(sortShopItems({ sortOption: selectedOption }));
   };

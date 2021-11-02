@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import './style.scss';
@@ -19,17 +19,17 @@ const Cart = () => {
 
   const [cartTotal, setCartTotal] = useState(0);
 
-  const getCartTotal = () => {
+  const getCartTotal = useCallback(() => {
     if (cart.length > 0) {
       return cart.reduce((a, b) => +a + +b.item.price * b.count, 0);
     } else {
       return 0;
     }
-  };
+  }, [cart]);
 
   useEffect(() => {
     setCartTotal(getCartTotal());
-  }, [cart]);
+  }, [cart, getCartTotal]);
 
   return (
     <main className="cart">
