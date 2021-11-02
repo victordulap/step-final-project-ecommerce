@@ -42,7 +42,7 @@ const Cart = () => {
             cart.map((cartItem) => (
               <div className="cart-item" key={cartItem.id}>
                 <Link
-                  to={`/item/${cartItem.item.id}`}
+                  to={`/item/${cartItem.item._id}`}
                   className="cart-item-img-container"
                 >
                   <img src={cartItem.item.imgUrl} alt={cartItem.item.title} />

@@ -67,6 +67,10 @@ main.cart {
           justify-content: space-between;
           font-size: 1.05rem;
 
+          .cart-item-size {
+            text-transform: uppercase;
+          }
+
           .cart-item-quantity {
             display: flex;
             align-items: center;
