@@ -16,9 +16,12 @@ const getAllItems = async (req, res) => {
       numericFilters,
       search,
     } = req.query;
+    let { shopTitle } = req.query;
     const queryObject = {
       available: true,
     };
+
+    shopTitle = [];
 
     if (colors) {
       const filter = colors.split(',');
@@ -29,12 +32,24 @@ const getAllItems = async (req, res) => {
       filter = filter.map((f) => ObjectId(f));
       filter = MongoArray(filter);
       queryObject.brandId = { $in: filter };
+
+      if (shopTitle) {
+        const brands = await Brand.find({ _id: { $in: filter } });
+        const brandNames = brands.map((b) => b.name);
+        shopTitle.push(...brandNames);
+      }
     }
     if (categoryIds) {
       let filter = categoryIds.split(',');
       filter = filter.map((f) => ObjectId(f));
       filter = MongoArray(filter);
       queryObject.categoryIds = { $in: filter };
+
+      if (shopTitle) {
+        const categories = await Category.find({ _id: { $in: filter } });
+        const categoryNames = categories.map((c) => c.name);
+        shopTitle.push(...categoryNames);
+      }
     }
     if (title) {
       queryObject.title = { $regex: title, $options: 'i' };
@@ -119,7 +134,11 @@ const getAllItems = async (req, res) => {
     // items per page - 7 7 7 2
 
     const items = await result;
-    res.status(200).json({ items, nbHits: items.length });
+    res.status(200).json({
+      shopTitle: shopTitle ? shopTitle.join(' ') : 'n/a',
+      items,
+      nbHits: items.length,
+    });
   } catch (err) {
     console.log(err);
   }
