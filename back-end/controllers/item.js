@@ -98,10 +98,11 @@ const getAllItems = async (req, res) => {
     //   });
     // }
 
-    let result = Item.aggregate([
+    const aggregateArr = [
       {
         $match: queryObject,
       },
+
       {
         $lookup: {
           from: 'brands',
@@ -110,7 +111,21 @@ const getAllItems = async (req, res) => {
           as: 'brand',
         },
       },
-    ]);
+    ];
+
+    if (fields) {
+      let fieldsList = fields.split(','); //.join(' ');
+      // const fieldsObject = {fieldsList.map()}
+      fieldsList = fieldsList.reduce(
+        (prev, curr) => ({ ...prev, [curr]: 1 }),
+        {}
+      );
+
+      aggregateArr.push({ $project: fieldsList });
+      console.log(aggregateArr);
+    }
+
+    let result = Item.aggregate(aggregateArr);
 
     // // sort
     // if (sort) {
@@ -119,11 +134,6 @@ const getAllItems = async (req, res) => {
     // } else {
     //   result = result.sort('createdAt');
     // }
-
-    if (fields) {
-      const fieldsList = fields.split(',').join(' ');
-      result = result.select(fieldsList);
-    }
 
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;

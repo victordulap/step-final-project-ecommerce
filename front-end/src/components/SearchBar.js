@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import './SearchBar.scss';
 
-const SearchBar = ({ searchCallback, afterMs }) => {
+const SearchBar = ({ searchSuggestions, searchCallback, afterMs }) => {
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
@@ -12,6 +12,10 @@ const SearchBar = ({ searchCallback, afterMs }) => {
 
     return () => clearTimeout(delayDebounce);
   }, [searchValue]);
+
+  useEffect(() => {
+    console.log('search suggestions: ', searchSuggestions);
+  }, [searchSuggestions]);
 
   return (
     <div className="search-bar">

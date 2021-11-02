@@ -8,8 +8,8 @@ import {
 import { Link } from 'react-router-dom';
 import { useWindowDimensions } from '../customHooks/useWindowDimesions';
 import SearchBar from './SearchBar';
-import { items } from '../data/items';
-import { filterItems } from '../utils/data/filterItems';
+import { request } from '../services';
+import { searchService } from '../services/searchService';
 
 const SEARCH_AFTER_MS = 1000;
 
@@ -17,23 +17,20 @@ const Navbar = () => {
   const { width } = useWindowDimensions();
   const [isBigScreen, setIsBigScreen] = useState(width > 650);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
 
   useEffect(() => {
     setIsBigScreen(width > 650);
   }, [width]);
 
-  const handleSearch = (searchValue) => {
-    // filter items by searchValue
+  const handleSearch = async (searchValue) => {
+    if (searchValue.length > 1) {
+      // make request to back, save data
+      const resp = await searchService.getSearchSuggestions(searchValue);
 
-    // filter all items
-    if (searchValue.length > 2) {
-      const filteredItems = filterItems(items, searchValue);
-      console.log(filteredItems);
+      // set suggestions to req data
+      setSearchSuggestions(resp.data.items);
     }
-
-    // set suggestions
-
-    // show suggestions
   };
 
   return (
@@ -68,6 +65,7 @@ const Navbar = () => {
           </button>
           <div className="container">
             <SearchBar
+              searchSuggestions={searchSuggestions}
               searchCallback={handleSearch}
               afterMs={SEARCH_AFTER_MS}
             />
