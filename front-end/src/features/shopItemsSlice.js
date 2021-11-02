@@ -3,26 +3,27 @@ import { itemsService } from '../services/itemsService';
 
 export const getAllItemsByBrandId = createAsyncThunk(
   'get/allItemsByBrandId',
-  async (id) => {
-    const res = await itemsService.getAllItemsByBrandId(id);
+  async ({ id, page }) => {
+    const res = await itemsService.getAllItemsByBrandId(id, page);
     return res.data;
   }
 );
 
 export const getAllItemsByCategoryId = createAsyncThunk(
   'get/allItemsByCategoryId',
-  async (id) => {
-    const res = await itemsService.getAllItemsByCategoryId(id);
+  async ({ id, page }) => {
+    const res = await itemsService.getAllItemsByCategoryId(id, page);
     return res.data;
   }
 );
 
 export const getAllItemsByCategoryIdSortedByPrice = createAsyncThunk(
   'get/allItemsByCategoryIdSorted',
-  async ({ id, asc }) => {
+  async ({ id, asc, page }) => {
     const res = await itemsService.getAllItemsByCategoryIdSortedByPrice(
       id,
-      asc
+      asc,
+      page
     );
     return res.data;
   }
@@ -30,8 +31,12 @@ export const getAllItemsByCategoryIdSortedByPrice = createAsyncThunk(
 
 export const getAllItemsByBrandIdSortedByPrice = createAsyncThunk(
   'get/allItemsByBrandIdSorted',
-  async ({ id, asc }) => {
-    const res = await itemsService.getAllItemsByBrandIdSortedByPrice(id, asc);
+  async ({ id, asc, page }) => {
+    const res = await itemsService.getAllItemsByBrandIdSortedByPrice(
+      id,
+      asc,
+      page
+    );
     return res.data;
   }
 );
@@ -54,7 +59,7 @@ export const shopItemsSlice = createSlice({
       state.isLoading = true;
     },
     [getAllItemsByBrandId.fulfilled]: (state, action) => {
-      state.value = action.payload.items;
+      state.value = [...state.value, ...action.payload.items];
       state.isLoading = false;
       state.shopTitle = action.payload.shopTitle;
     },
@@ -68,7 +73,7 @@ export const shopItemsSlice = createSlice({
       state.isLoading = true;
     },
     [getAllItemsByCategoryId.fulfilled]: (state, action) => {
-      state.value = action.payload.items;
+      state.value = [...state.value, ...action.payload.items];
       state.shopTitle = action.payload.shopTitle;
       state.isLoading = false;
     },
@@ -82,7 +87,7 @@ export const shopItemsSlice = createSlice({
       state.isLoading = true;
     },
     [getAllItemsByCategoryIdSortedByPrice.fulfilled]: (state, action) => {
-      state.value = action.payload.items;
+      state.value = [...state.value, ...action.payload.items];
       state.shopTitle = action.payload.shopTitle;
       state.isLoading = false;
     },
@@ -96,7 +101,7 @@ export const shopItemsSlice = createSlice({
       state.isLoading = true;
     },
     [getAllItemsByBrandIdSortedByPrice.fulfilled]: (state, action) => {
-      state.value = action.payload.items;
+      state.value = [...state.value, ...action.payload.items];
       state.shopTitle = action.payload.shopTitle;
       state.isLoading = false;
     },
