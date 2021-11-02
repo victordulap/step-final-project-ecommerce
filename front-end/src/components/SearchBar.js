@@ -33,6 +33,7 @@ const SearchBar = ({
           placeholder="Search for items"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
+          autoFocus
         />
         <button className="search-icon">
           <AiOutlineSearch className="icon" />
