@@ -7,6 +7,7 @@ import { FaTimes } from 'react-icons/fa';
 import { DELIEVERY_PRICE } from '../../utils/constants';
 import {
   decrementCount,
+  getCartFromLocalStorage,
   incrementCount,
   removeFromCart,
 } from '../../features/cartSlice';
@@ -18,6 +19,10 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart.value);
 
   const [cartTotal, setCartTotal] = useState(0);
+
+  useEffect(() => {
+    dispatch(getCartFromLocalStorage());
+  }, [dispatch]);
 
   const getCartTotal = useCallback(() => {
     if (cart.length > 0) {

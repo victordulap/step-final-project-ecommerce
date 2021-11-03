@@ -15,7 +15,7 @@ const SimpleCardsContainer = ({
       <section className="cards" id={title}>
         <h2>{title}</h2>
         <div className="cards-container">
-          {isLoading ? (
+          {true ? (
             <>
               <SimpleCardSkeleton key={uuid()} darkMode={darkCards} />
               <SimpleCardSkeleton key={uuid()} darkMode={darkCards} />

@@ -10,39 +10,9 @@
   flex-direction: column;
   cursor: pointer;
 
-  &.card-skeleton {
-    width: 100%;
-    padding-bottom: 150%;
-    height: 0;
-    background-color: $neutral-dark;
-    animation: loadingAnim 0.7s linear infinite alternate;
-
-    @keyframes loadingAnim {
-      0% {
-        background-color: $neutral-dark-0;
-      }
-      100% {
-        background-color: $neutral-dark-300;
-      }
-    }
-  }
-
   &-dark {
     background-color: $neutral-light-300;
     color: $neutral-dark;
-
-    &.card-skeleton {
-      background-color: $neutral-light-600;
-      animation: loadingAnimDark 0.7s linear infinite alternate;
-      @keyframes loadingAnimDark {
-        0% {
-          background-color: $neutral-light-100;
-        }
-        100% {
-          background-color: $neutral-light-900;
-        }
-      }
-    }
   }
 
   .card-image-container {
@@ -68,5 +38,66 @@
     font-weight: 600;
     text-align: center;
     padding-block: 1em;
+  }
+
+  &.card-skeleton {
+    width: 100%;
+    background: none;
+    .card-image-container {
+      padding-bottom: 125%;
+      height: auto;
+      animation: loadLight 1s linear infinite alternate;
+      margin-bottom: 0;
+      border-radius: 0.5rem;
+      @keyframes loadLight {
+        0% {
+          background-color: $loading-light-100;
+        }
+        100% {
+          background-color: $loading-light-0;
+        }
+      }
+    }
+
+    .card-text {
+      padding: 1rem;
+      margin: 2rem;
+      border-radius: 0.5rem;
+      animation: loadLight 1s linear infinite alternate;
+    }
+
+    &.card-dark {
+      .card-image-container {
+        padding-bottom: 125%;
+        height: auto;
+        animation: loadDark 1s linear infinite alternate;
+        margin-bottom: 0;
+        border-radius: 0.5rem;
+        @keyframes loadLight {
+          0% {
+            background-color: $loading-light-100;
+          }
+          100% {
+            background-color: $loading-light-0;
+          }
+        }
+      }
+
+      .card-text {
+        padding: 1rem;
+        margin: 2rem;
+        border-radius: 0.5rem;
+        animation: loadDark 1s linear infinite alternate;
+      }
+
+      @keyframes loadDark {
+        0% {
+          background-color: $loading-dark-100;
+        }
+        100% {
+          background-color: $loading-dark-0;
+        }
+      }
+    }
   }
 }

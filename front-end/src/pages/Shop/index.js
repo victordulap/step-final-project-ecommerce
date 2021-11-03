@@ -12,6 +12,7 @@ import {
 import { SORT_OPTIONS } from '../../utils/constants';
 import Button from '../../components/Button';
 import ShopItemCard from '../../components/ShopItemCard';
+import ShopItemCardSkeleton from '../../components/ShopItemCardSkeleton';
 
 const Shop = () => {
   const urlSearch = useParams();
@@ -100,16 +101,29 @@ const Shop = () => {
             {!isLoading && shopItems.length === 0 && '0 items found'}
           </p>
           <div className="item-cards-container">
-            {shopItems.map((item) => (
-              <ShopItemCard
-                id={item._id}
-                key={item._id}
-                color={item.color}
-                imgUrl={item.imgUrl}
-                price={item.price}
-                title={item.brand[0].name + ' ' + item.title}
-              />
-            ))}
+            {isLoading ? (
+              <>
+                <ShopItemCardSkeleton />
+                <ShopItemCardSkeleton />
+                <ShopItemCardSkeleton />
+                <ShopItemCardSkeleton />
+                <ShopItemCardSkeleton />
+                <ShopItemCardSkeleton />
+                <ShopItemCardSkeleton />
+                <ShopItemCardSkeleton />
+              </>
+            ) : (
+              shopItems.map((item) => (
+                <ShopItemCard
+                  id={item._id}
+                  key={item._id}
+                  color={item.color}
+                  imgUrl={item.imgUrl}
+                  price={item.price}
+                  title={item.brand[0].name + ' ' + item.title}
+                />
+              ))
+            )}
           </div>
           <div className="load-more-btn">
             {noMoreToLoad ? (

@@ -13,6 +13,10 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    getCartFromLocalStorage(state, action) {
+      const cart = JSON.parse(localStorage.getItem('vdShopCart')) || [];
+      state.value = cart;
+    },
     addToCart(state, action) {
       let index = state.value.findIndex(
         (cartItem) =>
@@ -35,15 +39,21 @@ export const cartSlice = createSlice({
           count: 1,
         });
       }
+
+      localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
     removeFromCart(state, action) {
       state.value = state.value.filter(
         (cartItem) => cartItem.id !== action.payload.id
       );
+
+      localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
     incrementCount(state, action) {
       const index = findIndexOfItemById(state.value, action.payload.id);
       state.value[index].count++;
+
+      localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
     decrementCount(state, action) {
       const index = findIndexOfItemById(state.value, action.payload.id);
@@ -54,11 +64,18 @@ export const cartSlice = createSlice({
           (cartItem) => cartItem.id !== action.payload.id
         );
       }
+
+      localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
   },
 });
 
-export const { addToCart, removeFromCart, incrementCount, decrementCount } =
-  cartSlice.actions;
+export const {
+  getCartFromLocalStorage,
+  addToCart,
+  removeFromCart,
+  incrementCount,
+  decrementCount,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -47,4 +47,57 @@
     margin-bottom: 2.5em;
     font-size: 1.1em;
   }
+
+  &-loading {
+    width: 100%;
+    height: auto;
+
+    .item-card-image-container {
+      height: auto;
+      padding-bottom: 100%;
+      background-color: $loading-light-100;
+      border-radius: 0.5rem;
+
+      animation: loadImage 1s linear infinite alternate;
+
+      @keyframes loadImage {
+        0% {
+          background-color: $loading-light-100;
+        }
+        100% {
+          background-color: $loading-light-0;
+        }
+      }
+    }
+
+    .item-card-title,
+    .item-card-color,
+    .item-card-price {
+      background-color: $loading-light-100;
+      padding: 0.75em;
+      border-radius: 0.5rem;
+      animation: loadText 1s linear infinite alternate;
+
+      @keyframes loadText {
+        0% {
+          background-color: $loading-light-100;
+        }
+        100% {
+          background-color: $loading-light-0;
+        }
+      }
+    }
+
+    .item-card-title {
+      width: 80%;
+      margin-top: 1em;
+    }
+
+    .item-card-color {
+      width: 30%;
+    }
+    .item-card-price {
+      width: 25%;
+    }
+  }
 }
