@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './ShopItemCard.scss';
 
 const ShopItemCard = ({ id, imgUrl, title, color, price }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);

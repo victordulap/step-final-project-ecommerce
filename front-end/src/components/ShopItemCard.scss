@@ -1,0 +1,50 @@
+@import '../vars.scss';
+
+.item-card {
+  display: block;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  color: $neutral-dark-0;
+
+  &-image-container {
+    width: 100%;
+    flex: 1 1 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $neutral-light-300;
+    color: $neutral-dark;
+
+    img {
+      max-height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &-title {
+    margin: 1rem 0;
+    font-size: 1.05em;
+    color: $neutral-dark;
+  }
+
+  &-color,
+  &-price {
+    text-transform: lowercase;
+  }
+
+  &-color {
+    font-size: 0.95em;
+    margin-bottom: 1rem;
+  }
+
+  &-price {
+    font-weight: 700;
+    margin-bottom: 2.5em;
+    font-size: 1.1em;
+  }
+}
