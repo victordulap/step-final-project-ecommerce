@@ -98,3 +98,50 @@ main {
     padding: 1em 1rem;
   }
 }
+
+main.item-skeleton {
+  @keyframes loadImage {
+    0% {
+      background-color: $loading-light-100;
+    }
+    100% {
+      background-color: $loading-light-0;
+    }
+  }
+
+  .item-image-container {
+    padding-bottom: 100%;
+    margin-block: 1rem;
+    background-color: $loading-light-100;
+    border-radius: 0.5rem;
+    animation: loadImage 1s linear infinite alternate;
+  }
+
+  .item-title,
+  .item-price,
+  .item-color,
+  .item-size,
+  .item-description-header,
+  .item-description-text {
+    border-radius: 0.5rem;
+    background-color: $loading-light-100;
+    padding: 0.9rem;
+    animation: loadImage 1s linear infinite alternate;
+  }
+
+  .item-title {
+    width: 90%;
+    padding: 1rem;
+  }
+  .item-price,
+  .item-color {
+    width: 20%;
+  }
+  .item-description-header {
+    width: 60%;
+  }
+
+  .item-description-text {
+    width: 40%;
+  }
+}

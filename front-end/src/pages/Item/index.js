@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import Button from '../../components/Button';
 import { addToCart } from '../../features/cartSlice';
 import { getItemById } from '../../features/selectedItemSlice';
+import ItemSkeleton from './components/ItemSkeleton';
 import './style.scss';
 
 const NO_VALUE = 'no value';
@@ -25,18 +26,12 @@ const Item = () => {
   }, [dispatch, itemId]);
 
   if (isLoading) {
-    return (
-      <main>
-        <h1 style={{ fontSize: 20, textAlign: 'center', lineHeight: 10 }}>
-          Loading
-        </h1>
-      </main>
-    );
+    return <ItemSkeleton />;
   }
 
   if (!item || !item.title) {
     return (
-      <main>
+      <main style={{ position: 'relative' }}>
         <h1 style={{ fontSize: 20, textAlign: 'center', lineHeight: 10 }}>
           Item not found
         </h1>
