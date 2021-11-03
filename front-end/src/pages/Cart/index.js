@@ -13,6 +13,7 @@ import {
 } from '../../features/cartSlice';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import CartItem from './components/CartItem';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -45,62 +46,31 @@ const Cart = () => {
         <section className="cart-items">
           {cart.length > 0 ? (
             cart.map((cartItem) => (
-              <div className="cart-item" key={cartItem.id}>
-                <Link
-                  to={`/item/${cartItem.item._id}`}
-                  className="cart-item-img-container"
-                >
-                  <img src={cartItem.item.imgUrl} alt={cartItem.item.title} />
-                </Link>
-                <div className="cart-item-info-container">
-                  <p className="cart-item-price">
-                    <strong>
-                      &#36;{(cartItem.item.price * cartItem.count).toFixed(2)}
-                    </strong>
-                  </p>
-                  <p className="cart-item-title">
-                    {cartItem.item.brand[0].name} {cartItem.item.title}
-                  </p>
-                  <div className="cart-item-info">
-                    <p className="cart-item-color">{cartItem.item.color}</p>
-                    <p className="cart-item-size">{cartItem.selectedSize}</p>
-                    <div className="cart-item-quantity">
-                      <div className="cart-item-quantity-change">
-                        <button
-                          onClick={() =>
-                            dispatch(decrementCount({ id: cartItem.id }))
-                          }
-                        >
-                          -
-                        </button>
-                      </div>
-                      <p>Qty: {cartItem.count}</p>
-                      <div className="cart-item-quantity-change">
-                        <button
-                          onClick={() =>
-                            dispatch(incrementCount({ id: cartItem.id }))
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="cart-item-remove">
-                  <button
-                    onClick={() => {
-                      dispatch(
-                        removeFromCart({
-                          id: cartItem.id,
-                        })
-                      );
-                    }}
-                  >
-                    {<FaTimes className="cart-item-remove-icon" />}
-                  </button>
-                </div>
-              </div>
+              <CartItem
+                cartItemId={cartItem.id}
+                itemId={cartItem.item._id}
+                imgUrl={cartItem.item.imgUrl}
+                title={cartItem.item.brand[0].name + ' ' + cartItem.item.title}
+                cartItemPrice={(cartItem.item.price * cartItem.count).toFixed(
+                  2
+                )}
+                color={cartItem.item.color}
+                selectedSize={cartItem.selectedSize}
+                count={cartItem.count}
+                decrementCallback={() =>
+                  dispatch(decrementCount({ id: cartItem.id }))
+                }
+                incrementCallback={() =>
+                  dispatch(incrementCount({ id: cartItem.id }))
+                }
+                removeCallback={() => {
+                  dispatch(
+                    removeFromCart({
+                      id: cartItem.id,
+                    })
+                  );
+                }}
+              />
             ))
           ) : (
             <div className="cart-empty-container">
