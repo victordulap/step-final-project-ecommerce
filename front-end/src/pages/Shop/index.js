@@ -12,6 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 import { SORT_OPTIONS } from '../../utils/constants';
 import Button from '../../components/Button';
+import ShopItemCard from '../../components/ShopItemCard';
 
 const Shop = () => {
   const urlSearch = useParams();
@@ -100,20 +101,14 @@ const Shop = () => {
           </p>
           <div className="item-cards-container">
             {shopItems.map((item) => (
-              <Link
-                to={`/item/${item._id}`}
+              <ShopItemCard
+                id={item._id}
                 key={item._id}
-                className="item-card"
-              >
-                <div className="item-card-image-container">
-                  <img src={item.imgUrl} alt={item.title} />
-                </div>
-                <h3 className="item-card-title">
-                  {item.brand[0].name} {item.title}
-                </h3>
-                <p className="item-card-color">{item.color}</p>
-                <p className="item-card-price">&#36;{item.price}</p>
-              </Link>
+                color={item.color}
+                imgUrl={item.imgUrl}
+                price={item.price}
+                title={item.brand[0].name + ' ' + item.title}
+              />
             ))}
           </div>
           <div className="load-more-btn">
