@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Button.scss';
+import { FaCircleNotch } from 'react-icons/fa';
 
 const sizes = ['s', 'm', 'l'];
 
@@ -12,13 +13,14 @@ const Button = ({
   routeTo,
   onClick,
   block,
+  loading,
   ...rest
 }) => {
   if (!sizes.includes(size)) size = 'm';
 
   const classes = `btn btn-${size} ${dark ? 'btn-dark' : ''} ${
     block ? 'btn-block' : ''
-  }`;
+  } ${loading ? 'btn-loading' : ''}`;
 
   if (routeTo) {
     return (
@@ -37,8 +39,13 @@ const Button = ({
   }
 
   return (
-    <button className={classes} onClick={onClick} {...rest}>
-      {text}
+    <button
+      disabled={loading || false}
+      className={classes}
+      onClick={onClick}
+      {...rest}
+    >
+      {loading ? <FaCircleNotch className={'loading-icon'} /> : text}
     </button>
   );
 };

@@ -9,7 +9,6 @@ import {
   getAllItemsByCategoryIdSortedByPrice,
   resetState,
 } from '../../features/shopItemsSlice';
-import { Link } from 'react-router-dom';
 import { SORT_OPTIONS } from '../../utils/constants';
 import Button from '../../components/Button';
 import ShopItemCard from '../../components/ShopItemCard';
@@ -18,6 +17,7 @@ const Shop = () => {
   const urlSearch = useParams();
 
   const shopItems = useSelector((state) => state.shopItems.value);
+  const isLoading = useSelector((state) => state.shopItems.isLoading);
   const shopTitle = useSelector((state) => state.shopItems.shopTitle);
   const noMoreToLoad = useSelector((state) => state.shopItems.noMoreToLoad);
   const dispatch = useDispatch();
@@ -97,7 +97,7 @@ const Shop = () => {
       <section className="items">
         <div className="container">
           <p className="items-found">
-            {shopItems.length === 0 && '0 items found'}
+            {!isLoading && shopItems.length === 0 && '0 items found'}
           </p>
           <div className="item-cards-container">
             {shopItems.map((item) => (
@@ -115,7 +115,12 @@ const Shop = () => {
             {noMoreToLoad ? (
               shopItems.length > 0 && <p>{shopItems.length} items above</p>
             ) : (
-              <Button onClick={loadMore} text="LOAD MORE" size="l" />
+              <Button
+                loading={isLoading}
+                onClick={loadMore}
+                text="LOAD MORE"
+                size="l"
+              />
             )}
           </div>
         </div>
