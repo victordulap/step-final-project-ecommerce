@@ -22,50 +22,5 @@
     grid-auto-rows: 1fr;
     gap: 1rem;
     justify-content: center;
-
-    .card {
-      display: block;
-      text-transform: capitalize;
-      transition: transform 0.25s ease;
-      background-color: $neutral-dark;
-      color: $neutral-light-300;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-
-      &-dark {
-        background-color: $neutral-light-300;
-        color: $neutral-dark;
-      }
-
-      &:hover {
-        transform: scale(1.01);
-      }
-
-      .card-image-container {
-        width: 100%;
-        flex: 1 1 auto;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        background-color: $neutral-light-300;
-        color: $neutral-dark;
-
-        img {
-          max-height: 100%;
-          width: 100%;
-          object-fit: contain;
-        }
-      }
-
-      .card-text {
-        font-size: 2rem;
-        font-weight: 600;
-        text-align: center;
-        padding-block: 1em;
-      }
-    }
   }
 }

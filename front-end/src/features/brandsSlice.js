@@ -7,7 +7,7 @@ export const getAllBrands = createAsyncThunk('get/allBrands', async () => {
 });
 
 const initialState = {
-  value: { brands: [] },
+  value: { brands: [], isLoading: true },
 };
 
 export const brandSlice = createSlice({

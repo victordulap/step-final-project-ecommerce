@@ -5,13 +5,14 @@ import SimpleCardsContainer from '../../components/SimpleCardsContainer';
 import { useEffect } from 'react';
 import { getAllBrands } from '../../features/brandsSlice';
 import { getAllCategories } from '../../features/categoriesSlice';
+import { v4 as uuid } from 'uuid';
 
 export function HomePage() {
-  const isLoadingBrands = useSelector((state) => state.brands.isloading);
-  const brands = useSelector((state) => state.brands.value);
+  const isLoadingBrands = useSelector((state) => state.brands.isLoading);
   const isLoadingCategories = useSelector(
     (state) => state.categories.isLoading
   );
+  const brands = useSelector((state) => state.brands.value);
   const categories = useSelector((state) => state.categories.value);
 
   const dispatch = useDispatch();
@@ -31,24 +32,22 @@ export function HomePage() {
       </div>
       <div className="categories-wrapper">
         <div className="container container-dark">
-          {isLoadingCategories && categories ? (
-            'loading'
-          ) : (
-            <SimpleCardsContainer
-              cardsData={categories}
-              title="Categories"
-              darkCards
-            />
-          )}
+          <SimpleCardsContainer
+            isLoading={isLoadingCategories}
+            cardsData={categories}
+            title="Categories"
+            darkCards
+            key={`SimpleCardsContainerCategories-${uuid()}`}
+          />
         </div>
       </div>
-
       <div className="container">
-        {isLoadingBrands && brands ? (
-          'loading'
-        ) : (
-          <SimpleCardsContainer cardsData={brands} title="Brands" />
-        )}
+        <SimpleCardsContainer
+          isLoading={isLoadingBrands}
+          cardsData={brands}
+          title="Brands"
+          key={`SimpleCardsContainerBrands-${uuid()}`}
+        />
       </div>
     </main>
   );

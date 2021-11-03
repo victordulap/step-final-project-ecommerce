@@ -10,7 +10,7 @@ export const getAllCategories = createAsyncThunk(
 );
 
 const initialState = {
-  value: { categories: [] },
+  value: { categories: [], isLoading: true },
 };
 
 export const categoriesSlice = createSlice({

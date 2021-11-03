@@ -1,0 +1,78 @@
+@import '../vars.scss';
+
+.card {
+  display: block;
+  text-transform: capitalize;
+  transition: transform 0.25s ease;
+  background-color: $neutral-dark;
+  color: $neutral-light-300;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  &.card-skeleton {
+    width: 100%;
+    padding-bottom: 150%;
+    height: 0;
+    background-color: $neutral-dark;
+    animation: loadingAnim 0.7s linear infinite alternate;
+
+    @keyframes loadingAnim {
+      0% {
+        background-color: $neutral-dark-0;
+      }
+      100% {
+        background-color: $neutral-dark-300;
+      }
+    }
+  }
+
+  &-dark {
+    background-color: $neutral-light-300;
+    color: $neutral-dark;
+
+    &.card-skeleton {
+      background-color: $neutral-light-600;
+      animation: loadingAnimDark 0.7s linear infinite alternate;
+      @keyframes loadingAnimDark {
+        0% {
+          background-color: $neutral-light-100;
+        }
+        100% {
+          background-color: $neutral-light-900;
+        }
+      }
+    }
+  }
+
+  .card-image-container {
+    width: 100%;
+    flex: 1 1 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $neutral-light-300;
+    color: $neutral-dark;
+
+    img {
+      max-height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .img-loading {
+      width: 100%;
+      padding-bottom: 100%;
+      background-color: inherit;
+    }
+  }
+
+  .card-text {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    padding-block: 1em;
+  }
+}
