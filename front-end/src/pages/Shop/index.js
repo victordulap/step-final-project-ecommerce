@@ -108,7 +108,6 @@ const Shop = () => {
         <div className="container">
           <h1 className="title">{shopTitle}</h1>
         </div>
-        <button onClick={() => history.goBack()}>go back</button>
         <div className="filter-sort-section">
           <div className="sort">
             <select name="sort" onChange={handleSortSelect}>
