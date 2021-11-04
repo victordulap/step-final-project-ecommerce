@@ -12,19 +12,17 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 const Shop = () => {
-  const urlSearch = useParams();
-
   const shopItems = useSelector((state) => state.shopItems.value);
   const isLoading = useSelector((state) => state.shopItems.isLoading);
   const shopTitle = useSelector((state) => state.shopItems.shopTitle);
   const noMoreToLoad = useSelector((state) => state.shopItems.noMoreToLoad);
   const dispatch = useDispatch();
 
-  const page = useRef(1);
-
+  const urlSearch = useParams();
   const { search } = useLocation();
   const history = useHistory();
 
+  const page = useRef(1);
   const [query, setQuery] = useState(queryString.parse(search));
 
   const getDefaultUrlParams = useCallback(() => {
@@ -43,13 +41,11 @@ const Shop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    page.current = 1;
     let queryObj = queryString.parse(search);
 
     // default params for api call
     queryObj = { ...queryObj, ...getDefaultUrlParams() };
-
-    // // set state
-    // setQuery(queryObj);
 
     const q = Object.entries(queryObj)
       .map(([key, value]) => `${key}=${value}`)
@@ -86,12 +82,21 @@ const Shop = () => {
       .filter((val) => val !== null)
       .join('&');
 
+    console.log('re-direct');
     // change link
     history.push(`/${urlSearch.type}/${urlSearch.id}?${searchQuery}`);
-  }, [history, query, urlSearch.id, urlSearch.type]);
+  }, [query]);
 
   const loadMore = () => {
     page.current = page.current + 1;
+
+    let queryObj = queryString.parse(search);
+    queryObj = { ...queryObj, ...getDefaultUrlParams(), page: page.current };
+    const q = Object.entries(queryObj)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&');
+
+    dispatch(getItems(q));
   };
 
   return (
