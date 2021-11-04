@@ -1,14 +1,8 @@
 import './style.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getAllItemsByBrandId,
-  getAllItemsByBrandIdSortedByPrice,
-  getAllItemsByCategoryId,
-  getAllItemsByCategoryIdSortedByPrice,
-  resetState,
-} from '../../features/shopItemsSlice';
+import { getItems, resetState } from '../../features/shopItemsSlice';
 import { SORT_OPTIONS } from '../../utils/constants';
 import Button from '../../components/Button';
 import ShopItemCard from '../../components/ShopItemCard';
@@ -33,32 +27,47 @@ const Shop = () => {
   const { search } = useLocation();
   const history = useHistory();
 
-  useEffect(() => {
-    const queryStr = queryString.parse(search);
-    console.log('query: ', queryStr);
-    // make api req
-  }, [search]);
+  const getDefaultUrlParams = useCallback(() => {
+    const queryObj = {};
+
+    queryObj.shopTitle = true;
+    queryObj.page = 1;
+    if (urlSearch.type === 'brands') {
+      queryObj.brandIds = urlSearch.id;
+    } else if (urlSearch.type === 'categories') {
+      queryObj.categoryIds = urlSearch.id;
+    }
+
+    return queryObj;
+  }, [urlSearch.id, urlSearch.type]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const searchBy = urlSearch.type;
-
-    if (searchBy === 'brands') {
-      dispatch(getAllItemsByBrandId({ id: urlSearch.id }));
-    } else if (searchBy === 'categories') {
-      dispatch(getAllItemsByCategoryId({ id: urlSearch.id }));
-    }
-
     return () => {
       dispatch(resetState());
     };
-  }, [dispatch, urlSearch]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    // page.current = 1;
+    let queryObj = queryString.parse(search);
+
+    // default params for api call
+    queryObj = { ...queryObj, ...getDefaultUrlParams() };
+
+    const q = Object.entries(queryObj)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&');
+    console.log(q);
+
+    // make api req
+    dispatch(getItems(q));
+  }, [dispatch, getDefaultUrlParams, search]);
 
   const handleSortSelect = (event) => {
     // set url to sort
     const selectedOption = event.target.value;
-    console.log(selectedOption);
     if (
       selectedOption === SORT_OPTIONS.asc.param ||
       selectedOption === SORT_OPTIONS.desc.param
@@ -70,25 +79,6 @@ const Shop = () => {
     } else {
       setQuery((old) => ({ ...old, sort: '' }));
     }
-    // history.push(`/${urlSearch.type}/${urlSearch.id}?${q}`);
-
-    // const searchBy = urlSearch.type;
-    // if (selectedOption === SORT_OPTIONS.none) {
-    //   if (searchBy === 'brands') {
-    //     dispatch(getAllItemsByBrandId(urlSearch.id));
-    //   } else if (searchBy === 'categories') {
-    //     dispatch(getAllItemsByCategoryId(urlSearch.id));
-    //   }
-    //   return;
-    // }
-
-    // const asc = selectedOption === SORT_OPTIONS.lowUp;
-
-    // if (searchBy === 'brands') {
-    //   dispatch(getAllItemsByBrandIdSortedByPrice({ id: urlSearch.id, asc }));
-    // } else if (searchBy === 'categories') {
-    //   dispatch(getAllItemsByCategoryIdSortedByPrice({ id: urlSearch.id, asc }));
-    // }
   };
 
   useEffect(() => {
@@ -99,20 +89,10 @@ const Shop = () => {
 
     // change link
     history.push(`/${urlSearch.type}/${urlSearch.id}?${searchQuery}`);
-  }, [query]);
+  }, [history, query, urlSearch.id, urlSearch.type]);
 
   const loadMore = () => {
-    const searchBy = urlSearch.type;
-
     page.current = page.current + 1;
-
-    if (searchBy === 'brands') {
-      dispatch(getAllItemsByBrandId({ id: urlSearch.id, page: page.current }));
-    } else if (searchBy === 'categories') {
-      dispatch(
-        getAllItemsByCategoryId({ id: urlSearch.id, page: page.current })
-      );
-    }
   };
 
   return (
