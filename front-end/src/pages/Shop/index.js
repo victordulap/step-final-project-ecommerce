@@ -36,6 +36,7 @@ const Shop = () => {
   useEffect(() => {
     const queryStr = queryString.parse(search);
     console.log('query: ', queryStr);
+    // make api req
   }, [search]);
 
   useEffect(() => {
@@ -95,7 +96,9 @@ const Shop = () => {
       .map((val) => (val[1] ? `${val[0]}=${val[1]}` : null))
       .filter((val) => val !== null)
       .join('&');
-    console.log(searchQuery);
+
+    // change link
+    history.push(`/${urlSearch.type}/${urlSearch.id}?${searchQuery}`);
   }, [query]);
 
   const loadMore = () => {
