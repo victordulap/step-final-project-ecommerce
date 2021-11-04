@@ -58,10 +58,10 @@ const Shop = () => {
   const handleSortSelect = (event) => {
     // set url to sort
     const selectedOption = event.target.value;
-    let q;
+    console.log(selectedOption);
     if (
-      selectedOption === SORT_OPTIONS.asc ||
-      selectedOption === SORT_OPTIONS.desc
+      selectedOption === SORT_OPTIONS.asc.param ||
+      selectedOption === SORT_OPTIONS.desc.param
     ) {
       setQuery((old) => ({
         ...old,
@@ -125,8 +125,11 @@ const Shop = () => {
           <div className="sort">
             <select name="sort" onChange={handleSortSelect}>
               {Object.keys(SORT_OPTIONS).map((key) => (
-                <option key={`sort-option-${key}`} value={SORT_OPTIONS[key]}>
-                  {SORT_OPTIONS[key]}
+                <option
+                  key={`sort-option-${key}`}
+                  value={SORT_OPTIONS[key].param}
+                >
+                  {SORT_OPTIONS[key].text}
                 </option>
               ))}
             </select>
