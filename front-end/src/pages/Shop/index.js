@@ -1,5 +1,5 @@
 import './style.scss';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -13,6 +13,9 @@ import { SORT_OPTIONS } from '../../utils/constants';
 import Button from '../../components/Button';
 import ShopItemCard from '../../components/ShopItemCard';
 import ShopItemCardSkeleton from '../../components/ShopItemCardSkeleton';
+import queryString from 'query-string';
+import { useLocation, useHistory } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 const Shop = () => {
   const urlSearch = useParams();
@@ -24,6 +27,16 @@ const Shop = () => {
   const dispatch = useDispatch();
 
   const page = useRef(1);
+
+  const [query, setQuery] = useState({});
+
+  const { search } = useLocation();
+  const history = useHistory();
+
+  useEffect(() => {
+    const queryStr = queryString.parse(search);
+    console.log('query: ', queryStr);
+  }, [search]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,25 +55,48 @@ const Shop = () => {
   }, [dispatch, urlSearch]);
 
   const handleSortSelect = (event) => {
-    const searchBy = urlSearch.type;
+    // set url to sort
     const selectedOption = event.target.value;
-    if (selectedOption === SORT_OPTIONS.none) {
-      if (searchBy === 'brands') {
-        dispatch(getAllItemsByBrandId(urlSearch.id));
-      } else if (searchBy === 'categories') {
-        dispatch(getAllItemsByCategoryId(urlSearch.id));
-      }
-      return;
+    let q;
+    if (
+      selectedOption === SORT_OPTIONS.asc ||
+      selectedOption === SORT_OPTIONS.desc
+    ) {
+      setQuery((old) => ({
+        ...old,
+        sort: selectedOption,
+      }));
+    } else {
+      setQuery((old) => ({ ...old, sort: '' }));
     }
+    // history.push(`/${urlSearch.type}/${urlSearch.id}?${q}`);
 
-    const asc = selectedOption === SORT_OPTIONS.lowUp;
+    // const searchBy = urlSearch.type;
+    // if (selectedOption === SORT_OPTIONS.none) {
+    //   if (searchBy === 'brands') {
+    //     dispatch(getAllItemsByBrandId(urlSearch.id));
+    //   } else if (searchBy === 'categories') {
+    //     dispatch(getAllItemsByCategoryId(urlSearch.id));
+    //   }
+    //   return;
+    // }
 
-    if (searchBy === 'brands') {
-      dispatch(getAllItemsByBrandIdSortedByPrice({ id: urlSearch.id, asc }));
-    } else if (searchBy === 'categories') {
-      dispatch(getAllItemsByCategoryIdSortedByPrice({ id: urlSearch.id, asc }));
-    }
+    // const asc = selectedOption === SORT_OPTIONS.lowUp;
+
+    // if (searchBy === 'brands') {
+    //   dispatch(getAllItemsByBrandIdSortedByPrice({ id: urlSearch.id, asc }));
+    // } else if (searchBy === 'categories') {
+    //   dispatch(getAllItemsByCategoryIdSortedByPrice({ id: urlSearch.id, asc }));
+    // }
   };
+
+  useEffect(() => {
+    const searchQuery = Object.entries(query)
+      .map((val) => (val[1] ? `${val[0]}=${val[1]}` : null))
+      .filter((val) => val !== null)
+      .join('&');
+    console.log(searchQuery);
+  }, [query]);
 
   const loadMore = () => {
     const searchBy = urlSearch.type;
@@ -116,7 +152,7 @@ const Shop = () => {
               shopItems.map((item) => (
                 <ShopItemCard
                   id={item._id}
-                  key={item._id}
+                  key={item._id + uuid()}
                   color={item.color}
                   imgUrl={item.imgUrl}
                   price={item.price}

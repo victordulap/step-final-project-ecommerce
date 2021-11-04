@@ -19,9 +19,6 @@ const App = () => (
         <Route path="/item/:id">
           <Item />
         </Route>
-        <Route path="/shop/search?=:query">
-          <Shop />
-        </Route>
         <Route path="/:type/:id">
           <Shop />
         </Route>
