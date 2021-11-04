@@ -22,10 +22,10 @@ const Shop = () => {
 
   const page = useRef(1);
 
-  const [query, setQuery] = useState({});
-
   const { search } = useLocation();
   const history = useHistory();
+
+  const [query, setQuery] = useState(queryString.parse(search));
 
   const getDefaultUrlParams = useCallback(() => {
     const queryObj = {};
@@ -43,18 +43,13 @@ const Shop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    return () => {
-      dispatch(resetState());
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    // page.current = 1;
     let queryObj = queryString.parse(search);
 
     // default params for api call
     queryObj = { ...queryObj, ...getDefaultUrlParams() };
+
+    // // set state
+    // setQuery(queryObj);
 
     const q = Object.entries(queryObj)
       .map(([key, value]) => `${key}=${value}`)
@@ -63,6 +58,10 @@ const Shop = () => {
 
     // make api req
     dispatch(getItems(q));
+
+    return () => {
+      dispatch(resetState());
+    };
   }, [dispatch, getDefaultUrlParams, search]);
 
   const handleSortSelect = (event) => {
