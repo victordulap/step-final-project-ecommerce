@@ -25,6 +25,8 @@ const Shop = () => {
   const page = useRef(1);
   const [query, setQuery] = useState(queryString.parse(search));
 
+  const [sortOption, setSortOption] = useState(SORT_OPTIONS.none.param);
+
   const getDefaultUrlParams = useCallback(() => {
     const queryObj = {};
 
@@ -43,6 +45,7 @@ const Shop = () => {
     // window.scrollTo(0, 0);
     page.current = 1;
     let queryObj = queryString.parse(search);
+    setSortOption(queryObj.sort || SORT_OPTIONS.none.param);
 
     // default params for api call
     queryObj = { ...queryObj, ...getDefaultUrlParams() };
@@ -75,6 +78,7 @@ const Shop = () => {
   }, [query]);
 
   const handleSortSelect = (event) => {
+    setSortOption(event.target.value);
     // set url to sort
     const selectedOption = event.target.value;
     if (
@@ -86,7 +90,7 @@ const Shop = () => {
         sort: selectedOption,
       }));
     } else {
-      setQuery((old) => ({ ...old, sort: '' }));
+      setQuery((old) => ({ ...old, sort: 'none' }));
     }
   };
 
@@ -110,7 +114,7 @@ const Shop = () => {
         </div>
         <div className="filter-sort-section">
           <div className="sort">
-            <select name="sort" onChange={handleSortSelect}>
+            <select name="sort" value={sortOption} onChange={handleSortSelect}>
               {Object.keys(SORT_OPTIONS).map((key) => (
                 <option
                   key={`sort-option-${key}`}
