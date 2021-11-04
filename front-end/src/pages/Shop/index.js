@@ -18,9 +18,9 @@ const Shop = () => {
   const noMoreToLoad = useSelector((state) => state.shopItems.noMoreToLoad);
   const dispatch = useDispatch();
 
-  const urlSearch = useParams();
-  const { search } = useLocation();
   const history = useHistory();
+  const urlSearch = useParams();
+  const { search, pathname } = useLocation();
 
   const page = useRef(1);
   const [query, setQuery] = useState(queryString.parse(search));
@@ -40,7 +40,7 @@ const Shop = () => {
   }, [urlSearch.id, urlSearch.type]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     page.current = 1;
     let queryObj = queryString.parse(search);
 
@@ -58,7 +58,21 @@ const Shop = () => {
     return () => {
       dispatch(resetState());
     };
-  }, [dispatch, getDefaultUrlParams, search]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
+
+  useEffect(() => {
+    const searchQuery = Object.entries(query)
+      .map((val) => (val[1] ? `${val[0]}=${val[1]}` : null))
+      .filter((val) => val !== null)
+      .join('&');
+
+    const newUrl = `/${urlSearch.type}/${urlSearch.id}?${searchQuery}`;
+    if (searchQuery) {
+      history.push(newUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   const handleSortSelect = (event) => {
     // set url to sort
@@ -75,17 +89,6 @@ const Shop = () => {
       setQuery((old) => ({ ...old, sort: '' }));
     }
   };
-
-  useEffect(() => {
-    const searchQuery = Object.entries(query)
-      .map((val) => (val[1] ? `${val[0]}=${val[1]}` : null))
-      .filter((val) => val !== null)
-      .join('&');
-
-    console.log('re-direct');
-    // change link
-    history.push(`/${urlSearch.type}/${urlSearch.id}?${searchQuery}`);
-  }, [query]);
 
   const loadMore = () => {
     page.current = page.current + 1;
@@ -105,6 +108,7 @@ const Shop = () => {
         <div className="container">
           <h1 className="title">{shopTitle}</h1>
         </div>
+        <button onClick={() => history.goBack()}>go back</button>
         <div className="filter-sort-section">
           <div className="sort">
             <select name="sort" onChange={handleSortSelect}>
