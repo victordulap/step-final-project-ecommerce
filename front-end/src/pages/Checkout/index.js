@@ -35,6 +35,11 @@ const Checkout = () => {
   ];
   const shippingFormFields = [
     {
+      label: 'email',
+      key: 'email',
+      component: <input type="email" name="email" />,
+    },
+    {
       label: 'first name',
       key: 'firstName',
       component: <input type="text" name="firstName" />,
