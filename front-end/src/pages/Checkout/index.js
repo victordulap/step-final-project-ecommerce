@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.scss';
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 const Checkout = () => {
+  const [isPaymentFormHidden, setIsPaymentFormHidden] = useState(false);
+  const [isShippingFormHidden, setIsShippingFormHidden] = useState(false);
+
   const paymentFormFields = [
     {
       label: 'card number',
@@ -78,10 +82,27 @@ const Checkout = () => {
           <p>total: 150.00$</p>
         </section>
         <section className="form-section shipping-address">
-          <h2 className="form-title  letter-spacing">shipping details</h2>
+          <header>
+            <h2 className="form-title letter-spacing">shipping details</h2>
+            {isShippingFormHidden ? (
+              <FaChevronDown
+                className="toggle-form"
+                onClick={() => setIsShippingFormHidden(false)}
+              />
+            ) : (
+              <FaChevronUp
+                className="toggle-form"
+                onClick={() => setIsShippingFormHidden(true)}
+              />
+            )}
+          </header>
           <form>
             {shippingFormFields.map((field) => (
-              <div className="form-item" key={`form-item-ship-${field.key}`}>
+              <div
+                style={isShippingFormHidden ? { display: 'none' } : {}}
+                className="form-item"
+                key={`form-item-ship-${field.key}`}
+              >
                 <label htmlFor={field.key}>{field.label} :</label>
                 {field.component}
               </div>
@@ -89,10 +110,27 @@ const Checkout = () => {
           </form>
         </section>
         <section className="form-section payment-details">
-          <h2 className="form-title letter-spacing">payment details</h2>
+          <header>
+            <h2 className="form-title letter-spacing">payment details</h2>
+            {isPaymentFormHidden ? (
+              <FaChevronDown
+                className="toggle-form"
+                onClick={() => setIsPaymentFormHidden(false)}
+              />
+            ) : (
+              <FaChevronUp
+                className="toggle-form"
+                onClick={() => setIsPaymentFormHidden(true)}
+              />
+            )}
+          </header>
           <form>
             {paymentFormFields.map((field) => (
-              <div className="form-item" key={`form-item-pay-${field.key}`}>
+              <div
+                style={isPaymentFormHidden ? { display: 'none' } : {}}
+                className="form-item"
+                key={`form-item-pay-${field.key}`}
+              >
                 <label className="letter-spacing" htmlFor={field.key}>
                   {field.label} :
                 </label>

@@ -26,13 +26,28 @@ main.checkout {
   }
 
   section.form-section {
-    .form-title {
-      text-transform: uppercase;
-      font-size: 2.2em;
-      color: $neutral-dark-300;
-      font-weight: 600;
-      margin-bottom: 1em;
-      padding-top: 1em;
+    font-size: 1rem;
+    padding: 3rem 3rem;
+
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2em;
+      .form-title {
+        display: block;
+        flex: 1 0 auto;
+        text-transform: uppercase;
+        font-size: 2.4em;
+        color: $neutral-dark-300;
+        font-weight: 600;
+      }
+
+      .toggle-form {
+        font-size: 2em;
+        background: none;
+        height: auto;
+        cursor: pointer;
+      }
     }
 
     form {
