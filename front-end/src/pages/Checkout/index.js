@@ -43,16 +43,20 @@ const Checkout = () => {
       component: (
         <div className="split-inputs">
           <input
-            defaultValue={123}
+            defaultValue={12}
             type="number"
             name={fieldKeys.expiryMonth}
             placeholder="Month"
+            min={1}
+            max={12}
           />
           <input
-            defaultValue={123}
+            defaultValue={2025}
             type="number"
             name={fieldKeys.expiryYear}
             placeholder="Year"
+            min={2000}
+            max={2050}
           />
         </div>
       ),
@@ -144,6 +148,9 @@ const Checkout = () => {
 
         if (key === fieldKeys.cardNumber) {
           formCompletedSuccessfully = validator.isCreditCard(e[key].value);
+          if (!formCompletedSuccessfully) break;
+        } else if (key === fieldKeys.email) {
+          formCompletedSuccessfully = validator.isEmail(e[key].value);
           if (!formCompletedSuccessfully) break;
         }
       } else {
