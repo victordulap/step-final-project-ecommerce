@@ -119,6 +119,7 @@ const Cart = () => {
                   block
                   text="CHECKOUT"
                   disabled={cartTotal <= 0}
+                  linkTo="/checkout"
                 />
               </div>
             </section>

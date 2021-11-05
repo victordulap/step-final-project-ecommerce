@@ -6,6 +6,14 @@
   margin: 0.5em 0;
   user-select: none;
 
+  @media screen and (max-width: $screen-size-s) {
+    font-size: 3rem;
+  }
+
+  @media screen and (max-width: $screen-size-xs) {
+    font-size: 2.6rem;
+  }
+
   h2 {
     font-weight: 700;
     text-align: center;

@@ -61,11 +61,19 @@ main.cart {
         flex: 1 1 auto;
         font-size: 1.15rem;
 
+        @media screen and (max-width: $screen-size-xs) {
+          font-size: 1.075rem;
+        }
+
+        @media screen and (max-width: $screen-size-xxs) {
+          font-size: 1.025rem;
+        }
+
         .cart-item-info {
           display: flex;
           width: 100%;
           justify-content: space-between;
-          font-size: 1.05rem;
+          font-size: 0.9em;
 
           .cart-item-size {
             text-transform: uppercase;
@@ -76,15 +84,20 @@ main.cart {
             align-items: center;
             gap: 0.75em;
 
+            @media screen and (max-width: $screen-size-xxs) {
+              gap: 0.5em;
+            }
+
             &-change {
               display: flex;
               button {
-                font-size: 2.2rem;
+                font-size: 2.1em;
                 display: block;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 background: transparent;
+                color: $loading-dark-0;
               }
             }
           }
@@ -92,8 +105,11 @@ main.cart {
       }
 
       .cart-item-remove {
-        flex: 0 1 auto;
-        margin-left: 1rem;
+        // flex: 0 1 auto;
+        position: absolute;
+        top: 0;
+        right: 0;
+        // margin-left: 1rem;
 
         button {
           font-size: 2rem;
@@ -102,6 +118,7 @@ main.cart {
           align-items: center;
           justify-content: center;
           background: transparent;
+          color: $loading-dark-0;
 
           .cart-item-remove-icon {
             font-size: 2rem;

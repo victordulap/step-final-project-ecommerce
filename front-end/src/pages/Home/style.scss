@@ -2,6 +2,7 @@
 
 main {
   font-size: 1rem;
+
   .container {
     .hero {
       background-color: $neutral-light;
@@ -9,6 +10,14 @@ main {
       text-align: center;
       font-size: 1.7rem;
       padding: 8em 1em;
+
+      @media screen and (max-width: $screen-size-s) {
+        font-size: 1.5rem;
+      }
+
+      @media screen and (max-width: $screen-size-xs) {
+        font-size: 1.2rem;
+      }
 
       h1 {
         font-size: 4em;
