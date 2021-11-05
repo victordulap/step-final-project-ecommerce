@@ -25,52 +25,53 @@ main.checkout {
     font-weight: 500;
   }
 
-  section.form-section {
+  form {
+    display: flex;
+    flex-direction: column;
     font-size: 1rem;
-    padding: 3rem 3rem;
 
-    header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2em;
-      .form-title {
-        display: block;
-        flex: 1 0 auto;
-        text-transform: uppercase;
-        font-size: 2.2em;
-        color: $neutral-dark-300;
-        font-weight: 600;
+    section.form-section {
+      padding: 3rem 3rem;
+
+      header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 3em;
+
+        .form-title {
+          display: block;
+          flex: 1 0 auto;
+          text-transform: uppercase;
+          font-size: 2.15em;
+          color: $neutral-dark-300;
+          font-weight: 600;
+        }
+
+        .toggle-form {
+          font-size: 1.85em;
+          background: none;
+          height: auto;
+          cursor: pointer;
+        }
       }
-
-      .toggle-form {
-        font-size: 2em;
-        background: none;
-        height: auto;
-        cursor: pointer;
-      }
-    }
-
-    form {
-      font-size: 1.6em;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2em;
 
       .form-item {
         display: flex;
         flex-direction: column;
-        gap: 0.5em;
+        gap: 1em;
+        margin-bottom: 2em;
 
         label {
           text-transform: uppercase;
           color: $neutral-dark-0;
           font-weight: 500;
+          font-size: 1.7em;
         }
 
         input {
           border: 1px solid $neutral-dark-0;
-          font-size: 0.85em;
-          padding: 0.6em 0.5em;
+          font-size: 1.6em;
+          padding: 0.6em 0.8rem;
           color: $neutral-dark-300;
 
           &:focus {
@@ -89,6 +90,16 @@ main.checkout {
             width: 100%;
           }
         }
+      }
+    }
+
+    section.submit-form {
+      button {
+        background: $accent-green;
+        font-size: 2em;
+        width: 100%;
+        padding: 1em 0;
+        color: $neutral-light-100;
       }
     }
   }

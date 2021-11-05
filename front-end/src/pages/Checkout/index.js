@@ -1,222 +1,159 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './style.scss';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import validator from 'validator';
 
 const Checkout = () => {
   const [isPaymentFormHidden, setIsPaymentFormHidden] = useState(false);
   const [isShippingFormHidden, setIsShippingFormHidden] = useState(false);
-  const [orderDetails, setOrderDetails] = useState({});
+  const form = useRef('form');
+
+  const fieldKeys = {
+    cardNumber: 'cardNumber',
+    expiryMonth: 'expiryMonth',
+    expiryYear: 'expiryYear',
+    nameOnCard: 'nameOnCard',
+    cvv: 'cvv',
+    email: 'email',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    mobile: 'mobile',
+    country: 'country',
+    city: 'city',
+    address: 'address',
+    postcode: 'postcode',
+  };
 
   const paymentFormFields = [
     {
       label: 'card number',
-      key: 'cardNumber',
+      key: fieldKeys.cardNumber,
       component: (
         <input
+          defaultValue={'4012 8888 8888 1881'}
+          placeholder="4012 8888 8888 1881"
           type="text"
-          name="cardNumber"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              pay: { ...old.pay, cardNumber: target.value },
-            }))
-          }
+          name={fieldKeys.cardNumber}
         />
       ),
     },
     {
       label: 'expiry date',
-      key: 'expiryMonth',
+      key: 'expiryDate',
       component: (
         <div className="split-inputs">
           <input
+            defaultValue={123}
             type="number"
-            name="expiryMonth"
+            name={fieldKeys.expiryMonth}
             placeholder="Month"
-            onChange={({ target }) =>
-              setOrderDetails((old) => ({
-                ...old,
-                pay: { ...old.pay, expiryMonth: target.value },
-              }))
-            }
           />
           <input
+            defaultValue={123}
             type="number"
-            name="expiryYear"
+            name={fieldKeys.expiryYear}
             placeholder="Year"
-            onChange={({ target }) =>
-              setOrderDetails((old) => ({
-                ...old,
-                pay: { ...old.pay, expiryYear: target.value },
-              }))
-            }
           />
         </div>
       ),
     },
     {
       label: 'name on card',
-      key: 'nameOnCard',
+      key: fieldKeys.nameOnCard,
       component: (
-        <input
-          type="text"
-          name="nameOnCard"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              pay: { ...old.pay, nameOnCard: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="text" name={fieldKeys.nameOnCard} />
       ),
     },
     {
       label: 'cvv',
-      key: 'cvv',
+      key: fieldKeys.cvv,
       component: (
-        <input
-          type="number"
-          name="cvv"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              pay: { ...old.pay, cvv: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="number" name={fieldKeys.cvv} />
       ),
     },
   ];
   const shippingFormFields = [
     {
       label: 'email',
-      key: 'email',
+      key: fieldKeys.email,
       component: (
         <input
+          defaultValue={'email@gmail.com'}
           type="email"
-          name="email"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, email: target.value },
-            }))
-          }
+          name={fieldKeys.email}
         />
       ),
     },
     {
       label: 'first name',
-      key: 'firstName',
+      key: fieldKeys.firstName,
       component: (
-        <input
-          type="text"
-          name="firstName"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, firstName: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="text" name={fieldKeys.firstName} />
       ),
     },
     {
       label: 'last name',
-      key: 'lastName',
+      key: fieldKeys.lastName,
       component: (
-        <input
-          type="text"
-          name="lastName"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, lastName: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="text" name={fieldKeys.lastName} />
       ),
     },
     {
       label: 'mobile',
-      key: 'mobile',
+      key: fieldKeys.mobile,
       component: (
-        <input
-          type="tel"
-          name="mobile"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, mobile: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="tel" name={fieldKeys.mobile} />
       ),
     },
     {
       label: 'country',
-      key: 'country',
+      key: fieldKeys.country,
       component: (
-        <input
-          type="text"
-          name="country"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, country: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="text" name={fieldKeys.country} />
       ),
     },
     {
       label: 'city',
-      key: 'city',
-      component: (
-        <input
-          type="text"
-          name="city"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, city: target.value },
-            }))
-          }
-        />
-      ),
+      key: fieldKeys.city,
+      component: <input defaultValue={123} type="text" name={fieldKeys.city} />,
     },
     {
       label: 'address',
-      key: 'address',
+      key: fieldKeys.address,
       component: (
-        <input
-          type="text"
-          name="address"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, address: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="text" name={fieldKeys.address} />
       ),
     },
     {
       label: 'postcode',
-      key: 'postcode',
+      key: fieldKeys.postcode,
       component: (
-        <input
-          type="text"
-          name="postcode"
-          onChange={({ target }) =>
-            setOrderDetails((old) => ({
-              ...old,
-              ship: { ...old.ship, postcode: target.value },
-            }))
-          }
-        />
+        <input defaultValue={123} type="text" name={fieldKeys.postcode} />
       ),
     },
   ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e = e.target;
+    let formCompletedSuccessfully = true;
+
+    for (const [key, value] of Object.entries(fieldKeys)) {
+      if (e[key] && e[key].value) {
+        console.log(`${key}: ${e[key].value}`);
+
+        if (key === fieldKeys.cardNumber) {
+          formCompletedSuccessfully = validator.isCreditCard(e[key].value);
+          if (!formCompletedSuccessfully) break;
+        }
+      } else {
+        formCompletedSuccessfully = false;
+        break;
+      }
+    }
+
+    console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
+  };
 
   return (
     <main className="checkout">
@@ -228,22 +165,22 @@ const Checkout = () => {
           <p>items: 10</p>
           <p>total: 150.00$</p>
         </section>
-        <section className="form-section shipping-address">
-          <header>
-            <h2 className="form-title letter-spacing">shipping details</h2>
-            {isShippingFormHidden ? (
-              <FaChevronDown
-                className="toggle-form"
-                onClick={() => setIsShippingFormHidden(false)}
-              />
-            ) : (
-              <FaChevronUp
-                className="toggle-form"
-                onClick={() => setIsShippingFormHidden(true)}
-              />
-            )}
-          </header>
-          <form>
+        <form ref={form} onSubmit={handleSubmit}>
+          <section className="form-section shipping-address">
+            <header>
+              <h2 className="form-title letter-spacing">shipping details</h2>
+              {isShippingFormHidden ? (
+                <FaChevronDown
+                  className="toggle-form"
+                  onClick={() => setIsShippingFormHidden(false)}
+                />
+              ) : (
+                <FaChevronUp
+                  className="toggle-form"
+                  onClick={() => setIsShippingFormHidden(true)}
+                />
+              )}
+            </header>
             {shippingFormFields.map((field) => (
               <div
                 style={isShippingFormHidden ? { display: 'none' } : {}}
@@ -254,24 +191,22 @@ const Checkout = () => {
                 {field.component}
               </div>
             ))}
-          </form>
-        </section>
-        <section className="form-section payment-details">
-          <header>
-            <h2 className="form-title letter-spacing">payment details</h2>
-            {isPaymentFormHidden ? (
-              <FaChevronDown
-                className="toggle-form"
-                onClick={() => setIsPaymentFormHidden(false)}
-              />
-            ) : (
-              <FaChevronUp
-                className="toggle-form"
-                onClick={() => setIsPaymentFormHidden(true)}
-              />
-            )}
-          </header>
-          <form>
+          </section>
+          <section className="form-section payment-details">
+            <header>
+              <h2 className="form-title letter-spacing">payment details</h2>
+              {isPaymentFormHidden ? (
+                <FaChevronDown
+                  className="toggle-form"
+                  onClick={() => setIsPaymentFormHidden(false)}
+                />
+              ) : (
+                <FaChevronUp
+                  className="toggle-form"
+                  onClick={() => setIsPaymentFormHidden(true)}
+                />
+              )}
+            </header>
             {paymentFormFields.map((field) => (
               <div
                 style={isPaymentFormHidden ? { display: 'none' } : {}}
@@ -284,8 +219,13 @@ const Checkout = () => {
                 {field.component}
               </div>
             ))}
-          </form>
-        </section>
+          </section>
+          <section className="submit-form">
+            <button onSubmit={handleSubmit} type="submit">
+              PLACE ORDER
+            </button>
+          </section>
+        </form>
       </div>
     </main>
   );
