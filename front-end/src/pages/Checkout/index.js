@@ -20,6 +20,8 @@ const Checkout = () => {
   const [isShippingFormHidden, setIsShippingFormHidden] = useState(false);
   const form = useRef('form');
 
+  const [formErrors, setFormErrors] = useState({});
+
   const fieldKeys = {
     cardNumber: 'cardNumber',
     expiryMonth: 'expiryMonth',
@@ -41,50 +43,91 @@ const Checkout = () => {
       label: 'card number',
       key: fieldKeys.cardNumber,
       component: (
-        <input
-          defaultValue={'4012 8888 8888 1881'}
-          placeholder="4012 8888 8888 1881"
-          type="text"
-          name={fieldKeys.cardNumber}
-        />
+        <>
+          {formErrors[fieldKeys.cardNumber] && (
+            <p className="input-error">{formErrors[fieldKeys.cardNumber]}</p>
+          )}
+          <input
+            className={formErrors[fieldKeys.cardNumber] ? 'error-border' : ''}
+            defaultValue={'4012 8888 8888 1881'}
+            placeholder="4012 8888 8888 1881"
+            type="text"
+            name={fieldKeys.cardNumber}
+          />
+        </>
       ),
     },
     {
       label: 'expiry date',
       key: 'expiryDate',
       component: (
-        <div className="split-inputs">
-          <input
-            defaultValue={12}
-            type="number"
-            name={fieldKeys.expiryMonth}
-            placeholder="Month"
-            min={1}
-            max={12}
-          />
-          <input
-            defaultValue={new Date().getFullYear() + 2}
-            type="number"
-            name={fieldKeys.expiryYear}
-            placeholder="Year"
-            min={new Date().getFullYear()}
-            max={new Date().getFullYear() + 10}
-          />
-        </div>
+        <>
+          {(formErrors[fieldKeys.expiryMonth] ||
+            formErrors[fieldKeys.expiryYear]) && (
+            <p className="input-error">
+              {formErrors[fieldKeys.expiryMonth] ||
+                formErrors[fieldKeys.expiryYear]}
+            </p>
+          )}
+          <div className="split-inputs">
+            <input
+              className={
+                formErrors[fieldKeys.expiryMonth] ? 'error-border' : ''
+              }
+              defaultValue={12}
+              type="number"
+              name={fieldKeys.expiryMonth}
+              placeholder="Month"
+              min={1}
+              max={12}
+            />
+            <input
+              className={formErrors[fieldKeys.expiryYear] ? 'error-border' : ''}
+              defaultValue={new Date().getFullYear() + 2}
+              type="number"
+              name={fieldKeys.expiryYear}
+              placeholder="Year"
+              min={new Date().getFullYear()}
+              max={new Date().getFullYear() + 10}
+            />
+          </div>
+        </>
       ),
     },
     {
       label: 'name on card',
       key: fieldKeys.nameOnCard,
       component: (
-        <input defaultValue={123} type="text" name={fieldKeys.nameOnCard} />
+        <>
+          {formErrors[fieldKeys.nameOnCard] && (
+            <p className="input-error">{formErrors[fieldKeys.nameOnCard]}</p>
+          )}
+          <input
+            defaultValue={123}
+            className={formErrors[fieldKeys.nameOnCard] ? 'error-border' : ''}
+            type="text"
+            name={fieldKeys.nameOnCard}
+          />
+        </>
       ),
     },
     {
       label: 'cvv',
       key: fieldKeys.cvv,
       component: (
-        <input defaultValue={123} type="number" name={fieldKeys.cvv} />
+        <>
+          {formErrors[fieldKeys.cvv] && (
+            <p className="input-error">{formErrors[fieldKeys.cvv]}</p>
+          )}
+          <input
+            className={formErrors[fieldKeys.cvv] ? 'error-border' : ''}
+            defaultValue={123}
+            type="number"
+            name={fieldKeys.cvv}
+            min={100}
+            max={999}
+          />
+        </>
       ),
     },
   ];
@@ -93,83 +136,178 @@ const Checkout = () => {
       label: 'email',
       key: fieldKeys.email,
       component: (
-        <input
-          defaultValue={'email@gmail.com'}
-          type="email"
-          name={fieldKeys.email}
-        />
+        <>
+          {formErrors[fieldKeys.email] && (
+            <p className="input-error">{formErrors[fieldKeys.email]}</p>
+          )}
+          <input
+            className={formErrors[fieldKeys.email] ? 'error-border' : ''}
+            defaultValue={'email@gmail.com'}
+            type="email"
+            name={fieldKeys.email}
+          />
+        </>
       ),
     },
     {
       label: 'first name',
       key: fieldKeys.firstName,
       component: (
-        <input defaultValue={123} type="text" name={fieldKeys.firstName} />
+        <>
+          {formErrors[fieldKeys.firstName] && (
+            <p className="input-error">{formErrors[fieldKeys.firstName]}</p>
+          )}
+          <input
+            className={formErrors[fieldKeys.firstName] ? 'error-border' : ''}
+            defaultValue={123}
+            type="text"
+            name={fieldKeys.firstName}
+          />
+        </>
       ),
     },
     {
       label: 'last name',
       key: fieldKeys.lastName,
       component: (
-        <input defaultValue={123} type="text" name={fieldKeys.lastName} />
+        <>
+          {formErrors[fieldKeys.lastName] && (
+            <p className="input-error">{formErrors[fieldKeys.lastName]}</p>
+          )}
+
+          <input
+            defaultValue={123}
+            type="text"
+            name={fieldKeys.lastName}
+            className={formErrors[fieldKeys.lastName] ? 'error-border' : ''}
+          />
+        </>
       ),
     },
     {
       label: 'mobile',
       key: fieldKeys.mobile,
       component: (
-        <input defaultValue={123} type="tel" name={fieldKeys.mobile} />
+        <>
+          {formErrors[fieldKeys.mobile] && (
+            <p className="input-error">{formErrors[fieldKeys.mobile]}</p>
+          )}
+
+          <input
+            defaultValue={123}
+            type="tel"
+            name={fieldKeys.mobile}
+            className={formErrors[fieldKeys.mobile] ? 'error-border' : ''}
+          />
+        </>
       ),
     },
     {
       label: 'country',
       key: fieldKeys.country,
       component: (
-        <input defaultValue={123} type="text" name={fieldKeys.country} />
+        <>
+          {formErrors[fieldKeys.country] && (
+            <p className="input-error">{formErrors[fieldKeys.country]}</p>
+          )}
+
+          <input
+            className={formErrors[fieldKeys.country] ? 'error-border' : ''}
+            defaultValue={123}
+            type="text"
+            name={fieldKeys.country}
+          />
+        </>
       ),
     },
     {
       label: 'city',
       key: fieldKeys.city,
-      component: <input defaultValue={123} type="text" name={fieldKeys.city} />,
+      component: (
+        <>
+          {formErrors[fieldKeys.city] && (
+            <p className="input-error">{formErrors[fieldKeys.city]}</p>
+          )}
+          <input
+            className={formErrors[fieldKeys.city] ? 'error-border' : ''}
+            defaultValue={123}
+            type="text"
+            name={fieldKeys.city}
+          />
+        </>
+      ),
     },
     {
       label: 'address',
       key: fieldKeys.address,
       component: (
-        <input defaultValue={123} type="text" name={fieldKeys.address} />
+        <>
+          {formErrors[fieldKeys.address] && (
+            <p className="input-error">{formErrors[fieldKeys.address]}</p>
+          )}
+          <input
+            className={formErrors[fieldKeys.address] ? 'error-border' : ''}
+            defaultValue={123}
+            type="text"
+            name={fieldKeys.address}
+          />
+        </>
       ),
     },
     {
       label: 'postcode',
       key: fieldKeys.postcode,
       component: (
-        <input defaultValue={123} type="text" name={fieldKeys.postcode} />
+        <>
+          {formErrors[fieldKeys.postcode] && (
+            <p className="input-error">{formErrors[fieldKeys.postcode]}</p>
+          )}
+          <input
+            className={formErrors[fieldKeys.postcode] ? 'error-border' : ''}
+            defaultValue={123}
+            type="text"
+            name={fieldKeys.postcode}
+          />
+        </>
       ),
     },
   ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e = e.target;
+  const validateForm = (form) => {
     let formCompletedSuccessfully = true;
 
     for (const [key, value] of Object.entries(fieldKeys)) {
-      if (e[key] && e[key].value) {
-        console.log(`${key}: ${e[key].value}`);
-
+      if (form[key] && form[key].value && form[key].value !== '') {
         if (key === fieldKeys.cardNumber) {
-          formCompletedSuccessfully = validator.isCreditCard(e[key].value);
-          if (!formCompletedSuccessfully) break;
+          if (formCompletedSuccessfully) {
+            const cardValid = validator.isCreditCard(form[key].value);
+            if (!cardValid) {
+              setFormErrors((old) => ({ ...old, [key]: 'card is invalid' }));
+              formCompletedSuccessfully = false;
+            }
+          }
         } else if (key === fieldKeys.email) {
-          formCompletedSuccessfully = validator.isEmail(e[key].value);
-          if (!formCompletedSuccessfully) break;
+          if (formCompletedSuccessfully) {
+            const emailValid = validator.isEmail(form[key].value);
+            if (!emailValid) {
+              setFormErrors((old) => ({ ...old, [key]: 'email is invalid' }));
+              formCompletedSuccessfully = false;
+            }
+          }
         }
       } else {
-        formCompletedSuccessfully = false;
-        break;
+        setFormErrors((old) => ({ ...old, [key]: 'field is required' }));
+        if (formCompletedSuccessfully) formCompletedSuccessfully = false;
       }
     }
+
+    return formCompletedSuccessfully;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formCompletedSuccessfully = validateForm(e.target);
 
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
   };
