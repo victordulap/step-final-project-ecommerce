@@ -12,6 +12,7 @@ import {
 } from '../../features/cartSlice';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import CartItem from './components/CartItem';
+import CartEmpty from '../../components/CartEmpty';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -59,13 +60,7 @@ const Cart = () => {
               />
             ))
           ) : (
-            <div className="cart-empty-container">
-              <div>
-                <AiOutlineShoppingCart className="cart-empty-icon" />
-              </div>
-              <p>Your cart is empty</p>
-              <Button linkTo={'/'} size="l" text="Go shopping" />
-            </div>
+            <CartEmpty />
           )}
         </section>
         {cart.length > 0 && (

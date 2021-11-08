@@ -1,9 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './style.scss';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import validator from 'validator';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCartFromLocalStorage } from '../../features/cartSlice';
+import CartEmpty from '../../components/CartEmpty';
+import { DELIEVERY_PRICE } from '../../utils/constants';
 
 const Checkout = () => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.value);
+  const cartTotal = useSelector((state) => state.cart.cartTotal);
+
+  useEffect(() => {
+    dispatch(getCartFromLocalStorage());
+  }, [dispatch]);
+
   const [isPaymentFormHidden, setIsPaymentFormHidden] = useState(false);
   const [isShippingFormHidden, setIsShippingFormHidden] = useState(false);
   const form = useRef('form');
@@ -51,12 +63,12 @@ const Checkout = () => {
             max={12}
           />
           <input
-            defaultValue={2025}
+            defaultValue={new Date().getFullYear() + 2}
             type="number"
             name={fieldKeys.expiryYear}
             placeholder="Year"
-            min={2000}
-            max={2050}
+            min={new Date().getFullYear()}
+            max={new Date().getFullYear() + 10}
           />
         </div>
       ),
@@ -168,71 +180,81 @@ const Checkout = () => {
         <section className="header">
           <h1 className="letter-spacing">checkout</h1>
         </section>
-        <section className="total">
-          <p>items: 10</p>
-          <p>total: 150.00$</p>
-        </section>
-        <form ref={form} onSubmit={handleSubmit}>
-          <section className="form-section shipping-address">
-            <header>
-              <h2 className="form-title letter-spacing">shipping details</h2>
-              {isShippingFormHidden ? (
-                <FaChevronDown
-                  className="toggle-form"
-                  onClick={() => setIsShippingFormHidden(false)}
-                />
-              ) : (
-                <FaChevronUp
-                  className="toggle-form"
-                  onClick={() => setIsShippingFormHidden(true)}
-                />
-              )}
-            </header>
-            {shippingFormFields.map((field) => (
-              <div
-                style={isShippingFormHidden ? { display: 'none' } : {}}
-                className="form-item"
-                key={`form-item-ship-${field.key}`}
-              >
-                <label htmlFor={field.key}>{field.label} :</label>
-                {field.component}
-              </div>
-            ))}
+        {cart.length > 0 ? (
+          <>
+            <section className="total">
+              <p>items: {cart.length}</p>
+              <p>total: {(cartTotal + DELIEVERY_PRICE).toFixed(2)}$</p>
+            </section>
+            <form ref={form} onSubmit={handleSubmit}>
+              <section className="form-section shipping-address">
+                <header>
+                  <h2 className="form-title letter-spacing">
+                    shipping details
+                  </h2>
+                  {isShippingFormHidden ? (
+                    <FaChevronDown
+                      className="toggle-form"
+                      onClick={() => setIsShippingFormHidden(false)}
+                    />
+                  ) : (
+                    <FaChevronUp
+                      className="toggle-form"
+                      onClick={() => setIsShippingFormHidden(true)}
+                    />
+                  )}
+                </header>
+                {shippingFormFields.map((field) => (
+                  <div
+                    style={isShippingFormHidden ? { display: 'none' } : {}}
+                    className="form-item"
+                    key={`form-item-ship-${field.key}`}
+                  >
+                    <label htmlFor={field.key}>{field.label} :</label>
+                    {field.component}
+                  </div>
+                ))}
+              </section>
+              <section className="form-section payment-details">
+                <header>
+                  <h2 className="form-title letter-spacing">payment details</h2>
+                  {isPaymentFormHidden ? (
+                    <FaChevronDown
+                      className="toggle-form"
+                      onClick={() => setIsPaymentFormHidden(false)}
+                    />
+                  ) : (
+                    <FaChevronUp
+                      className="toggle-form"
+                      onClick={() => setIsPaymentFormHidden(true)}
+                    />
+                  )}
+                </header>
+                {paymentFormFields.map((field) => (
+                  <div
+                    style={isPaymentFormHidden ? { display: 'none' } : {}}
+                    className="form-item"
+                    key={`form-item-pay-${field.key}`}
+                  >
+                    <label className="letter-spacing" htmlFor={field.key}>
+                      {field.label} :
+                    </label>
+                    {field.component}
+                  </div>
+                ))}
+              </section>
+              <section className="submit-form">
+                <button onSubmit={handleSubmit} type="submit">
+                  PLACE ORDER
+                </button>
+              </section>
+            </form>
+          </>
+        ) : (
+          <section>
+            <CartEmpty />
           </section>
-          <section className="form-section payment-details">
-            <header>
-              <h2 className="form-title letter-spacing">payment details</h2>
-              {isPaymentFormHidden ? (
-                <FaChevronDown
-                  className="toggle-form"
-                  onClick={() => setIsPaymentFormHidden(false)}
-                />
-              ) : (
-                <FaChevronUp
-                  className="toggle-form"
-                  onClick={() => setIsPaymentFormHidden(true)}
-                />
-              )}
-            </header>
-            {paymentFormFields.map((field) => (
-              <div
-                style={isPaymentFormHidden ? { display: 'none' } : {}}
-                className="form-item"
-                key={`form-item-pay-${field.key}`}
-              >
-                <label className="letter-spacing" htmlFor={field.key}>
-                  {field.label} :
-                </label>
-                {field.component}
-              </div>
-            ))}
-          </section>
-          <section className="submit-form">
-            <button onSubmit={handleSubmit} type="submit">
-              PLACE ORDER
-            </button>
-          </section>
-        </form>
+        )}
       </div>
     </main>
   );

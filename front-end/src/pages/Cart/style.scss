@@ -126,27 +126,6 @@ main.cart {
         }
       }
     }
-
-    .cart-empty-container {
-      font-size: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 8em 0;
-      color: $neutral-dark-300;
-
-      p {
-        color: inherit;
-        margin-bottom: 2rem;
-      }
-
-      .cart-empty-icon {
-        font-size: 4em;
-        margin-bottom: 1rem;
-        color: inherit;
-      }
-    }
   }
 
   .total {
