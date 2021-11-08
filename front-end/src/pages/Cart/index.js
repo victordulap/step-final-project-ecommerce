@@ -16,24 +16,11 @@ import CartItem from './components/CartItem';
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.value);
-
-  const [cartTotal, setCartTotal] = useState(0);
+  const cartTotal = useSelector((state) => state.cart.cartTotal);
 
   useEffect(() => {
     dispatch(getCartFromLocalStorage());
   }, [dispatch]);
-
-  const getCartTotal = useCallback(() => {
-    if (cart.length > 0) {
-      return cart.reduce((a, b) => +a + +b.item.price * b.count, 0);
-    } else {
-      return 0;
-    }
-  }, [cart]);
-
-  useEffect(() => {
-    setCartTotal(getCartTotal());
-  }, [cart, getCartTotal]);
 
   return (
     <main className="cart">

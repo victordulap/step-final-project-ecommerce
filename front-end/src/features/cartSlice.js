@@ -3,10 +3,19 @@ import { v4 as uuid } from 'uuid';
 
 const initialState = {
   value: [],
+  cartTotal: 0,
 };
 
 const findIndexOfItemById = (items, id) => {
   return items.findIndex((item) => item.id === id);
+};
+
+const getCartTotal = (cart) => {
+  if (cart.length > 0) {
+    return cart.reduce((a, b) => +a + +b.item.price * b.count, 0);
+  } else {
+    return 0;
+  }
 };
 
 export const cartSlice = createSlice({
@@ -16,6 +25,8 @@ export const cartSlice = createSlice({
     getCartFromLocalStorage(state, action) {
       const cart = JSON.parse(localStorage.getItem('vdShopCart')) || [];
       state.value = cart;
+
+      state.cartTotal = getCartTotal(state.value);
     },
     addToCart(state, action) {
       let index = state.value.findIndex(
@@ -40,6 +51,7 @@ export const cartSlice = createSlice({
         });
       }
 
+      state.cartTotal = getCartTotal(state.value);
       localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
     removeFromCart(state, action) {
@@ -47,12 +59,14 @@ export const cartSlice = createSlice({
         (cartItem) => cartItem.id !== action.payload.id
       );
 
+      state.cartTotal = getCartTotal(state.value);
       localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
     incrementCount(state, action) {
       const index = findIndexOfItemById(state.value, action.payload.id);
       state.value[index].count++;
 
+      state.cartTotal = getCartTotal(state.value);
       localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
     decrementCount(state, action) {
@@ -65,6 +79,7 @@ export const cartSlice = createSlice({
         );
       }
 
+      state.cartTotal = getCartTotal(state.value);
       localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
   },
