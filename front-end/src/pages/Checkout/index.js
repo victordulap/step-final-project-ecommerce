@@ -340,7 +340,7 @@ const Checkout = () => {
         selectedSize: cartItem.selectedSize,
         count: cartItem.count,
       }));
-      const total = cartTotal;
+      const total = cartTotal + DELIEVERY_PRICE;
       const paymentStatusSuccess = true;
 
       // make post api request
