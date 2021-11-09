@@ -17,6 +17,15 @@ main.checkout {
     }
   }
 
+  section.checkout-error {
+    p {
+      color: $accent-error;
+      font-size: 1.65em;
+      font-weight: 500;
+      padding: 3em 0;
+    }
+  }
+
   section.total {
     display: flex;
     justify-content: space-between;

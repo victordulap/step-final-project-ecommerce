@@ -357,6 +357,38 @@ const Checkout = () => {
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
   };
 
+  if (checkoutStatus === REDUX_STATUS.SUCCESS) {
+    return (
+      <main className="checkout">
+        <div className="container">
+          <section className="header">
+            <h1 className="letter-spacing">thanks for ordering</h1>
+          </section>
+          <section>
+            <CartEmpty text="Look for other stuff we have" />
+          </section>
+        </div>
+      </main>
+    );
+  }
+
+  if (checkoutStatus === REDUX_STATUS.ERROR) {
+    return (
+      <main className="checkout">
+        <div className="container">
+          <section className="header">
+            <h1 className="letter-spacing">oops!</h1>
+          </section>
+          <section className="checkout-error">
+            <p className="letter-spacing">
+              something strange occured, try again later
+            </p>
+          </section>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="checkout">
       <div className="container">

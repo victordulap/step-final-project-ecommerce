@@ -6,13 +6,13 @@ import { REDUX_STATUS } from '../utils/constants';
 export const createOrder = createAsyncThunk(
   'get/allCategories',
   async (orderDetails) => {
-    const res = await checkoutService.createOrder(orderDetails);
+    const res = await checkoutService.createOrder();
     return res.data;
   }
 );
 
 const initialState = {
-  value: { status: REDUX_STATUS.IDLE },
+  status: REDUX_STATUS.IDLE,
 };
 
 export const checkoutSlice = createSlice({
