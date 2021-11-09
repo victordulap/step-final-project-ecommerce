@@ -103,7 +103,7 @@ const Checkout = () => {
             <p className="input-error">{formErrors[fieldKeys.nameOnCard]}</p>
           )}
           <input
-            defaultValue={123}
+            defaultValue={'John Doge'}
             className={formErrors[fieldKeys.nameOnCard] ? 'error-border' : ''}
             type="text"
             name={fieldKeys.nameOnCard}
@@ -122,10 +122,10 @@ const Checkout = () => {
           <input
             className={formErrors[fieldKeys.cvv] ? 'error-border' : ''}
             defaultValue={123}
-            type="number"
+            type="password"
             name={fieldKeys.cvv}
-            min={100}
-            max={999}
+            maxLength={3}
+            minLength={3}
           />
         </>
       ),
@@ -142,7 +142,7 @@ const Checkout = () => {
           )}
           <input
             className={formErrors[fieldKeys.email] ? 'error-border' : ''}
-            defaultValue={'email@gmail.com'}
+            defaultValue={'test.email@gmail.com'}
             type="email"
             name={fieldKeys.email}
           />
@@ -159,7 +159,7 @@ const Checkout = () => {
           )}
           <input
             className={formErrors[fieldKeys.firstName] ? 'error-border' : ''}
-            defaultValue={123}
+            defaultValue={'John'}
             type="text"
             name={fieldKeys.firstName}
           />
@@ -176,7 +176,7 @@ const Checkout = () => {
           )}
 
           <input
-            defaultValue={123}
+            defaultValue={'Doge'}
             type="text"
             name={fieldKeys.lastName}
             className={formErrors[fieldKeys.lastName] ? 'error-border' : ''}
@@ -194,9 +194,10 @@ const Checkout = () => {
           )}
 
           <input
-            defaultValue={123}
+            defaultValue={'+373 781 201 29'}
             type="tel"
             name={fieldKeys.mobile}
+            placeholder="+373 781 201 29"
             className={formErrors[fieldKeys.mobile] ? 'error-border' : ''}
           />
         </>
@@ -213,7 +214,7 @@ const Checkout = () => {
 
           <input
             className={formErrors[fieldKeys.country] ? 'error-border' : ''}
-            defaultValue={123}
+            defaultValue={'Moldova'}
             type="text"
             name={fieldKeys.country}
           />
@@ -230,7 +231,7 @@ const Checkout = () => {
           )}
           <input
             className={formErrors[fieldKeys.city] ? 'error-border' : ''}
-            defaultValue={123}
+            defaultValue={'Chisinau'}
             type="text"
             name={fieldKeys.city}
           />
@@ -247,7 +248,7 @@ const Checkout = () => {
           )}
           <input
             className={formErrors[fieldKeys.address] ? 'error-border' : ''}
-            defaultValue={123}
+            defaultValue={'Bd. Stefan cel Mare 1'}
             type="text"
             name={fieldKeys.address}
           />
@@ -264,7 +265,7 @@ const Checkout = () => {
           )}
           <input
             className={formErrors[fieldKeys.postcode] ? 'error-border' : ''}
-            defaultValue={123}
+            defaultValue={'MD-1337'}
             type="text"
             name={fieldKeys.postcode}
           />
