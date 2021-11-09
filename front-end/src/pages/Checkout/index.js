@@ -273,10 +273,18 @@ const Checkout = () => {
     },
   ];
 
+  const getFormValues = (form) => {
+    const formValues = {};
+    for (const [key] of Object.entries(fieldKeys)) {
+      formValues[key] = form[key].value;
+    }
+    return formValues;
+  };
+
   const validateForm = (form) => {
     let formCompletedSuccessfully = true;
 
-    for (const [key, value] of Object.entries(fieldKeys)) {
+    for (const [key] of Object.entries(fieldKeys)) {
       if (form[key] && form[key].value && form[key].value !== '') {
         if (key === fieldKeys.cardNumber) {
           if (formCompletedSuccessfully) {
@@ -309,6 +317,22 @@ const Checkout = () => {
 
     setFormErrors({});
     const formCompletedSuccessfully = validateForm(e.target);
+
+    // get form field values
+    if (formCompletedSuccessfully) {
+      const formValues = getFormValues(e.target);
+      const shippingDetails = {
+        firstName: formValues[fieldKeys.firstName],
+        lastName: formValues[fieldKeys.lastName],
+        email: formValues[fieldKeys.email],
+        mobile: formValues[fieldKeys.mobile],
+        country: formValues[fieldKeys.country],
+        city: formValues[fieldKeys.city],
+        address: formValues[fieldKeys.address],
+        postcode: formValues[fieldKeys.postcode],
+      };
+      console.log(shippingDetails);
+    }
 
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
   };
