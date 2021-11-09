@@ -23,6 +23,7 @@ const SimpleCardsContainer = ({
               <SimpleCardSkeleton key={uuid()} darkMode={darkCards} />
             </>
           ) : (
+            cardsData &&
             cardsData.length > 0 &&
             cardsData.map((card) => (
               <SimpleCard
