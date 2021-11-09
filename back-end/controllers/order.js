@@ -10,7 +10,7 @@ const getAllOrders = async (req, res) => {
 const createOrder = async (req, res) => {
   console.log(req.body);
   // req.body.createdBy = req.user.userId;
-  // const job = await Job.create(req.body);
+  const order = await Order.create(req.body);
   res.status(201).json({ test: 'created order' });
 };
 
