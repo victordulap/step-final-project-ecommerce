@@ -5,12 +5,15 @@ import validator from 'validator';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCartFromLocalStorage } from '../../features/cartSlice';
 import CartEmpty from '../../components/CartEmpty';
-import { DELIEVERY_PRICE } from '../../utils/constants';
+import { DELIEVERY_PRICE, REDUX_STATUS } from '../../utils/constants';
+import { createOrder } from '../../features/checkoutSlice';
+import Button from '../../components/Button';
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.value);
   const cartTotal = useSelector((state) => state.cart.cartTotal);
+  const checkoutStatus = useSelector((state) => state.checkout.status);
 
   useEffect(() => {
     dispatch(getCartFromLocalStorage());
@@ -338,9 +341,17 @@ const Checkout = () => {
         count: cartItem.count,
       }));
       const total = cartTotal;
-      console.log(shippingDetails);
-      console.log(cartInfo);
-      console.log(total);
+      const paymentStatusSuccess = true;
+
+      // make post api request
+      dispatch(
+        createOrder({
+          shippingDetails,
+          cart: cartInfo,
+          total,
+          paymentStatusSuccess,
+        })
+      );
     }
 
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
@@ -416,9 +427,12 @@ const Checkout = () => {
                 ))}
               </section>
               <section className="submit-form">
-                <button onSubmit={handleSubmit} type="submit">
-                  PLACE ORDER
-                </button>
+                <Button
+                  loading={checkoutStatus === REDUX_STATUS.LOADING}
+                  text="PLACE ORDER"
+                  onSubmit={handleSubmit}
+                  type="submit"
+                />
               </section>
             </form>
           </>
