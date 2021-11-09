@@ -337,8 +337,10 @@ const Checkout = () => {
         selectedSize: cartItem.selectedSize,
         count: cartItem.count,
       }));
+      const total = cartTotal;
       console.log(shippingDetails);
       console.log(cartInfo);
+      console.log(total);
     }
 
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
