@@ -6,7 +6,7 @@ import { REDUX_STATUS } from '../utils/constants';
 export const createOrder = createAsyncThunk(
   'get/allCategories',
   async (orderDetails) => {
-    const res = await checkoutService.createOrder();
+    const res = await checkoutService.createOrder(orderDetails);
     return res.data;
   }
 );

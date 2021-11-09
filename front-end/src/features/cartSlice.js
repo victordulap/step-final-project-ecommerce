@@ -69,7 +69,7 @@ export const cartSlice = createSlice({
       state.cartTotal = getCartTotal(state.value);
       localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
-    decrementCount(state, action) {
+    clearCart(state, action) {
       const index = findIndexOfItemById(state.value, action.payload.id);
       state.value[index].count--;
       if (state.value[index].count === 0) {
@@ -78,6 +78,12 @@ export const cartSlice = createSlice({
           (cartItem) => cartItem.id !== action.payload.id
         );
       }
+
+      state.cartTotal = getCartTotal(state.value);
+      localStorage.setItem('vdShopCart', JSON.stringify(state.value));
+    },
+    clearCart(state, action) {
+      state.value = [];
 
       state.cartTotal = getCartTotal(state.value);
       localStorage.setItem('vdShopCart', JSON.stringify(state.value));
@@ -91,6 +97,7 @@ export const {
   removeFromCart,
   incrementCount,
   decrementCount,
+  clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

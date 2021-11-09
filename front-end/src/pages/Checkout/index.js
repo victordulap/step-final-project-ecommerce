@@ -3,7 +3,7 @@ import './style.scss';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import validator from 'validator';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCartFromLocalStorage } from '../../features/cartSlice';
+import { clearCart, getCartFromLocalStorage } from '../../features/cartSlice';
 import CartEmpty from '../../components/CartEmpty';
 import { DELIEVERY_PRICE, REDUX_STATUS } from '../../utils/constants';
 import { createOrder } from '../../features/checkoutSlice';
@@ -356,6 +356,12 @@ const Checkout = () => {
 
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
   };
+
+  useEffect(() => {
+    if (checkoutStatus === REDUX_STATUS.SUCCESS) {
+      dispatch(clearCart());
+    }
+  }, [checkoutStatus, dispatch]);
 
   if (checkoutStatus === REDUX_STATUS.SUCCESS) {
     return (
