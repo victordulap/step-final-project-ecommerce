@@ -8,6 +8,7 @@ const connectDB = require('./db/connect');
 const categoryRoute = require('./routes/category');
 const brandRoute = require('./routes/brand');
 const itemRoute = require('./routes/item');
+const orderRoute = require('./routes/order');
 
 app.use(
   cors({
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/brands', brandRoute);
 app.use('/api/v1/items', itemRoute);
+app.use('/api/v1/orders', orderRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
