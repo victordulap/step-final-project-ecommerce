@@ -332,7 +332,6 @@ const Checkout = () => {
         postcode: formValues[fieldKeys.postcode],
       };
       const cartInfo = cart.map((cartItem) => ({
-        id: cartItem.id,
         itemId: cartItem.item._id,
         selectedSize: cartItem.selectedSize,
         count: cartItem.count,
