@@ -370,8 +370,11 @@ const Checkout = () => {
           <section className="header">
             <h1 className="letter-spacing">thanks for ordering</h1>
           </section>
-          <section>
-            <CartEmpty text="Look for other stuff we have" />
+          <section style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: '1.4em', paddingBottom: '1em' }}>
+              We've sent you a email with your order!
+            </p>
+            <Button linkTo={'/'} size="l" text="MORE ITEMS" />
           </section>
         </div>
       </main>
