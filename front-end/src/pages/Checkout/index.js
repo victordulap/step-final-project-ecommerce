@@ -307,6 +307,7 @@ const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setFormErrors({});
     const formCompletedSuccessfully = validateForm(e.target);
 
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
