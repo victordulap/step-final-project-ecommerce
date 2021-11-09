@@ -331,7 +331,14 @@ const Checkout = () => {
         address: formValues[fieldKeys.address],
         postcode: formValues[fieldKeys.postcode],
       };
+      const cartInfo = cart.map((cartItem) => ({
+        id: cartItem.id,
+        itemId: cartItem.item._id,
+        selectedSize: cartItem.selectedSize,
+        count: cartItem.count,
+      }));
       console.log(shippingDetails);
+      console.log(cartInfo);
     }
 
     console.log('formCompletedSuccessfully: ', formCompletedSuccessfully);
