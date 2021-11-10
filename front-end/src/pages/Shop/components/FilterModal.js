@@ -30,13 +30,12 @@ const FilterModal = ({ closeModal }) => {
           {filterOptions.map((opt) => (
             <div key={uuid()} className="filter-option-container">
               <p
-                onClick={() => {
+                onClick={() =>
                   setToggledDropdowns((old) => ({
                     ...old,
                     [opt.title]: !old[opt.title],
-                  }));
-                  console.log({ [opt.title]: ![opt.title] });
-                }}
+                  }))
+                }
                 className="filter-option-title"
               >
                 {opt.title}

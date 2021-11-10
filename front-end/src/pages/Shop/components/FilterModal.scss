@@ -25,14 +25,10 @@
     flex: 1 0 90%;
   }
 
-  .filter-option-container + .filter-option-container {
-    margin-top: 1rem;
-  }
-
   .modal-title,
   .filter-option-title,
   .filter-option {
-    padding: 0.5em 1.5rem;
+    padding: 1em 1.5rem;
   }
 
   .filter-option-title,
@@ -54,7 +50,7 @@
   .filter-option {
     text-transform: lowercase;
     font-size: 1.6rem;
-    padding-block: 0.25em;
+    padding-block: 0.5em;
   }
 
   .modal-title {
