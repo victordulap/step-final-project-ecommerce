@@ -69,7 +69,7 @@ export const cartSlice = createSlice({
       state.cartTotal = getCartTotal(state.value);
       localStorage.setItem('vdShopCart', JSON.stringify(state.value));
     },
-    clearCart(state, action) {
+    decrementCount(state, action) {
       const index = findIndexOfItemById(state.value, action.payload.id);
       state.value[index].count--;
       if (state.value[index].count === 0) {
