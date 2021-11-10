@@ -10,6 +10,7 @@ import ShopItemCardSkeleton from '../../components/ShopItemCardSkeleton';
 import queryString from 'query-string';
 import { useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import FilterModal from './components/FilterModal';
 
 const Shop = () => {
   const shopItems = useSelector((state) => state.shopItems.value);
@@ -20,11 +21,12 @@ const Shop = () => {
 
   const history = useHistory();
   const urlSearch = useParams();
-  const { search, pathname } = useLocation();
+  const { search } = useLocation();
 
   const page = useRef(1);
   const [query, setQuery] = useState(queryString.parse(search));
 
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [sortOption, setSortOption] = useState(SORT_OPTIONS.none.param);
 
   const getDefaultUrlParams = useCallback(() => {
@@ -61,6 +63,7 @@ const Shop = () => {
     return () => {
       dispatch(resetState());
     };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
@@ -106,8 +109,15 @@ const Shop = () => {
     dispatch(getItems(q));
   };
 
+  const showFilterModal = () => {
+    setIsFilterModalOpen(true);
+  };
+
   return (
-    <main>
+    <main className={isFilterModalOpen ? 'modal-open' : ''}>
+      {isFilterModalOpen && (
+        <FilterModal closeModal={() => setIsFilterModalOpen(false)} />
+      )}
       <header className="header">
         <div className="container">
           <h1 className="title">{shopTitle}</h1>
@@ -125,7 +135,9 @@ const Shop = () => {
               ))}
             </select>
           </div>
-          <button className="filter">Filter</button>
+          <button onClick={showFilterModal} className="filter">
+            Filter
+          </button>
         </div>
       </header>
       <section className="items">

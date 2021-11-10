@@ -2,10 +2,16 @@
 
 main {
   font-size: 1rem;
+  position: relative;
+
+  &.modal-open {
+    height: 100vh;
+    overflow: hidden;
+    flex: none !important;
+  }
 
   .header {
     text-align: center;
-    // background-color: #f005;
 
     .title {
       padding: 1em 0;

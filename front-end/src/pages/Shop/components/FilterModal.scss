@@ -1,0 +1,69 @@
+@import '../../../vars.scss';
+
+.filter-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  display: flex;
+
+  .close-modal {
+    background-color: #0005;
+    flex: 0 0 auto;
+    text-align: center;
+
+    .close-icon {
+      font-size: 5rem;
+      color: rgba($neutral-light, 0.75);
+      margin: 0.25em;
+    }
+  }
+  .modal-content {
+    background-color: $neutral-light-300;
+    flex: 1 0 90%;
+  }
+
+  .filter-option-container + .filter-option-container {
+    margin-top: 1rem;
+  }
+
+  .modal-title,
+  .filter-option-title,
+  .filter-option {
+    padding: 0.5em 1.5rem;
+  }
+
+  .filter-option-title,
+  .filter-option {
+    margin: 0;
+  }
+
+  .modal-title,
+  .filter-option-title {
+    background: $neutral-light-100;
+  }
+
+  .filter-option-title {
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    color: $neutral-dark-200;
+  }
+
+  .filter-option {
+    text-transform: lowercase;
+    font-size: 1.6rem;
+    padding-block: 0.25em;
+  }
+
+  .modal-title {
+    margin-bottom: 0.5em;
+    font-size: 2rem;
+
+    h2 {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+}
