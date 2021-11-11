@@ -27,6 +27,7 @@ const initialFilterOptions = [
 
 const Shop = () => {
   const shopItems = useSelector((state) => state.shopItems.value);
+  const filterFields = useSelector((state) => state.shopItems.filterFields);
   const isLoading = useSelector((state) => state.shopItems.isLoading);
   const shopTitle = useSelector((state) => state.shopItems.shopTitle);
   const noMoreToLoad = useSelector((state) => state.shopItems.noMoreToLoad);
@@ -46,6 +47,7 @@ const Shop = () => {
     const queryObj = {};
 
     queryObj.shopTitle = true;
+    queryObj.filterFields = true;
     queryObj.page = 1;
     if (urlSearch.type === 'brands') {
       queryObj.brandIds = urlSearch.id;

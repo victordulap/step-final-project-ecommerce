@@ -24,6 +24,7 @@ export const shopItemsSlice = createSlice({
       state.value = [];
       state.shopTitle = '';
       state.noMoreToLoad = false;
+      state.filterFields = [];
     },
   },
   extraReducers: {
@@ -33,6 +34,7 @@ export const shopItemsSlice = createSlice({
     [getItems.fulfilled]: (state, action) => {
       state.value = action.payload.items;
       state.noMoreToLoad = action.payload.nbHits < 10;
+      state.filterFields = action.payload.filterFields;
       state.isLoading = false;
       state.shopTitle = action.payload.shopTitle;
     },
@@ -47,6 +49,7 @@ export const shopItemsSlice = createSlice({
     },
     [getItemsByPage.fulfilled]: (state, action) => {
       state.value = [...state.value, ...action.payload.items];
+      state.filterFields = action.payload.filterFields;
       state.noMoreToLoad = action.payload.nbHits < 10;
       state.isLoading = false;
       state.shopTitle = action.payload.shopTitle;

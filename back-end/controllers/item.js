@@ -39,14 +39,14 @@ const getFilters = async (queryObj) => {
       $project: {
         _id: 0,
         categories: {
-          categoryIds: '$category._id',
-          categoryNames: '$category.name',
+          id: '$category._id',
+          name: '$category.name',
         },
         sizes: '$sizes',
         colors: '$color',
         brands: {
-          brandNames: '$brand.name',
-          brandIds: '$brand._id',
+          name: '$brand.name',
+          id: '$brand._id',
         },
       },
     },
@@ -104,10 +104,6 @@ const getAllItems = async (req, res) => {
 
     shopTitleArr = [];
 
-    if (colors) {
-      const filter = colors.split(',');
-      queryObject.color = { $in: filter };
-    }
     if (brandIds) {
       let filter = brandIds.split(',');
       filter = filter.map((f) => ObjectId(f));
@@ -132,8 +128,17 @@ const getAllItems = async (req, res) => {
         shopTitleArr.push(...categoryNames);
       }
     }
+
+    if (filterFields) {
+      filterFields = await getFilters(queryObject);
+    }
+
     if (title) {
       queryObject.title = { $regex: title, $options: 'i' };
+    }
+    if (colors) {
+      const filter = colors.split(',');
+      queryObject.color = { $in: filter };
     }
     if (search) {
       queryObject.title = { $regex: search, $options: 'i' };
@@ -220,10 +225,6 @@ const getAllItems = async (req, res) => {
         {}
       );
       aggregateArr.push({ $project: fieldsList });
-    }
-
-    if (filterFields) {
-      filterFields = await getFilters(queryObject);
     }
 
     let result = Item.aggregate(aggregateArr);
