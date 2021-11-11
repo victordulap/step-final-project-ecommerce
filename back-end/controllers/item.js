@@ -4,6 +4,87 @@ const Category = require('../models/Category');
 const mongoose = require('mongoose');
 const { ObjectId, Array: MongoArray } = mongoose.Types;
 
+const getFilters = async (queryObj) => {
+  const aggregateArr2 = [
+    {
+      $match: queryObj,
+    },
+    {
+      $lookup: {
+        from: 'brands',
+        localField: 'brandId',
+        foreignField: '_id',
+        as: 'brand',
+      },
+    },
+    {
+      $unwind: {
+        path: '$brand',
+      },
+    },
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'categoryIds',
+        foreignField: '_id',
+        as: 'category',
+      },
+    },
+    {
+      $unwind: {
+        path: '$category',
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        categories: {
+          categoryIds: '$category._id',
+          categoryNames: '$category.name',
+        },
+        sizes: '$sizes',
+        colors: '$color',
+        brands: {
+          brandNames: '$brand.name',
+          brandIds: '$brand._id',
+        },
+      },
+    },
+  ];
+
+  const filters = await Item.aggregate(aggregateArr2);
+  if (filters) {
+    const filterKeys = Object.keys(filters[0]).map((key) => [key, []]);
+    let finalFilters = Object.fromEntries(filterKeys); // { color: [], brand: [], category: [], size: [] }
+
+    console.log(finalFilters);
+    filters.forEach((f) => {
+      for (let [k, v] of Object.entries(f)) {
+        if (Array.isArray(v)) {
+          finalFilters[k].push(...v);
+          finalFilters[k] = [...new Set(finalFilters[k])];
+        } else if (typeof v === 'object') {
+          if (
+            !finalFilters[k].find(
+              (val) => JSON.stringify(val) === JSON.stringify(v)
+            )
+          ) {
+            finalFilters[k].push(v);
+          }
+        } else {
+          finalFilters[k].push(v);
+          finalFilters[k] = [...new Set(finalFilters[k])];
+        }
+      }
+    });
+
+    console.log(finalFilters);
+    return finalFilters;
+  }
+
+  return null;
+};
+
 const getAllItems = async (req, res) => {
   try {
     const {
@@ -16,7 +97,7 @@ const getAllItems = async (req, res) => {
       numericFilters,
       search,
     } = req.query;
-    let { shopTitle } = req.query;
+    let { shopTitle, filterFields } = req.query;
     const queryObject = {
       available: true,
     };
@@ -102,7 +183,6 @@ const getAllItems = async (req, res) => {
       {
         $match: queryObject,
       },
-
       {
         $lookup: {
           from: 'brands',
@@ -142,6 +222,10 @@ const getAllItems = async (req, res) => {
       aggregateArr.push({ $project: fieldsList });
     }
 
+    if (filterFields) {
+      filterFields = await getFilters(queryObject);
+    }
+
     let result = Item.aggregate(aggregateArr);
 
     // sort
@@ -159,9 +243,9 @@ const getAllItems = async (req, res) => {
     // items per page - 7 7 7 2
 
     const items = await result;
-
     res.status(200).json({
       shopTitle: shopTitleArr ? shopTitleArr.join(' ') : 'n/a',
+      filterFields: filterFields ? filterFields : null,
       items,
       nbHits: items.length,
     });
