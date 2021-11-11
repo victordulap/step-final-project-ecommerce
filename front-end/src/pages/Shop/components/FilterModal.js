@@ -3,21 +3,8 @@ import { VscClose } from 'react-icons/vsc';
 import './FilterModal.scss';
 import { v4 as uuid } from 'uuid';
 
-const initialFilterOptions = [
-  {
-    title: 'Categories',
-    options: ['shoes', 't-shirts'],
-    show: false,
-  },
-  {
-    title: 'Brands',
-    options: ['nike', 'adidas'],
-    show: false,
-  },
-];
-
-const FilterModal = ({ closeModal }) => {
-  const [filterOptions, setFilterOptions] = useState(initialFilterOptions);
+const FilterModal = ({ closeModal, options }) => {
+  const [filterOptions, setFilterOptions] = useState(options);
 
   const toggleShowFilterOptions = (index) => {
     const itemByIndex = filterOptions[index];

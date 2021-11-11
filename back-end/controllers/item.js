@@ -111,6 +111,25 @@ const getAllItems = async (req, res) => {
           as: 'brand',
         },
       },
+      {
+        $unwind: {
+          path: '$brand',
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          imgUrl: 1,
+          categoryIds: 1,
+          sizes: 1,
+          available: 1,
+          title: 1,
+          color: 1,
+          price: 1,
+          description: 1,
+          brandName: '$brand.name',
+        },
+      },
     ];
 
     if (fields) {
@@ -140,6 +159,7 @@ const getAllItems = async (req, res) => {
     // items per page - 7 7 7 2
 
     const items = await result;
+
     res.status(200).json({
       shopTitle: shopTitleArr ? shopTitleArr.join(' ') : 'n/a',
       items,

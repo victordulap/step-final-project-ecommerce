@@ -12,6 +12,19 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import FilterModal from './components/FilterModal';
 
+const initialFilterOptions = [
+  {
+    title: 'Categories',
+    options: ['shoes', 't-shirts'],
+    show: false,
+  },
+  {
+    title: 'Brands',
+    options: ['nike', 'adidas'],
+    show: false,
+  },
+];
+
 const Shop = () => {
   const shopItems = useSelector((state) => state.shopItems.value);
   const isLoading = useSelector((state) => state.shopItems.isLoading);
@@ -116,7 +129,10 @@ const Shop = () => {
   return (
     <main className={isFilterModalOpen ? 'modal-open' : ''}>
       {isFilterModalOpen && (
-        <FilterModal closeModal={() => setIsFilterModalOpen(false)} />
+        <FilterModal
+          options={initialFilterOptions}
+          closeModal={() => setIsFilterModalOpen(false)}
+        />
       )}
       <header className="header">
         <div className="container">
@@ -165,7 +181,7 @@ const Shop = () => {
                   color={item.color}
                   imgUrl={item.imgUrl}
                   price={item.price}
-                  title={item.brand[0].name + ' ' + item.title}
+                  title={item.brandName + ' ' + item.title}
                 />
               ))
             )}
