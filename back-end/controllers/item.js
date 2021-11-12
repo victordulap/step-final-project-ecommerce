@@ -128,10 +128,6 @@ const getAllItems = async (req, res) => {
       }
     }
 
-    if (filterFields) {
-      filterFields = await getFilters(queryObject);
-    }
-
     if (title) {
       queryObject.title = { $regex: title, $options: 'i' };
     }
@@ -232,6 +228,10 @@ const getAllItems = async (req, res) => {
     if (sort) {
       const sortList = sort.split(',').join(' ');
       result = result.sort(sortList);
+    }
+
+    if (filterFields) {
+      filterFields = await getFilters(queryObject);
     }
 
     const page = Number(req.query.page) || 1;

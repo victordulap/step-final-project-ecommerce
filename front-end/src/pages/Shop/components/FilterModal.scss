@@ -57,6 +57,13 @@
     text-transform: lowercase;
     font-size: 1.6rem;
     padding-block: 0.5em;
+    display: flex;
+    justify-content: space-between;
+
+    &-checked {
+      background-color: $neutral-light-900;
+      font-weight: 500;
+    }
   }
 
   .modal-title {

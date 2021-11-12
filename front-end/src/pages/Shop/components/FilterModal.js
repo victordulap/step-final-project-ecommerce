@@ -28,7 +28,15 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
       ...filterOptions,
     };
 
-    // setFilterOptions(newState);
+    const newValue = [...newState[key].value];
+    newValue[index] = { ...newValue[index], checked: !newValue[index].checked };
+
+    newState[key] = {
+      ...newState[key],
+      value: [...newValue],
+    };
+
+    setFilterOptions(newState);
   };
 
   return (
@@ -57,9 +65,12 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
                   <p
                     key={uuid()}
                     onClick={() => toggleFilterOption(k, index)}
-                    className="filter-option"
+                    className={`filter-option ${
+                      arrValue.checked ? 'filter-option-checked' : ''
+                    }`}
                   >
-                    {arrValue.name}
+                    <span>{arrValue.name}</span>
+                    {arrValue.checked && <span>✔</span>}
                   </p>
                 ))}
               </div>
