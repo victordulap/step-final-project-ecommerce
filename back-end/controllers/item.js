@@ -54,7 +54,7 @@ const getFilters = async (queryObj) => {
   ];
 
   const filters = await Item.aggregate(aggregateArr2);
-  if (filters) {
+  if (filters && filters.length > 0) {
     const filterKeys = Object.keys(filters[0]).map((key) => [key, []]);
     let finalFilters = Object.fromEntries(filterKeys); // { color: [], brand: [], category: [], size: [] }
 

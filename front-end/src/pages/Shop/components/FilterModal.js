@@ -3,6 +3,7 @@ import { VscClose } from 'react-icons/vsc';
 import './FilterModal.scss';
 import { useLocation } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import queryString from 'query-string';
 
 const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
   const [filterOptions, setFilterOptions] = useState({});
@@ -11,14 +12,15 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
   useEffect(() => {
     let updatedOptions = {};
     for (let [k, v] of Object.entries(options)) {
-      let checked = false;
       for (let i = 0; i < v.length; i++) {
-        // console.log(v[i].name, v[i].id, search.includes(v[i].name || v[i].id));
-        if (search.includes(v[i].id || v[i].name)) {
-          console.log(v);
-          const newV = [...v];
-          newV[i] = { ...v[i], checked: true };
-          v = [...newV];
+        for (let [k2, v2] of Object.entries(queryString.parse(search))) {
+          v2 = v2.split(',');
+          if (v2.includes(v[i].id || v[i].name)) {
+            console.log(v2);
+            const newV = [...v];
+            newV[i] = { ...v[i], checked: true };
+            v = [...newV];
+          }
         }
       }
       updatedOptions[k] = {

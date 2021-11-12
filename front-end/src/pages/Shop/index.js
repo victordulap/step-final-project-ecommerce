@@ -41,16 +41,15 @@ const Shop = () => {
   useEffect(() => {
     page.current = 1;
     let queryObj = queryString.parse(search);
+    console.log(queryObj);
     setSortOption(queryObj.sort || SORT_OPTIONS.none.param);
 
-    console.log(queryObj);
     // default params for api call
     queryObj = { ...queryObj, ...getDefaultUrlParams() };
 
     const q = Object.entries(queryObj)
       .map(([key, value]) => `${key}=${value}`)
       .join('&');
-    console.log(q);
 
     // make api req
     dispatch(getItems(q));
@@ -78,7 +77,7 @@ const Shop = () => {
       if (v) {
         newFilterOptions[k] = v;
       } else {
-        newFilterOptions[k] = '';
+        newFilterOptions[k] = null;
       }
     }
     console.log(newFilterOptions);
@@ -144,7 +143,11 @@ const Shop = () => {
               ))}
             </select>
           </div>
-          <button onClick={showFilterModal} className="filter">
+          <button
+            disabled={shopItems.length === 0}
+            onClick={showFilterModal}
+            className="filter"
+          >
             Filter
           </button>
         </div>
