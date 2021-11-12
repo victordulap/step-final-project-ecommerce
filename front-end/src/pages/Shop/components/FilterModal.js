@@ -1,18 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
 import './FilterModal.scss';
+import { useLocation } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
   const [filterOptions, setFilterOptions] = useState({});
+  const { search } = useLocation();
 
   useEffect(() => {
     let updatedOptions = {};
-    for (const [k, v] of Object.entries(options)) {
-      updatedOptions[k] = { show: false, value: v };
+    for (let [k, v] of Object.entries(options)) {
+      let checked = false;
+      for (let i = 0; i < v.length; i++) {
+        // console.log(v[i].name, v[i].id, search.includes(v[i].name || v[i].id));
+        if (search.includes(v[i].id || v[i].name)) {
+          console.log(v);
+          const newV = [...v];
+          newV[i] = { ...v[i], checked: true };
+          v = [...newV];
+        }
+      }
+      updatedOptions[k] = {
+        show: false,
+        value: v,
+        checked: search.includes(v.name || v.id),
+      };
     }
     setFilterOptions(updatedOptions);
-  }, [options]);
+  }, [options, search]);
+
+  useEffect(() => {
+    // if search contains any id or name from filterValues, then set to checked
+  }, []);
 
   const toggleShowFilterOptions = (key) => {
     // update item by key
@@ -21,6 +41,13 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
       [key]: { ...filterOptions[key], show: !filterOptions[key].show },
     };
     setFilterOptions(newState);
+  };
+
+  const getAllCheckedByKey = (stateByKey) => {
+    const values = stateByKey.value;
+    let checkedValues = values.filter((v) => v.checked);
+    let queryArray = checkedValues.map((v) => v.id || v.name);
+    return queryArray.join(',');
   };
 
   const toggleFilterOption = (key, index) => {
@@ -36,7 +63,12 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
       value: [...newValue],
     };
 
-    updateFilterOptions();
+    updateFilterOptions({
+      colors: getAllCheckedByKey(newState['colors']),
+      brandIds: getAllCheckedByKey(newState['brands']),
+      categoryIds: getAllCheckedByKey(newState['categories']),
+      sizes: getAllCheckedByKey(newState['sizes']),
+    });
 
     setFilterOptions(newState);
   };

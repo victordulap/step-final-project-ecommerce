@@ -26,7 +26,7 @@ const Shop = () => {
   const [query, setQuery] = useState(queryString.parse(search));
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [sortOption, setSortOption] = useState(SORT_OPTIONS.none.param);
-  const [filterOptions, setFilterOptions] = useState([]);
+  const [filterOptions, setFilterOptions] = useState({});
 
   const getDefaultUrlParams = useCallback(() => {
     const queryObj = {};
@@ -36,11 +36,6 @@ const Shop = () => {
     queryObj.page = 1;
 
     return queryObj;
-  }, []);
-
-  useEffect(() => {
-    let queryObj = queryString.parse(search);
-    console.log(queryObj);
   }, []);
 
   useEffect(() => {
@@ -76,6 +71,19 @@ const Shop = () => {
       history.push(newUrl);
     }
   }, [history, query]);
+
+  useEffect(() => {
+    const newFilterOptions = {};
+    for (const [k, v] of Object.entries(filterOptions)) {
+      if (v) {
+        newFilterOptions[k] = v;
+      } else {
+        newFilterOptions[k] = '';
+      }
+    }
+    console.log(newFilterOptions);
+    setQuery((old) => ({ ...old, ...newFilterOptions }));
+  }, [filterOptions]);
 
   const handleSortSelect = (event) => {
     setSortOption(event.target.value);

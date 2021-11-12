@@ -91,6 +91,7 @@ const getAllItems = async (req, res) => {
       brandIds,
       categoryIds,
       colors,
+      sizes,
       sort,
       fields,
       numericFilters,
@@ -135,26 +136,12 @@ const getAllItems = async (req, res) => {
       const filter = colors.split(',');
       queryObject.color = { $in: filter };
     }
+    if (sizes) {
+      const filter = sizes.split(',');
+      queryObject.sizes = { $in: filter };
+    }
     if (search) {
       queryObject.title = { $regex: search, $options: 'i' };
-
-      // let searchedBrandIds = await Brand.find({
-      //   name: { $regex: search, $options: 'i' },
-      // }).select('_id');
-      // if (searchedBrandIds) {
-      //   searchedBrandIds = searchedBrandIds.map((id) => id._id);
-      //   console.log(searchedBrandIds);
-      //   queryObject.brandId = { $in: searchedBrandIds };
-      // }
-
-      // let searchedCategoryIds = await Category.find({
-      //   name: { $regex: search, $options: 'i' },
-      // }).select('_id');
-      // if (searchedCategoryIds) {
-      //   searchedCategoryIds = searchedCategoryIds.map((id) => id._id);
-      //   console.log(searchedCategoryIds);
-      //   queryObject.categoryIds = { $in: searchedCategoryIds };
-      // }
     }
 
     // if (numericFilters) {
