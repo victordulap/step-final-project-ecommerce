@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
 import './FilterModal.scss';
 import { v4 as uuid } from 'uuid';
 
 const FilterModal = ({ closeModal, options }) => {
-  const [filterOptions, setFilterOptions] = useState(options);
+  const [filterOptions, setFilterOptions] = useState({});
 
-  const toggleShowFilterOptions = (index) => {
-    const itemByIndex = filterOptions[index];
-    const updatedItem = { ...itemByIndex, show: !itemByIndex.show };
-    const newState = [...filterOptions];
-    newState[index] = updatedItem;
+  useEffect(() => {
+    let updatedOptions = {};
+    for (const [k, v] of Object.entries(options)) {
+      updatedOptions[k] = { show: false, value: v };
+    }
+    setFilterOptions(updatedOptions);
+  }, [options]);
+
+  const toggleShowFilterOptions = (key) => {
+    // update item by key
+    const newState = {
+      ...filterOptions,
+      [key]: { ...filterOptions[key], show: !filterOptions[key].show },
+    };
     setFilterOptions(newState);
+
+    // const itemByIndex = filterOptions[index];
+    // const updatedItem = { ...itemByIndex, show: !itemByIndex.show };
+    // const newState = [...filterOptions];
+    // newState[index] = updatedItem;
+    // setFilterOptions(newState);
   };
 
   return (
@@ -24,7 +39,37 @@ const FilterModal = ({ closeModal, options }) => {
           <h2 className="letter-spacing">FILTER</h2>
         </header>
         <section className="filter-options-container">
-          {filterOptions.map((opt, index) => (
+          {Object.entries(filterOptions).map(([k, v]) => (
+            <div key={uuid()} className="filter-option-container">
+              <p
+                onClick={() => toggleShowFilterOptions(k)}
+                className="filter-option-title"
+              >
+                {k}
+              </p>
+              <div
+                className="filter-options"
+                style={v.show ? {} : { display: 'none' }}
+              >
+                {v.value.map((arrValue) => {
+                  if (typeof arrValue === 'object') {
+                    return (
+                      <p key={uuid()} className="filter-option">
+                        {arrValue.name}
+                      </p>
+                    );
+                  } else {
+                    return (
+                      <p key={uuid()} className="filter-option">
+                        {arrValue}
+                      </p>
+                    );
+                  }
+                })}
+              </div>
+            </div>
+          ))}
+          {/* {filterOptions.map((opt, index) => (
             <div key={uuid()} className="filter-option-container">
               <p
                 onClick={() => toggleShowFilterOptions(index)}
@@ -43,7 +88,7 @@ const FilterModal = ({ closeModal, options }) => {
                 ))}
               </div>
             </div>
-          ))}
+          ))} */}
         </section>
       </section>
     </div>

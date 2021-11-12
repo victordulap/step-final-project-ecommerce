@@ -132,7 +132,7 @@ const Shop = () => {
     <main className={isFilterModalOpen ? 'modal-open' : ''}>
       {isFilterModalOpen && (
         <FilterModal
-          options={initialFilterOptions}
+          options={filterFields}
           closeModal={() => setIsFilterModalOpen(false)}
         />
       )}
