@@ -42,6 +42,7 @@ const Shop = () => {
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [sortOption, setSortOption] = useState(SORT_OPTIONS.none.param);
+  const [filterOptions, setFilterOptions] = useState([]);
 
   const getDefaultUrlParams = useCallback(() => {
     const queryObj = {};
@@ -134,6 +135,7 @@ const Shop = () => {
         <FilterModal
           options={filterFields}
           closeModal={() => setIsFilterModalOpen(false)}
+          updateFilterOptions={setFilterOptions}
         />
       )}
       <header className="header">

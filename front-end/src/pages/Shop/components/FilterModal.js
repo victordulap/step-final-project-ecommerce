@@ -3,7 +3,7 @@ import { VscClose } from 'react-icons/vsc';
 import './FilterModal.scss';
 import { v4 as uuid } from 'uuid';
 
-const FilterModal = ({ closeModal, options }) => {
+const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
   const [filterOptions, setFilterOptions] = useState({});
 
   useEffect(() => {
@@ -21,11 +21,13 @@ const FilterModal = ({ closeModal, options }) => {
       [key]: { ...filterOptions[key], show: !filterOptions[key].show },
     };
     setFilterOptions(newState);
+  };
 
-    // const itemByIndex = filterOptions[index];
-    // const updatedItem = { ...itemByIndex, show: !itemByIndex.show };
-    // const newState = [...filterOptions];
-    // newState[index] = updatedItem;
+  const toggleFilterOption = (key, index) => {
+    const newState = {
+      ...filterOptions,
+    };
+
     // setFilterOptions(newState);
   };
 
@@ -51,21 +53,15 @@ const FilterModal = ({ closeModal, options }) => {
                 className="filter-options"
                 style={v.show ? {} : { display: 'none' }}
               >
-                {v.value.map((arrValue) => {
-                  if (typeof arrValue === 'object') {
-                    return (
-                      <p key={uuid()} className="filter-option">
-                        {arrValue.name}
-                      </p>
-                    );
-                  } else {
-                    return (
-                      <p key={uuid()} className="filter-option">
-                        {arrValue}
-                      </p>
-                    );
-                  }
-                })}
+                {v.value.map((arrValue, index) => (
+                  <p
+                    key={uuid()}
+                    onClick={() => toggleFilterOption(k, index)}
+                    className="filter-option"
+                  >
+                    {arrValue.name}
+                  </p>
+                ))}
               </div>
             </div>
           ))}

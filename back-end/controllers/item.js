@@ -2,6 +2,7 @@ const Item = require('../models/Item');
 const Brand = require('../models/Brand');
 const Category = require('../models/Category');
 const mongoose = require('mongoose');
+const { validate } = require('../models/Item');
 const { ObjectId, Array: MongoArray } = mongoose.Types;
 
 const getFilters = async (queryObj) => {
@@ -57,12 +58,11 @@ const getFilters = async (queryObj) => {
     const filterKeys = Object.keys(filters[0]).map((key) => [key, []]);
     let finalFilters = Object.fromEntries(filterKeys); // { color: [], brand: [], category: [], size: [] }
 
-    console.log(finalFilters);
     filters.forEach((f) => {
       for (let [k, v] of Object.entries(f)) {
         if (Array.isArray(v)) {
-          finalFilters[k].push(...v);
-          finalFilters[k] = [...new Set(finalFilters[k])];
+          if (!finalFilters[k].some((curr) => v.includes(curr.name)))
+            finalFilters[k].push(...v.map((val) => ({ name: val })));
         } else if (typeof v === 'object') {
           if (
             !finalFilters[k].find(
@@ -72,13 +72,12 @@ const getFilters = async (queryObj) => {
             finalFilters[k].push(v);
           }
         } else {
-          finalFilters[k].push(v);
-          finalFilters[k] = [...new Set(finalFilters[k])];
+          if (!finalFilters[k].some((curr) => v.includes(curr.name)))
+            finalFilters[k].push({ name: v });
         }
       }
     });
 
-    console.log(finalFilters);
     return finalFilters;
   }
 
