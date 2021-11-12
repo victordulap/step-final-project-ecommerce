@@ -69,26 +69,6 @@ const FilterModal = ({ closeModal, options }) => {
               </div>
             </div>
           ))}
-          {/* {filterOptions.map((opt, index) => (
-            <div key={uuid()} className="filter-option-container">
-              <p
-                onClick={() => toggleShowFilterOptions(index)}
-                className="filter-option-title"
-              >
-                {opt.title}
-              </p>
-              <div
-                className="filter-options"
-                style={opt.show ? {} : { display: 'none' }}
-              >
-                {opt.options.map((o) => (
-                  <p key={uuid()} className="filter-option">
-                    {o}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ))} */}
         </section>
       </section>
     </div>
