@@ -13,6 +13,7 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
     let updatedOptions = {};
     for (let [k, v] of Object.entries(options)) {
       for (let i = 0; i < v.length; i++) {
+        // eslint-disable-next-line no-unused-vars
         for (let [k2, v2] of Object.entries(queryString.parse(search))) {
           v2 = v2.split(',');
           if (v2.includes(v[i].id || v[i].name)) {
@@ -31,10 +32,6 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
     }
     setFilterOptions(updatedOptions);
   }, [options, search]);
-
-  useEffect(() => {
-    // if search contains any id or name from filterValues, then set to checked
-  }, []);
 
   const toggleShowFilterOptions = (key) => {
     // update item by key

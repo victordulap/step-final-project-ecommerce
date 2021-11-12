@@ -80,7 +80,6 @@ const Shop = () => {
         newFilterOptions[k] = null;
       }
     }
-    console.log(newFilterOptions);
     setQuery((old) => ({ ...old, ...newFilterOptions }));
   }, [filterOptions]);
 
