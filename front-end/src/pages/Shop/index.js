@@ -39,7 +39,6 @@ const Shop = () => {
 
   const page = useRef(1);
   const [query, setQuery] = useState(queryString.parse(search));
-
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [sortOption, setSortOption] = useState(SORT_OPTIONS.none.param);
   const [filterOptions, setFilterOptions] = useState([]);

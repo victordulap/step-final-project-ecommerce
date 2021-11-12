@@ -36,6 +36,8 @@ const FilterModal = ({ closeModal, options, updateFilterOptions }) => {
       value: [...newValue],
     };
 
+    updateFilterOptions();
+
     setFilterOptions(newState);
   };
 

@@ -7,11 +7,11 @@ export const SORT_OPTIONS = {
   },
   asc: {
     param: 'price',
-    text: 'price low -> up',
+    text: 'price asc',
   },
   desc: {
     param: '-price',
-    text: 'price up -> low',
+    text: 'price desc',
   },
 };
 
