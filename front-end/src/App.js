@@ -23,7 +23,7 @@ const App = () => (
         <Route path="/item/:id">
           <Item />
         </Route>
-        <Route path="/:type/:id">
+        <Route path="/shop">
           <Shop />
         </Route>
       </Switch>

@@ -37,6 +37,7 @@ export function HomePage() {
             cardsData={categories}
             title="Categories"
             darkCards
+            linkQuery="categoryIds"
             key={`SimpleCardsContainerCategories-${uuid()}`}
           />
         </div>
@@ -46,6 +47,7 @@ export function HomePage() {
           isLoading={isLoadingBrands}
           cardsData={brands}
           title="Brands"
+          linkQuery="brandIds"
           key={`SimpleCardsContainerBrands-${uuid()}`}
         />
       </div>

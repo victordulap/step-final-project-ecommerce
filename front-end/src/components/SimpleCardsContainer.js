@@ -9,6 +9,7 @@ const SimpleCardsContainer = ({
   title,
   isLoading = true,
   darkCards,
+  linkQuery,
 }) => {
   return (
     <div>
@@ -33,6 +34,7 @@ const SimpleCardsContainer = ({
                 imgUrl={card.imgUrl}
                 text={card.name}
                 title={title.toLowerCase()}
+                linkQuery={linkQuery}
               />
             ))
           )}

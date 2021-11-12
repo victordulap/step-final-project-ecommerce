@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SimpleCard.scss';
 
-const SimpleCard = ({ title, id, darkMode, imgUrl, text }) => {
+const SimpleCard = ({ title, id, darkMode, imgUrl, text, linkQuery }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
 
   return (
     <Link
       to={{
-        pathname: `${title}/${id}`,
+        pathname: '/shop',
+        search: `${linkQuery}=${id}`,
+        // pathname: `/shop?${linkQuery}=${id}`,
       }}
       className={`card ${darkMode ? 'card-dark' : ''}`}
     >

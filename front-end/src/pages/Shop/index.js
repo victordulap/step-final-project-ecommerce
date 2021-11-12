@@ -1,6 +1,5 @@
 import './style.scss';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems, resetState } from '../../features/shopItemsSlice';
 import { SORT_OPTIONS } from '../../utils/constants';
@@ -12,19 +11,6 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import FilterModal from './components/FilterModal';
 
-const initialFilterOptions = [
-  {
-    title: 'Categories',
-    options: ['shoes', 't-shirts'],
-    show: false,
-  },
-  {
-    title: 'Brands',
-    options: ['nike', 'adidas'],
-    show: false,
-  },
-];
-
 const Shop = () => {
   const shopItems = useSelector((state) => state.shopItems.value);
   const filterFields = useSelector((state) => state.shopItems.filterFields);
@@ -34,7 +20,6 @@ const Shop = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
-  const urlSearch = useParams();
   const { search } = useLocation();
 
   const page = useRef(1);
@@ -49,21 +34,21 @@ const Shop = () => {
     queryObj.shopTitle = true;
     queryObj.filterFields = true;
     queryObj.page = 1;
-    if (urlSearch.type === 'brands') {
-      queryObj.brandIds = urlSearch.id;
-    } else if (urlSearch.type === 'categories') {
-      queryObj.categoryIds = urlSearch.id;
-    }
 
     return queryObj;
-  }, [urlSearch.id, urlSearch.type]);
+  }, []);
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    let queryObj = queryString.parse(search);
+    console.log(queryObj);
+  }, []);
+
+  useEffect(() => {
     page.current = 1;
     let queryObj = queryString.parse(search);
     setSortOption(queryObj.sort || SORT_OPTIONS.none.param);
 
+    console.log(queryObj);
     // default params for api call
     queryObj = { ...queryObj, ...getDefaultUrlParams() };
 
@@ -78,9 +63,7 @@ const Shop = () => {
     return () => {
       dispatch(resetState());
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [dispatch, getDefaultUrlParams, search]);
 
   useEffect(() => {
     const searchQuery = Object.entries(query)
@@ -88,12 +71,11 @@ const Shop = () => {
       .filter((val) => val !== null)
       .join('&');
 
-    const newUrl = `/${urlSearch.type}/${urlSearch.id}?${searchQuery}`;
+    const newUrl = `/shop?${searchQuery}`;
     if (searchQuery) {
       history.push(newUrl);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [history, query]);
 
   const handleSortSelect = (event) => {
     setSortOption(event.target.value);
