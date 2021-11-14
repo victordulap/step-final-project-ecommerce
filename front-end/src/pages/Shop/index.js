@@ -143,7 +143,7 @@ const Shop = () => {
             </select>
           </div>
           <button
-            disabled={shopItems.length === 0}
+            // disabled={shopItems.length === 0}
             onClick={showFilterModal}
             className="filter"
           >

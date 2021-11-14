@@ -102,6 +102,14 @@ main {
       justify-content: center;
       font-size: 1.25rem;
       line-height: 1.2;
+
+      @media screen and (min-width: $screen-size-m) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      @media screen and (min-width: $screen-size-l) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
     }
   }
 }

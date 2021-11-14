@@ -66,8 +66,8 @@ const Item = () => {
   };
 
   return (
-    <main style={{ position: 'relative' }}>
-      <div className="item-image-container">
+    <main className="item-details" style={{ position: 'relative' }}>
+      <div className="container item-image-container">
         <img src={item.imgUrl} alt={item.title} className="item-img" />
       </div>
       <div className="container">

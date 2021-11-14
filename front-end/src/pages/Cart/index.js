@@ -29,42 +29,40 @@ const Cart = () => {
         <section className="header">
           <h1 className="letter-spacing">my bag</h1>
         </section>
-        <section className="cart-items">
-          {cart.length > 0 ? (
-            cart.map((cartItem) => (
-              <CartItem
-                key={cartItem.id}
-                cartItemId={cartItem.id}
-                itemId={cartItem.item._id}
-                imgUrl={cartItem.item.imgUrl}
-                title={cartItem.item.brand[0].name + ' ' + cartItem.item.title}
-                cartItemPrice={(cartItem.item.price * cartItem.count).toFixed(
-                  2
-                )}
-                color={cartItem.item.color}
-                selectedSize={cartItem.selectedSize}
-                count={cartItem.count}
-                decrementCallback={() =>
-                  dispatch(decrementCount({ id: cartItem.id }))
-                }
-                incrementCallback={() =>
-                  dispatch(incrementCount({ id: cartItem.id }))
-                }
-                removeCallback={() => {
-                  dispatch(
-                    removeFromCart({
-                      id: cartItem.id,
-                    })
-                  );
-                }}
-              />
-            ))
-          ) : (
-            <CartEmpty />
-          )}
-        </section>
-        {cart.length > 0 && (
+        {cart.length > 0 ? (
           <>
+            <section className="cart-items">
+              {cart.map((cartItem) => (
+                <CartItem
+                  key={cartItem.id}
+                  cartItemId={cartItem.id}
+                  itemId={cartItem.item._id}
+                  imgUrl={cartItem.item.imgUrl}
+                  title={
+                    cartItem.item.brand[0].name + ' ' + cartItem.item.title
+                  }
+                  cartItemPrice={(cartItem.item.price * cartItem.count).toFixed(
+                    2
+                  )}
+                  color={cartItem.item.color}
+                  selectedSize={cartItem.selectedSize}
+                  count={cartItem.count}
+                  decrementCallback={() =>
+                    dispatch(decrementCount({ id: cartItem.id }))
+                  }
+                  incrementCallback={() =>
+                    dispatch(incrementCount({ id: cartItem.id }))
+                  }
+                  removeCallback={() => {
+                    dispatch(
+                      removeFromCart({
+                        id: cartItem.id,
+                      })
+                    );
+                  }}
+                />
+              ))}
+            </section>
             <section className="total">
               <p>
                 <strong>
@@ -106,6 +104,10 @@ const Cart = () => {
               </div>
             </section>
           </>
+        ) : (
+          <section className="empty-cart">
+            <CartEmpty />
+          </section>
         )}
       </div>
     </main>

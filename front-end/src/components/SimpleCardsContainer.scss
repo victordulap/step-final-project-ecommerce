@@ -30,5 +30,13 @@
     grid-auto-rows: 1fr;
     gap: 1rem;
     justify-content: center;
+
+    @media screen and (min-width: $screen-size-m) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media screen and (min-width: $screen-size-l) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
   }
 }

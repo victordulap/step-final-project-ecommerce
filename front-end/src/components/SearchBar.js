@@ -50,7 +50,7 @@ const SearchBar = ({
               key={`search-suggestion-${suggestion._id}`}
               to={`/item/${suggestion._id}`}
             >
-              {suggestion.brand[0].name} {suggestion.title} ({suggestion.color})
+              {suggestion.brandName} {suggestion.title} ({suggestion.color})
             </Link>
           ))
         ) : (

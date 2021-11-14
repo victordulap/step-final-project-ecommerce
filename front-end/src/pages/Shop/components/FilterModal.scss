@@ -12,18 +12,26 @@
   .close-modal {
     background-color: #0005;
     flex: 0 0 auto;
-    text-align: center;
+    // text-align: center;
 
     .close-icon {
       font-size: 5rem;
       color: rgba($neutral-light, 0.75);
       margin: 0.25em;
     }
+
+    @media screen and (min-width: $screen-size-s) {
+      flex: 1 0 auto;
+    }
   }
   .modal-content {
     background-color: $neutral-light-300;
     flex: 1 1 90%;
     overflow-y: scroll;
+
+    @media screen and (min-width: $screen-size-s) {
+      flex: 0 1 50rem;
+    }
   }
 
   .filter-options-container {

@@ -3,7 +3,7 @@ const { request } = require('./index');
 
 const getSearchSuggestions = (search) => {
   return request.get(
-    `${BASE_URL}/items?search=${search}&fields=_id,title,color,brand`
+    `${BASE_URL}/items?search=${search}&fields=_id,title,color,brandName`
   );
 };
 

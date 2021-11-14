@@ -21,6 +21,7 @@ const Navbar = () => {
       const resp = await searchService.getSearchSuggestions(searchValue);
 
       // set suggestions to req data
+      console.log(resp.data.items);
       setSearchSuggestions(resp.data.items);
     } else {
       setSearchSuggestions(null);

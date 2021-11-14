@@ -1,19 +1,34 @@
 @import '../../vars.scss';
 
-main {
+main.item-details {
   margin: 0 0 1rem 0;
+  font-size: 1rem;
+
   .container {
+    &.item-image-container {
+      padding: 0;
+    }
     @media screen and (max-width: $screen-size-s) {
       padding: 0 1rem;
     }
+
+    @media screen and (min-width: $screen-size-s) {
+      padding: 0 10rem;
+      max-width: 80rem;
+      font-size: 1.25rem;
+      &.item-image-container {
+        padding: 0 10rem;
+        max-width: 80rem;
+      }
+    }
   }
 
-  font-size: 1rem;
   .item-image-container {
     width: 100%;
 
     .item-img {
       max-width: 100%;
+      width: 100%;
       height: auto;
     }
   }
@@ -83,7 +98,7 @@ main {
 
   .item-description {
     margin: 2em 0;
-    font-size: 1rem;
+    font-size: 1em;
 
     &-text {
       color: $neutral-dark-200;

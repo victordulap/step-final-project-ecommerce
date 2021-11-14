@@ -1,126 +1,166 @@
 @import '../../vars.scss';
 
 main.checkout {
-  font-size: 1rem;
-  section {
-    background-color: $neutral-light-100;
-    padding: 2rem 3rem;
-    margin: 1rem 0;
-  }
-
-  section.header {
-    text-align: center;
-    font-size: 2em;
-    text-transform: uppercase;
-    h1 {
-      font-weight: 600;
-    }
-  }
-
-  section.checkout-error {
-    p {
-      color: $accent-error;
-      font-size: 1.65em;
-      font-weight: 500;
-      padding: 3em 0;
-    }
-  }
-
-  section.total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.1em;
-    text-transform: capitalize;
-    font-weight: 500;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
+  .container {
     font-size: 1rem;
 
-    section.form-section {
-      padding: 3rem 3rem;
+    @media screen and (min-width: $screen-size-s) {
+      font-size: 1.2rem;
+    }
 
-      header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 3em;
+    @media screen and (min-width: $screen-size-m) {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      grid-template-columns: 1fr;
+      gap: 0px;
+      height: 100%;
+      font-size: 1.4rem;
+    }
 
-        .form-title {
-          display: block;
-          flex: 1 0 auto;
-          text-transform: uppercase;
-          font-size: 2.15em;
-          color: $neutral-dark-300;
-          font-weight: 600;
-        }
+    section {
+      background-color: $neutral-light-100;
+      padding: 2rem 3rem;
+      margin: 1rem 0;
+    }
 
-        .toggle-form {
-          font-size: 1.85em;
-          background: none;
-          height: auto;
-          cursor: pointer;
-        }
-      }
+    section.header {
+      grid-row-start: 1;
+      grid-column-start: 1;
 
-      .form-item {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-        margin-bottom: 2em;
+      grid-row-end: 2;
+      grid-column-end: 3;
 
-        label {
-          text-transform: uppercase;
-          color: $neutral-dark-0;
-          font-weight: 500;
-          font-size: 1.7em;
-        }
-
-        .input-error {
-          font-size: 1.3em;
-          margin: 0;
-          color: $accent-error;
-        }
-
-        input {
-          border: 1px solid $neutral-dark-0;
-          font-size: 1.6em;
-          padding: 0.6em 0.8rem;
-          color: $neutral-dark-300;
-
-          &.error-border {
-            border: 1px solid $accent-error;
-            box-shadow: 0 0 0.05em $accent-error;
-          }
-
-          &:focus {
-            border-color: $accent-blue;
-            box-shadow: 0 0 0.05em $accent-blue;
-          }
-        }
-
-        .split-inputs {
-          display: flex;
-          width: 100%;
-          gap: 1em;
-
-          input {
-            flex: 0 1 50%;
-            width: 100%;
-          }
-        }
+      text-align: center;
+      font-size: 2em;
+      text-transform: uppercase;
+      h1 {
+        font-weight: 600;
       }
     }
 
-    section.submit-form {
-      button {
-        background: $accent-green;
-        font-size: 2em;
-        width: 100%;
-        padding: 1em 0;
-        color: $neutral-light-100;
-        border: none;
+    section.checkout-error {
+      p {
+        color: $accent-error;
+        font-size: 1.65em;
+        font-weight: 500;
+        padding: 3em 0;
+      }
+    }
+
+    section.total {
+      grid-row-start: 2;
+      grid-column-start: 1;
+
+      grid-row-end: 3;
+      grid-column-end: 3;
+
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.3em;
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      font-size: 1rem;
+      width: 100%;
+
+      @media screen and (min-width: $screen-size-m) {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      section.form-section {
+        padding: 3rem 3rem;
+        @media screen and (min-width: $screen-size-m) {
+          flex: 0 0 50%;
+        }
+
+        header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 3em;
+
+          .form-title {
+            display: block;
+            flex: 1 0 auto;
+            text-transform: uppercase;
+            font-size: 2.15em;
+            color: $neutral-dark-300;
+            font-weight: 600;
+          }
+
+          .toggle-form {
+            font-size: 1.85em;
+            background: none;
+            height: auto;
+            cursor: pointer;
+          }
+        }
+
+        .form-item {
+          display: flex;
+          flex-direction: column;
+          gap: 1em;
+          margin-bottom: 2em;
+
+          label {
+            text-transform: uppercase;
+            color: $neutral-dark-0;
+            font-weight: 500;
+            font-size: 1.7em;
+          }
+
+          .input-error {
+            font-size: 1.3em;
+            margin: 0;
+            color: $accent-error;
+          }
+
+          input {
+            border: 1px solid $neutral-dark-0;
+            font-size: 1.6em;
+            padding: 0.6em 0.8rem;
+            color: $neutral-dark-300;
+
+            &.error-border {
+              border: 1px solid $accent-error;
+              box-shadow: 0 0 0.05em $accent-error;
+            }
+
+            &:focus {
+              border-color: $accent-blue;
+              box-shadow: 0 0 0.05em $accent-blue;
+            }
+          }
+
+          .split-inputs {
+            display: flex;
+            width: 100%;
+            gap: 1em;
+
+            input {
+              flex: 0 1 50%;
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      section.submit-form {
+        @media screen and (min-width: $screen-size-m) {
+          flex: 1 1 100%;
+        }
+        button {
+          background: $accent-green;
+          font-size: 2em;
+          width: 100%;
+          padding: 1em 0;
+          color: $neutral-light-100;
+          border: none;
+        }
       }
     }
   }
