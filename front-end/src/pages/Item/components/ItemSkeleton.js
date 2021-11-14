@@ -3,7 +3,10 @@ import '../style.scss';
 
 const ItemSkeleton = () => {
   return (
-    <main className="item-skeleton" style={{ position: 'relative' }}>
+    <main
+      className="item-details item-skeleton"
+      style={{ position: 'relative' }}
+    >
       <div className="container">
         <div className="item-image-container"></div>
         <p className="item-title"></p>
