@@ -1,7 +1,11 @@
 import './style.scss';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getItems, resetState } from '../../features/shopItemsSlice';
+import {
+  getItems,
+  getItemsByPage,
+  resetState,
+} from '../../features/shopItemsSlice';
 import { SORT_OPTIONS } from '../../utils/constants';
 import Button from '../../components/Button';
 import ShopItemCard from '../../components/ShopItemCard';
@@ -109,7 +113,7 @@ const Shop = () => {
       .map(([key, value]) => `${key}=${value}`)
       .join('&');
 
-    dispatch(getItems(q));
+    dispatch(getItemsByPage(q));
   };
 
   const showFilterModal = () => {
