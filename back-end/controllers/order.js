@@ -21,15 +21,6 @@ const createOrder = async (req, res) => {
     subject: 'Your order at VD clothes',
     text: 'Your order at VD clothes',
     html: `
-      <style>
-      table, td, th {
-        border: 1px solid black;
-      }
-
-      table {
-       
-      }
-      </style>
       <h1>Thanks ${shippingDetails.firstName} ${
       shippingDetails.lastName
     } for ordering at VD clothes</h1>
