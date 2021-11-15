@@ -6,7 +6,7 @@ export const getItems = createAsyncThunk('get/items', async (q) => {
   return res.data;
 });
 
-export const getItemsByPage = createAsyncThunk('get/items', async (q) => {
+export const getItemsByPage = createAsyncThunk('get/itemsByPage', async (q) => {
   const res = await itemsService.getItems(q);
   return res.data;
 });
