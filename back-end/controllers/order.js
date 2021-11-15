@@ -15,7 +15,7 @@ const createOrder = async (req, res) => {
 
   const cartLength = cart.reduce((prev, curr) => prev + curr.count, 0);
 
-  const mailData = {
+  const mailDataCustomer = {
     from: 'vdclothes.step@gmail.com', // sender address
     to: shippingDetails.email, // list of receivers
     subject: 'Your order at VD clothes',
@@ -46,8 +46,41 @@ const createOrder = async (req, res) => {
       <p>For more information, contact vdclothes.step@gmail.com</p>
     `,
   };
+  const mailDataOperator = {
+    from: 'vdclothes.step@gmail.com', // sender address
+    to: 'vdclothes.operator.step@gmail.com', // list of receivers
+    subject: 'New order',
+    text: 'New order',
+    html: `
+      <h1>New order by ${shippingDetails.firstName} ${
+      shippingDetails.lastName
+    } (${shippingDetails.email})</h1>
+      <p>Order total: ${total}$ (${cartLength} items)</p>
+      <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
+        <tr>
+          <th style="border: 1px solid black;">item</th>
+          <th style="border: 1px solid black;">size</th>
+          <th style="border: 1px solid black;">qty</th>
+          <th style="border: 1px solid black;">price</th>
+        </tr>
+        ${cart
+          .map((cartItem) => {
+            return `<tr><td style="border: 1px solid black;">${cartItem.itemName}</td><td style="border: 1px solid black;">${cartItem.selectedSize}</td><td style="border: 1px solid black;">${cartItem.count}</td><td style="border: 1px solid black;">${cartItem.price}</td></tr>`;
+          })
+          .join(' ')}
+      </table>
+      <br/>
+      <p>Shipping details: ${shippingDetails.country}, ${
+      shippingDetails.city
+    }, ${shippingDetails.postcode}</p>
+    `,
+  };
 
-  transporter.sendMail(mailData, (err, info) => {
+  transporter.sendMail(mailDataOperator, (err, info) => {
+    if (err) console.log(err);
+  });
+
+  transporter.sendMail(mailDataCustomer, (err, info) => {
     if (err) console.log(err);
     res.status(201).json({ order, email: info });
   });
