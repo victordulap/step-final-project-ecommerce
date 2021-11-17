@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Menu, Breadcrumb, Button, Space } from 'antd';
 import {
-  DesktopOutlined,
+  DatabaseOutlined,
+  ThunderboltOutlined,
   PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
+  DollarCircleOutlined,
 } from '@ant-design/icons';
 import Text from 'antd/lib/typography/Text';
 import { useDispatch } from 'react-redux';
 import { AuthActions } from '../features/Auth/AuthSlice';
+import { Link } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const CustomLayout = () => {
+const CustomLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const dispatch = useDispatch();
@@ -28,23 +28,32 @@ const CustomLayout = () => {
       <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            Option 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<DesktopOutlined />}>
-            Option 2
-          </Menu.Item>
-          <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-            <Menu.Item key="3">Tom</Menu.Item>
-            <Menu.Item key="4">Bill</Menu.Item>
-            <Menu.Item key="5">Alex</Menu.Item>
+          <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Items">
+            <Menu.Item key="sub1.1">
+              <Link to="/items">All items</Link>
+            </Menu.Item>
+            <Menu.Item key="sub1.2">
+              <Link to="/items/add">Add item</Link>
+            </Menu.Item>
           </SubMenu>
-          <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
+          <SubMenu key="sub2" icon={<ThunderboltOutlined />} title="Brands">
+            <Menu.Item key="sub2.1">
+              <Link to="/brands">All brands</Link>
+            </Menu.Item>
+            <Menu.Item key="sub2.2">
+              <Link to="/brands/add">Add brand</Link>
+            </Menu.Item>
           </SubMenu>
-          <Menu.Item key="9" icon={<FileOutlined />}>
-            Files
+          <SubMenu key="sub3" icon={<PieChartOutlined />} title="Categories">
+            <Menu.Item key="sub3.1">
+              <Link to="/categories">All categories</Link>
+            </Menu.Item>
+            <Menu.Item key="sub3.2">
+              <Link to="/categories/add">Add category</Link>
+            </Menu.Item>
+          </SubMenu>
+          <Menu.Item icon={<DollarCircleOutlined />} key="sub4">
+            <Link to="/orders">Orders</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -68,18 +77,7 @@ const CustomLayout = () => {
             </Button>
           </Space>
         </Header>
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div
-            className="site-layout-background"
-            style={{ padding: 24, minHeight: 360 }}
-          >
-            Bill is a cat.
-          </div>
-        </Content>
+        <Content style={{ margin: '0 16px' }}>{children}</Content>
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©2018 Created by Ant UED
         </Footer>
