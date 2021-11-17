@@ -26,7 +26,21 @@ const CustomLayout = ({ children }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
-        <div className="logo" />
+        <div
+          style={{
+            padding: '1rem',
+            color: '#fff',
+            fontWeight: 700,
+            textAlign: 'center',
+            fontSize: collapsed ? '.85rem' : '1.5rem',
+            transition: 'font-size .25s ease',
+          }}
+          className="logo"
+        >
+          <Link style={{ color: 'inherit' }} to="/">
+            VD Clothes
+          </Link>
+        </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Items">
             <Menu.Item key="sub1.1">
@@ -79,7 +93,7 @@ const CustomLayout = ({ children }) => {
         </Header>
         <Content style={{ margin: '0 16px' }}>{children}</Content>
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2018 Created by Ant UED
+          ©2021 Created by Victor Dulap
         </Footer>
       </Layout>
     </Layout>

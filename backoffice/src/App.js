@@ -2,6 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import PrivateRoute from './util/PrivateRoute';
+import { Typography } from 'antd';
+import './App.css';
+
+const { Title } = Typography;
 
 function App() {
   return (
@@ -13,7 +17,19 @@ function App() {
             path="/"
             element={
               <PrivateRoute>
-                <p>hello</p>
+                <div className="welcome-container">
+                  <Title className="welcome-message" level="1">
+                    Welcome admin!
+                  </Title>
+                </div>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <PrivateRoute>
+                <p>404 not found</p>
               </PrivateRoute>
             }
           />
