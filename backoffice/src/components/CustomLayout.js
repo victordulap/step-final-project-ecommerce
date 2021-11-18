@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Breadcrumb, Button, Space } from 'antd';
+import { Layout, Menu, Button, Space } from 'antd';
 import {
   DatabaseOutlined,
   ThunderboltOutlined,
@@ -7,17 +7,39 @@ import {
   DollarCircleOutlined,
 } from '@ant-design/icons';
 import Text from 'antd/lib/typography/Text';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthActions } from '../features/Auth/AuthSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const CustomLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState();
   const dispatch = useDispatch();
+  const token = useSelector(({ auth }) => auth.token);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    (() => {
+      if (!token) {
+        dispatch(AuthActions.logout());
+        return;
+      }
+
+      const payload = jwt_decode(token);
+
+      if (!payload.username) {
+        dispatch(AuthActions.logout());
+        return;
+      }
+
+      localStorage.setItem('username', payload.username);
+      setUser(payload.username);
+    })();
+  }, [dispatch, token]);
 
   const handleLogout = () => {
     dispatch(AuthActions.logout());
@@ -81,7 +103,7 @@ const CustomLayout = ({ children }) => {
           }}
         >
           <Space direction="horizontal">
-            <Text style={{ color: '#fff' }}>{user.username}</Text>
+            <Text style={{ color: '#fff' }}>{user}</Text>
             <Button
               onClick={handleLogout}
               style={{ color: '#fff' }}

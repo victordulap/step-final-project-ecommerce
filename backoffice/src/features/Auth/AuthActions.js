@@ -7,7 +7,6 @@ export const authAction = createAsyncThunk(
     try {
       const result = await authService.login(user);
       localStorage.setItem('token', result.data.token);
-      localStorage.setItem('user', JSON.stringify(result.data.user));
       return result.data;
     } catch (err) {
       let error = err;
