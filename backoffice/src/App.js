@@ -6,6 +6,7 @@ import { Typography } from 'antd';
 import './App.css';
 import Items from './pages/Items/Items';
 import Brands from './pages/Brands/Brands';
+import Categories from './pages/Categories/Categories';
 
 const { Title } = Typography;
 
@@ -40,6 +41,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Brands />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <PrivateRoute>
+                <Categories />
               </PrivateRoute>
             }
           />

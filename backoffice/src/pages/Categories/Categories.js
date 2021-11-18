@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBrands } from '../../features/Brands/BrandsActions';
+import { getAllCategories } from '../../features/Categories/CategoriesActions';
 
 const columns = [
   {
@@ -18,12 +18,12 @@ const columns = [
   },
 ];
 
-const Brands = () => {
-  const { value, isLoading } = useSelector(({ brands }) => brands);
+const Categories = () => {
+  const { value, isLoading } = useSelector(({ categories }) => categories);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllBrands());
+    dispatch(getAllCategories());
   }, [dispatch]);
 
   return (
@@ -33,4 +33,4 @@ const Brands = () => {
   );
 };
 
-export default Brands;
+export default Categories;
