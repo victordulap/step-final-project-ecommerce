@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import PrivateRoute from './util/PrivateRoute';
 import { Typography } from 'antd';
 import './App.css';
+import Items from './pages/Items/Items';
 
 const { Title } = Typography;
 
@@ -26,10 +27,18 @@ function App() {
             }
           />
           <Route
+            path="/items"
+            element={
+              <PrivateRoute>
+                <Items />
+              </PrivateRoute>
+            }
+          />
+          <Route
             path="*"
             element={
               <PrivateRoute>
-                <p>404 not found</p>
+                <p style={{ textAlign: 'center', padding: '5em 0', fontSize: '3rem' }}>404 not found</p>
               </PrivateRoute>
             }
           />

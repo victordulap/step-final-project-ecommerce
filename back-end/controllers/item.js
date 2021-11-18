@@ -61,19 +61,13 @@ const getFilters = async (queryObj) => {
     filters.forEach((f) => {
       for (let [k, v] of Object.entries(f)) {
         if (Array.isArray(v)) {
-          if (!finalFilters[k].some((curr) => v.includes(curr.name)))
-            finalFilters[k].push(...v.map((val) => ({ name: val })));
+          if (!finalFilters[k].some((curr) => v.includes(curr.name))) finalFilters[k].push(...v.map((val) => ({ name: val })));
         } else if (typeof v === 'object') {
-          if (
-            !finalFilters[k].find(
-              (val) => JSON.stringify(val) === JSON.stringify(v)
-            )
-          ) {
+          if (!finalFilters[k].find((val) => JSON.stringify(val) === JSON.stringify(v))) {
             finalFilters[k].push(v);
           }
         } else {
-          if (!finalFilters[k].some((curr) => v.includes(curr.name)))
-            finalFilters[k].push({ name: v });
+          if (!finalFilters[k].some((curr) => v.includes(curr.name))) finalFilters[k].push({ name: v });
         }
       }
     });
@@ -86,23 +80,21 @@ const getFilters = async (queryObj) => {
 
 const getAllItems = async (req, res) => {
   try {
-    const {
-      title,
-      brandIds,
-      categoryIds,
-      colors,
-      sizes,
-      sort,
-      fields,
-      numericFilters,
-      search,
-    } = req.query;
+    const { title, brandIds, categoryIds, colors, sizes, sort, fields, numericFilters, search, all } = req.query;
     let { shopTitle, filterFields } = req.query;
     const queryObject = {
       available: true,
     };
 
     shopTitleArr = [];
+
+    if (all) {
+      const items = await Item.find({});
+      return res.status(200).json({
+        items,
+        nbHits: items.length,
+      });
+    }
 
     if (brandIds) {
       let filter = brandIds.split(',');
@@ -202,10 +194,7 @@ const getAllItems = async (req, res) => {
     if (fields) {
       let fieldsList = fields.split(','); //.join(' ');
       // const fieldsObject = {fieldsList.map()}
-      fieldsList = fieldsList.reduce(
-        (prev, curr) => ({ ...prev, [curr]: 1 }),
-        {}
-      );
+      fieldsList = fieldsList.reduce((prev, curr) => ({ ...prev, [curr]: 1 }), {});
       aggregateArr.push({ $project: fieldsList });
     }
 
