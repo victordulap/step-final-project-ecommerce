@@ -1,13 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { brandsService } from '../../services';
-
-export const getAllBrands = createAsyncThunk('get/allBrands', async () => {
-  const res = await brandsService.getAllBrands();
-  return res.data;
-});
+import { createSlice } from '@reduxjs/toolkit';
+import { getAllBrands } from './BrandsActions';
 
 const initialState = {
-  value: { brands: [], isLoading: true },
+  value: [],
 };
 
 export const BrandSlice = createSlice({

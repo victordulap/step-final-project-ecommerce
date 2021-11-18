@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
-import { itemsService } from '../../services/itemsService';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../features/Items/ItemsSlice';
 
