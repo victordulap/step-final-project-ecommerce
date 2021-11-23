@@ -5,3 +5,8 @@ export const getAllBrands = createAsyncThunk('get/allBrands', async () => {
   const res = await brandsService.getAllBrands();
   return res.data;
 });
+
+export const getBrand = createAsyncThunk('get/brandById', async (id) => {
+  const res = await brandsService.getBrand(id);
+  return res.data;
+});

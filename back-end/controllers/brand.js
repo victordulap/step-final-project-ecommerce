@@ -14,6 +14,14 @@ const getAllBrands = async (req, res) => {
   res.status(200).json({ brands, nbHits: brands.length });
 };
 
+const getBrand = async (req, res) => {
+  const { id } = req.params;
+  let result = Brand.findById(id);
+  const brand = await result;
+  res.status(200).json({ brand });
+};
+
 module.exports = {
   getAllBrands,
+  getBrand,
 };

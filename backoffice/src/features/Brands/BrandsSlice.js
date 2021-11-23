@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllBrands } from './BrandsActions';
+import { getAllBrands, getBrand } from './BrandsActions';
 
 const initialState = {
   value: [],
+  brand: {},
 };
 
 export const BrandSlice = createSlice({
@@ -19,6 +20,18 @@ export const BrandSlice = createSlice({
     },
     [getAllBrands.rejected]: (state, action) => {
       state.value = [];
+      state.isLoading = false;
+    },
+
+    [getBrand.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getBrand.fulfilled]: (state, action) => {
+      state.brand = action.payload.brand;
+      state.isLoading = false;
+    },
+    [getBrand.rejected]: (state, action) => {
+      state.brand = [];
       state.isLoading = false;
     },
   },

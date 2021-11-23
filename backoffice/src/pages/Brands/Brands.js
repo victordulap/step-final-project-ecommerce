@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { Table, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrands } from '../../features/Brands/BrandsActions';
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
     title: 'Id',
     dataIndex: '_id',
     key: '_id',
-    render: (text) => <a href="#">{text}</a>,
+    render: (id) => <Link to={`/brands/${id}`}>{id}</Link>,
     width: '30%',
   },
   {
