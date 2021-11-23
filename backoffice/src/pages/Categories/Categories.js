@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { Table, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategories } from '../../features/Categories/CategoriesActions';
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
     title: 'Id',
     dataIndex: '_id',
     key: '_id',
-    render: (text) => <a href="#">{text}</a>,
+    render: (id) => <Link to={`/categories/${id}`}>{id}</Link>,
     width: '30%',
   },
   {

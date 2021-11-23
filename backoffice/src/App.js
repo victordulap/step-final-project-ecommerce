@@ -8,6 +8,7 @@ import Items from './pages/Items/Items';
 import Brands from './pages/Brands/Brands';
 import Categories from './pages/Categories/Categories';
 import Orders from './pages/Orders/Orders';
+import Category from './pages/Categories/Category';
 
 const { Title } = Typography;
 
@@ -50,6 +51,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Categories />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/categories/:categoryId"
+            element={
+              <PrivateRoute>
+                <Category />
               </PrivateRoute>
             }
           />
