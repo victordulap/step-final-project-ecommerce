@@ -9,7 +9,7 @@ const getOrderById = (id) => {
   return request.get(`${BASE_URL}/orders/${id}`);
 };
 
-export const itemsService = {
+export const ordersService = {
   getOrders,
   getOrderById,
 };

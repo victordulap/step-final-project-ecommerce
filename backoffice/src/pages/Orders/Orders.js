@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategories } from '../../features/Categories/CategoriesActions';
+import { getAllOrders } from '../../features/Orders/OrdersActions';
+import { formatToDateTime } from '../../util/date';
 
 const columns = [
   {
@@ -16,18 +17,31 @@ const columns = [
     key: 'total',
   },
   {
-    title: 'Total',
-    dataIndex: 'total',
-    key: 'total',
+    title: 'Total items',
+    dataIndex: 'cart',
+    key: 'total_items',
+    render: (cart) => cart.length,
+  },
+  {
+    title: 'Shipping country',
+    dataIndex: 'shippingDetails',
+    key: 'total_items',
+    render: (shippingDetails) => `${shippingDetails.country}, ${shippingDetails.city}`,
+  },
+  {
+    title: 'Order date',
+    dataIndex: 'createdAt',
+    key: 'order_date',
+    render: (createdAt) => formatToDateTime(createdAt),
   },
 ];
 
 const Orders = () => {
-  const { value, isLoading } = useSelector(({ categories }) => categories);
+  const { value, isLoading } = useSelector(({ orders }) => orders);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllCategories());
+    dispatch(getAllOrders());
   }, [dispatch]);
 
   return (

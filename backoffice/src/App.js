@@ -7,6 +7,7 @@ import './App.css';
 import Items from './pages/Items/Items';
 import Brands from './pages/Brands/Brands';
 import Categories from './pages/Categories/Categories';
+import Orders from './pages/Orders/Orders';
 
 const { Title } = Typography;
 
@@ -49,6 +50,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Categories />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <PrivateRoute>
+                <Orders />
               </PrivateRoute>
             }
           />
