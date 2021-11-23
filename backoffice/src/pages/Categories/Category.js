@@ -1,42 +1,40 @@
 import React, { useEffect } from 'react';
 import { Input, Typography, Form } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategories } from '../../features/Categories/CategoriesActions';
+import { getCategory } from '../../features/Categories/CategoriesActions';
 import FormWrap from '../../components/FormWrap';
 import { useParams } from 'react-router';
 import WrappedSpinner from '../../components/WrappedSpinner';
 
 const Category = () => {
-  const { value, isLoading } = useSelector(({ categories }) => categories);
+  const { category, isLoading } = useSelector(({ categories }) => categories);
   const dispatch = useDispatch();
   const { categoryId } = useParams();
 
   useEffect(() => {
-    dispatch(getAllCategories());
-  }, [dispatch]);
+    dispatch(getCategory(categoryId));
+  }, [dispatch, categoryId]);
 
-  const formFields = [
-    {
-      label: 'Id',
-      component: <Input value={1} disabled />,
-    },
-    {
-      label: 'Name',
-      component: <Input value={1} disabled />,
-    },
-    {
-      label: 'Image URL',
-      component: (
-        <a
-          href="https://images.asos-media.com/products/selected-homme-smart-trousers-in-slim-tapered-fit-with-elasticated-waist-in-black/24337648-1-black?$n_640w$&wid=513&fit=constrain"
-          target="_blank"
-          rel="noreferrer"
-        >
-          https://images.asos-media.com/products/selected-homme-smart-trousers-in-slim-tapered-fit-with-elasticated-waist-in-black/24337648-1-black?$n_640w$&wid=513&fit=constrain
-        </a>
-      ),
-    },
-  ];
+  const formFields = category
+    ? [
+        {
+          label: 'Id',
+          component: <Input value={category._id} disabled />,
+        },
+        {
+          label: 'Name',
+          component: <Input value={category.name} disabled />,
+        },
+        {
+          label: 'Image URL',
+          component: (
+            <a href={category.imgUrl} target="_blank" rel="noreferrer">
+              {category.imgUrl}
+            </a>
+          ),
+        },
+      ]
+    : [];
 
   if (isLoading) {
     return <WrappedSpinner />;

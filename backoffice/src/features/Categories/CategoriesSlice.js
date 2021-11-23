@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllCategories } from './CategoriesActions';
+import { getAllCategories, getCategory } from './CategoriesActions';
 
 const initialState = {
   value: [],
+  category: {},
 };
 
 export const CategoriesSlice = createSlice({
@@ -19,6 +20,18 @@ export const CategoriesSlice = createSlice({
     },
     [getAllCategories.rejected]: (state, action) => {
       state.value = [];
+      state.isLoading = false;
+    },
+
+    [getCategory.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getCategory.fulfilled]: (state, action) => {
+      state.category = action.payload.category;
+      state.isLoading = false;
+    },
+    [getCategory.rejected]: (state, action) => {
+      state.category = {};
       state.isLoading = false;
     },
   },

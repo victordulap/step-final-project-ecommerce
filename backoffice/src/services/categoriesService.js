@@ -5,6 +5,11 @@ const getAllCategories = () => {
   return request.get(`${BASE_URL}/categories`);
 };
 
+const getCategory = (id) => {
+  return request.get(`${BASE_URL}/categories/${id}`);
+};
+
 export const categoriesService = {
   getAllCategories,
+  getCategory,
 };

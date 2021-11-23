@@ -14,6 +14,14 @@ const getAllCategories = async (req, res) => {
   res.status(200).json({ categories, nbHits: categories.length });
 };
 
+const getCategory = async (req, res) => {
+  const { id } = req.params;
+  let result = Category.findById(id);
+  const category = await result;
+  res.status(200).json({ category });
+};
+
 module.exports = {
   getAllCategories,
+  getCategory,
 };
