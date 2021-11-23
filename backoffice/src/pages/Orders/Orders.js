@@ -3,13 +3,14 @@ import { Table, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders } from '../../features/Orders/OrdersActions';
 import { formatToDateTime } from '../../util/date';
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
     title: 'Id',
     dataIndex: '_id',
     key: '_id',
-    render: (text) => <a href="#">{text}</a>,
+    render: (id) => <Link to={`/orders/${id}`}>{id}</Link>,
     width: '20%',
   },
   {

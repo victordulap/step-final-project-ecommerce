@@ -10,6 +10,7 @@ import Categories from './pages/Categories/Categories';
 import Orders from './pages/Orders/Orders';
 import Category from './pages/Categories/Category';
 import Brand from './pages/Brands/Brand';
+import Order from './pages/Orders/Order';
 
 const { Title } = Typography;
 
@@ -76,6 +77,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Orders />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/orders/:orderId"
+            element={
+              <PrivateRoute>
+                <Order />
               </PrivateRoute>
             }
           />
