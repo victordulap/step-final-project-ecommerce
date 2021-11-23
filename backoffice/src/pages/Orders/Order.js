@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Input, Table, Typography, Form, Checkbox, DatePicker, Divider } from 'antd';
+import { Input, Table, Typography, Form, Checkbox, DatePicker, Divider, Row, Col } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
 import { useParams } from 'react-router';
@@ -111,32 +111,45 @@ const Order = () => {
     return <WrappedSpinner />;
   }
 
+  const layout = {
+    labelCol: {
+      span: 5,
+    },
+    wrapperCol: {
+      span: 15,
+    },
+  };
   return (
     <>
       <Title className="mt-1" level={1}>
         Order
       </Title>
       <FormWrap>
-        <Form name="basic" labelCol={{ span: 2 }} wrapperCol={{ span: 10 }} initialValues={{ remember: true }} autoComplete="off">
-          <Title className="mb-2" level={3}>
-            Order details
-          </Title>
-          {formFields.map((f) => (
-            <Form.Item key={`order-${f.label}`} label={f.label}>
-              {f.component}
-            </Form.Item>
-          ))}
+        <Form name="basic" initialValues={{ remember: true }} autoComplete="off">
+          <Row gutter={32}>
+            <Col span={12}>
+              <Title className="mb-2" level={3}>
+                Order details
+              </Title>
+              {formFields.map((f) => (
+                <Form.Item {...layout} key={`order-${f.label}`} label={f.label}>
+                  {f.component}
+                </Form.Item>
+              ))}
+            </Col>
+            <Col span={12}>
+              <Title className="mb-2" level={3}>
+                Shipping details
+              </Title>
+              {shippingFormFields.map((f) => (
+                <Form.Item {...layout} key={`order-shipping-${f.label}`} label={f.label}>
+                  {f.component}
+                </Form.Item>
+              ))}
+            </Col>
+          </Row>
 
-          <Divider />
-
-          <Title className="mb-2" level={3}>
-            Shipping details
-          </Title>
-          {shippingFormFields.map((f) => (
-            <Form.Item key={`order-shipping-${f.label}`} label={f.label}>
-              {f.component}
-            </Form.Item>
-          ))}
+          {/* <Divider /> */}
 
           <Divider />
 
