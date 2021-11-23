@@ -18,6 +18,11 @@ const OrderSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    isShipped: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );
