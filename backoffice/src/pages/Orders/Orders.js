@@ -10,17 +10,20 @@ const columns = [
     dataIndex: '_id',
     key: '_id',
     render: (text) => <a href="#">{text}</a>,
+    width: '20%',
   },
   {
     title: 'Total',
     dataIndex: 'total',
     key: 'total',
+    width: '10%',
   },
   {
     title: 'Total items',
     dataIndex: 'cart',
     key: 'total_items',
     render: (cart) => cart.length,
+    width: '10%',
   },
   {
     title: 'Shipping country',
@@ -33,6 +36,12 @@ const columns = [
     dataIndex: 'createdAt',
     key: 'order_date',
     render: (createdAt) => formatToDateTime(createdAt),
+  },
+  {
+    title: 'Shipped',
+    dataIndex: 'isShipped',
+    key: 'isShipped',
+    render: (isShipped) => `${isShipped}`,
   },
 ];
 
