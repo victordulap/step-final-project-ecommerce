@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table } from 'antd';
+import { Table, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../features/Items/ItemsSlice';
 
@@ -50,6 +50,9 @@ const Items = () => {
 
   return (
     <div>
+      <Typography.Title className="mt-1" level={1}>
+        Items
+      </Typography.Title>{' '}
       <Table columns={columns} loading={isLoading} dataSource={value} />
     </div>
   );

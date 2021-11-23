@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table } from 'antd';
+import { Table, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategories } from '../../features/Categories/CategoriesActions';
 
@@ -28,6 +28,9 @@ const Categories = () => {
 
   return (
     <div>
+      <Typography.Title className="mt-1" level={1}>
+        Categories
+      </Typography.Title>
       <Table columns={columns} loading={isLoading} dataSource={value} />
     </div>
   );

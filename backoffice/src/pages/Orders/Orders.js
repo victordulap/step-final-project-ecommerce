@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table } from 'antd';
+import { Table, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders } from '../../features/Orders/OrdersActions';
 import { formatToDateTime } from '../../util/date';
@@ -55,6 +55,9 @@ const Orders = () => {
 
   return (
     <div>
+      <Typography.Title className="mt-1" level={1}>
+        Orders
+      </Typography.Title>
       <Table columns={columns} loading={isLoading} dataSource={value} />
     </div>
   );
