@@ -21,7 +21,13 @@ const getBrand = async (req, res) => {
   res.status(200).json({ brand });
 };
 
+const addBrand = async (req, res) => {
+  const brand = await Brand.create(req.body);
+  res.status(201).json({ brand });
+};
+
 module.exports = {
   getAllBrands,
   getBrand,
+  addBrand,
 };
