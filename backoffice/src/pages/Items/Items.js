@@ -60,6 +60,7 @@ const Items = () => {
       key: 'price',
       render: (price) => <span>{price} $</span>,
       width: '8%',
+      sorter: (a, b) => a.price - b.price,
     },
   ];
 
