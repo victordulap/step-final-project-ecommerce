@@ -10,3 +10,13 @@ export const getCategory = createAsyncThunk('get/categoryById', async (id) => {
   const res = await categoriesService.getCategory(id);
   return res.data;
 });
+
+export const addCategory = createAsyncThunk('post/category', async ({ name, imgUrl }) => {
+  const res = await categoriesService.addCategory({ name, imgUrl });
+  return res.data;
+});
+
+export const removeCategory = createAsyncThunk('delete/category', async (id) => {
+  const res = await categoriesService.removeCategory(id);
+  return res.data;
+});

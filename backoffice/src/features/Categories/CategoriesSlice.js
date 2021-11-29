@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllCategories, getCategory } from './CategoriesActions';
+import { STATE_STATUSES } from '../../util/constants';
+import { addCategory, getAllCategories, getCategory, removeCategory } from './CategoriesActions';
 
 const initialState = {
   value: [],
@@ -9,7 +10,11 @@ const initialState = {
 export const CategoriesSlice = createSlice({
   name: 'Brands',
   initialState,
-  reducers: {},
+  reducers: {
+    resetStatus(state) {
+      state.status = STATE_STATUSES.IDLE;
+    },
+  },
   extraReducers: {
     [getAllCategories.pending]: (state, action) => {
       state.isLoading = true;
@@ -34,7 +39,35 @@ export const CategoriesSlice = createSlice({
       state.category = {};
       state.isLoading = false;
     },
+
+    [addCategory.pending]: (state, action) => {
+      state.isLoading = true;
+      state.status = STATE_STATUSES.LOADING;
+    },
+    [addCategory.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.SUCCESS;
+    },
+    [addCategory.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.ERROR;
+    },
+
+    [removeCategory.pending]: (state, action) => {
+      state.isLoading = true;
+      state.status = STATE_STATUSES.LOADING;
+    },
+    [removeCategory.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.SUCCESS;
+    },
+    [removeCategory.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.ERROR;
+    },
   },
 });
+
+export const categoryActions = CategoriesSlice.actions;
 
 export default CategoriesSlice.reducer;
