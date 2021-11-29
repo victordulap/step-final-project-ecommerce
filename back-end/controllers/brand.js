@@ -1,3 +1,5 @@
+const CustomAPIError = require('../errors/custom-api');
+const NotFoundError = require('../errors/not-found');
 const Brand = require('../models/Brand');
 
 const getAllBrands = async (req, res) => {
@@ -26,8 +28,18 @@ const addBrand = async (req, res) => {
   res.status(201).json({ brand });
 };
 
+const removeBrand = async (req, res) => {
+  const { id } = req.params;
+  const brand = await Brand.findOneAndDelete({ _id: id });
+  if (!brand) {
+    throw new NotFoundError(`No brand with id : ${id}`);
+  }
+  res.status(200).json({ brand });
+};
+
 module.exports = {
   getAllBrands,
   getBrand,
   addBrand,
+  removeBrand,
 };
