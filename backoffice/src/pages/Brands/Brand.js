@@ -1,19 +1,36 @@
 import React, { useEffect } from 'react';
-import { Input, Typography, Form } from 'antd';
+import { Input, Typography, Form, Button, Divider, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import WrappedSpinner from '../../components/WrappedSpinner';
-import { getBrand } from '../../features/Brands/BrandsActions';
+import { getBrand, removeBrand } from '../../features/Brands/BrandsActions';
+import { brandActions } from '../../features/Brands/BrandsSlice';
+import { STATE_STATUSES } from '../../util/constants';
 
 const Brand = () => {
-  const { brand, isLoading } = useSelector(({ brands }) => brands);
+  const { brand, isLoading, status } = useSelector(({ brands }) => brands);
   const dispatch = useDispatch();
   const { brandId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getBrand(brandId));
   }, [dispatch, brandId]);
+
+  useEffect(() => {
+    if (status === STATE_STATUSES.SUCCESS) {
+      message.success('brand removed!');
+      dispatch(brandActions.resetStatus());
+      navigate('/brands');
+    } else if (status === STATE_STATUSES.ERROR) message.error('brand not removed!');
+  }, [dispatch, navigate, status]);
+
+  const deleteBrand = () => {
+    if (brand) {
+      dispatch(removeBrand(brand._id));
+    }
+  };
 
   const formFields = brand
     ? [
@@ -53,6 +70,12 @@ const Brand = () => {
             </Form.Item>
           ))}
         </Form>
+
+        <Divider />
+
+        <Button onClick={deleteBrand} danger type="primary" loading={isLoading}>
+          Delete brand
+        </Button>
       </FormWrap>
     </>
   );

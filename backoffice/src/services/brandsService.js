@@ -13,8 +13,13 @@ const addBrand = (brand) => {
   return request.post(`${BASE_URL}/brands`, brand);
 };
 
+const removeBrand = (id) => {
+  return request.delete(`${BASE_URL}/brands/${id}`);
+};
+
 export const brandsService = {
   getAllBrands,
   getBrand,
   addBrand,
+  removeBrand,
 };

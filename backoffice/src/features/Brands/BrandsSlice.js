@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { STATE_STATUSES } from '../../util/constants';
-import { addBrand, getAllBrands, getBrand } from './BrandsActions';
+import { addBrand, getAllBrands, getBrand, removeBrand } from './BrandsActions';
 
 const initialState = {
   value: [],
@@ -49,6 +49,19 @@ export const BrandSlice = createSlice({
       state.status = STATE_STATUSES.SUCCESS;
     },
     [addBrand.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.ERROR;
+    },
+
+    [removeBrand.pending]: (state, action) => {
+      state.isLoading = true;
+      state.status = STATE_STATUSES.LOADING;
+    },
+    [removeBrand.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.SUCCESS;
+    },
+    [removeBrand.rejected]: (state, action) => {
       state.isLoading = false;
       state.status = STATE_STATUSES.ERROR;
     },

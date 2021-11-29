@@ -15,3 +15,8 @@ export const addBrand = createAsyncThunk('post/brand', async ({ name, imgUrl }) 
   const res = await brandsService.addBrand({ name, imgUrl });
   return res.data;
 });
+
+export const removeBrand = createAsyncThunk('delete/brand', async (id) => {
+  const res = await brandsService.removeBrand(id);
+  return res.data;
+});
