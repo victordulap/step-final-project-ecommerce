@@ -38,9 +38,9 @@ const removeBrand = async (req, res) => {
 
   const { _id: deletedBrandId } = brand;
 
-  const resp = await Item.remove({ brandId: deletedBrandId });
+  const { deletedCount } = await Item.deleteMany({ brandId: deletedBrandId });
 
-  res.status(200).json({ brand, deletedItemsNb: resp.deletedCount });
+  res.status(200).json({ brand, deletedItemsNb: deletedCount });
 };
 
 module.exports = {
