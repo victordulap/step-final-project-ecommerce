@@ -89,7 +89,34 @@ const getAllItems = async (req, res) => {
     shopTitleArr = [];
 
     if (all) {
-      const items = await Item.find({});
+      const items = await Item.aggregate([
+        {
+          $lookup: {
+            from: 'brands',
+            localField: 'brandId',
+            foreignField: '_id',
+            as: 'brand',
+          },
+        },
+        {
+          $unwind: {
+            path: '$brand',
+          },
+        },
+        {
+          $lookup: {
+            from: 'categories',
+            localField: 'categoryIds',
+            foreignField: '_id',
+            as: 'category',
+          },
+        },
+        {
+          $unwind: {
+            path: '$category',
+          },
+        },
+      ]);
       return res.status(200).json({
         items,
         nbHits: items.length,

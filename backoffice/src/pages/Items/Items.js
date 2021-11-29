@@ -19,17 +19,17 @@ const columns = [
     width: '23%',
   },
   {
-    title: 'Brand id',
+    title: 'Brand',
     dataIndex: 'brandId',
     key: 'brandId',
-    render: (id) => <Link to={`/brands/${id}`}>{id}</Link>,
+    render: (id, rec) => <Link to={`/brands/${id}`}>{rec.brand.name}</Link>,
     width: '23%',
   },
   {
     title: 'Category id',
     dataIndex: 'categoryIds',
     key: 'categoryIds',
-    render: (categoryIds) => <Link to={`/categories/${categoryIds[0]}`}>{categoryIds[0]}</Link>,
+    render: (categoryIds, rec) => <Link to={`/categories/${categoryIds[0]}`}>{rec.category.name}</Link>,
     width: '23%',
   },
   {
