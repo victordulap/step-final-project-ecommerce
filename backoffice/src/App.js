@@ -12,6 +12,7 @@ import Orders from './pages/Orders/Orders';
 import Category from './pages/Categories/Category';
 import Brand from './pages/Brands/Brand';
 import Order from './pages/Orders/Order';
+import AddBrand from './pages/Brands/AddBrand';
 
 const { Title } = Typography;
 
@@ -54,6 +55,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Brands />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/brands/add"
+            element={
+              <PrivateRoute>
+                <AddBrand />
               </PrivateRoute>
             }
           />

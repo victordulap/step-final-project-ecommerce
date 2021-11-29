@@ -10,3 +10,8 @@ export const getBrand = createAsyncThunk('get/brandById', async (id) => {
   const res = await brandsService.getBrand(id);
   return res.data;
 });
+
+export const addBrand = createAsyncThunk('post/brand', async ({ name, imgUrl }) => {
+  const res = await brandsService.addBrand({ name, imgUrl });
+  return res.data;
+});
