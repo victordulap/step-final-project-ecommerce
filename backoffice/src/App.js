@@ -5,6 +5,7 @@ import PrivateRoute from './util/PrivateRoute';
 import { Typography } from 'antd';
 import './App.css';
 import Items from './pages/Items/Items';
+import Item from './pages/Items/Item';
 import Brands from './pages/Brands/Brands';
 import Categories from './pages/Categories/Categories';
 import Orders from './pages/Orders/Orders';
@@ -37,6 +38,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Items />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/items/:id"
+            element={
+              <PrivateRoute>
+                <Item />
               </PrivateRoute>
             }
           />

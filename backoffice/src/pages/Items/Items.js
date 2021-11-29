@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { Table, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getItems } from '../../features/Items/ItemsSlice';
+import { getItems } from '../../features/Items/ItemsActions';
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
     title: 'Id',
     dataIndex: '_id',
     key: '_id',
-    render: (text) => <a href="#">{text}</a>,
+    render: (id) => <Link to={`/items/${id}`}>{id}</Link>,
     width: '23%',
   },
   {
@@ -21,14 +22,14 @@ const columns = [
     title: 'Brand id',
     dataIndex: 'brandId',
     key: 'brandId',
-    render: (text) => <a href="#">{text}</a>,
+    render: (id) => <Link to={`/brands/${id}`}>{id}</Link>,
     width: '23%',
   },
   {
     title: 'Category id',
     dataIndex: 'categoryIds',
     key: 'categoryIds',
-    render: (categoryIds) => <a href="#">{categoryIds[0]}</a>,
+    render: (categoryIds) => <Link to={`/categories/${categoryIds[0]}`}>{categoryIds[0]}</Link>,
     width: '23%',
   },
   {

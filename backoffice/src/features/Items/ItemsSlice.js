@@ -1,11 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { itemsService } from '../../services/itemsService';
-
-export const getItems = createAsyncThunk('get/items', async () => {
-  const res = await itemsService.getItems();
-  console.log(res.data);
-  return res.data;
-});
+import { createSlice } from '@reduxjs/toolkit';
+import { getItems, getItemById } from './ItemsActions';
 
 const initialState = {
   value: [],
@@ -29,6 +23,18 @@ export const ItemsSlice = createSlice({
     },
     [getItems.rejected]: (state, action) => {
       state.value = [];
+      state.isLoading = false;
+    },
+
+    [getItemById.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getItemById.fulfilled]: (state, action) => {
+      state.item = action.payload.item;
+      state.isLoading = false;
+    },
+    [getItemById.rejected]: (state, action) => {
+      state.item = [];
       state.isLoading = false;
     },
   },

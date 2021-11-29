@@ -248,6 +248,24 @@ const getItemById = async (req, res) => {
         as: 'brand',
       },
     },
+    {
+      $unwind: {
+        path: '$brand',
+      },
+    },
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'categoryIds',
+        foreignField: '_id',
+        as: 'category',
+      },
+    },
+    {
+      $unwind: {
+        path: '$category',
+      },
+    },
   ]);
 
   res.status(200).json({ item: item[0] });
