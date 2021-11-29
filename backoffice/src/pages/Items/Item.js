@@ -16,52 +16,53 @@ const Item = () => {
     dispatch(getItemById(id));
   }, [dispatch, id]);
 
-  const formFields = item
-    ? [
-        {
-          label: 'Id',
-          component: <Input value={item._id} disabled />,
-        },
-        {
-          label: 'Name',
-          component: <Input value={item.title} disabled />,
-        },
-        {
-          label: 'Brand',
-          component: <Link to={`/brands/${item.brand._id}`}>{item.brand.name}</Link>,
-        },
-        {
-          label: 'Category',
-          component: <Link to={`/categories/${item.category._id}`}>{item.category.name}</Link>,
-        },
-        {
-          label: 'Color',
-          component: <Input value={item.color} disabled />,
-        },
-        {
-          label: 'Price',
-          component: <Input value={`${item.price} $`} disabled />,
-        },
-        {
-          label: 'Description',
-          component: <Input.TextArea value={`${item.description} $`} disabled />,
-        },
-        {
-          label: 'Available',
-          component: <Checkbox checked={`${item.available} $`} disabled />,
-        },
-        {
-          label: 'Image URL',
-          component: (
-            <a href={item.imgUrl} target="_blank" rel="noreferrer">
-              {item.imgUrl}
-            </a>
-          ),
-        },
-      ]
-    : [];
+  const formFields =
+    item && item.brand
+      ? [
+          {
+            label: 'Id',
+            component: <Input value={item._id} disabled />,
+          },
+          {
+            label: 'Name',
+            component: <Input value={item.title} disabled />,
+          },
+          {
+            label: 'Brand',
+            component: <Link to={`/brands/${item.brand._id}`}>{item.brand.name}</Link>,
+          },
+          {
+            label: 'Category',
+            component: <Link to={`/categories/${item.category._id}`}>{item.category.name}</Link>,
+          },
+          {
+            label: 'Color',
+            component: <Input value={item.color} disabled />,
+          },
+          {
+            label: 'Price',
+            component: <Input value={`${item.price} $`} disabled />,
+          },
+          {
+            label: 'Description',
+            component: <Input.TextArea value={`${item.description} $`} disabled />,
+          },
+          {
+            label: 'Available',
+            component: <Checkbox checked={`${item.available} $`} disabled />,
+          },
+          {
+            label: 'Image URL',
+            component: (
+              <a href={item.imgUrl} target="_blank" rel="noreferrer">
+                {item.imgUrl}
+              </a>
+            ),
+          },
+        ]
+      : [];
 
-  if (isLoading) {
+  if (isLoading || !item) {
     return <WrappedSpinner />;
   }
 

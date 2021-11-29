@@ -3,6 +3,7 @@ import { getItems, getItemById } from './ItemsActions';
 
 const initialState = {
   value: [],
+  item: {},
 };
 
 export const ItemsSlice = createSlice({
@@ -11,6 +12,7 @@ export const ItemsSlice = createSlice({
   reducers: {
     resetState: (state, action) => {
       state.value = [];
+      state.item = {};
     },
   },
   extraReducers: {
