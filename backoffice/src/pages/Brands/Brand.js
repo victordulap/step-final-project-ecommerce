@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Input, Typography, Form, Button, Divider, message } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Input, Typography, Form, Button, Divider, message, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
 import { useNavigate, useParams } from 'react-router';
@@ -7,16 +7,36 @@ import WrappedSpinner from '../../components/WrappedSpinner';
 import { getBrand, removeBrand } from '../../features/Brands/BrandsActions';
 import { brandActions } from '../../features/Brands/BrandsSlice';
 import { STATE_STATUSES } from '../../util/constants';
+import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
 
 const Brand = () => {
   const { brand, isLoading, status } = useSelector(({ brands }) => brands);
   const dispatch = useDispatch();
   const { brandId } = useParams();
   const navigate = useNavigate();
+  const [isEditingMode, setIsEditingMode] = useState(false);
+
+  const [editValues, setEditValues] = useState({
+    name: '',
+    imgUrl: '',
+  });
 
   useEffect(() => {
     dispatch(getBrand(brandId));
   }, [dispatch, brandId]);
+
+  const resetEditValues = useCallback(() => {
+    if (brand) {
+      setEditValues({
+        name: brand.name,
+        imgUrl: brand.imgUrl,
+      });
+    }
+  }, [brand]);
+
+  useEffect(() => {
+    resetEditValues();
+  }, [resetEditValues]);
 
   useEffect(() => {
     if (status === STATE_STATUSES.SUCCESS) {
@@ -32,19 +52,25 @@ const Brand = () => {
     }
   };
 
+  const handleEdit = (key, newValue) => {
+    setEditValues((old) => ({ ...old, [key]: newValue }));
+  };
+
   const formFields = brand
     ? [
         {
           label: 'Id',
-          component: <Input value={brand._id} disabled />,
+          component: <Input defaultValue={brand._id} disabled />,
         },
         {
           label: 'Name',
-          component: <Input value={brand.name} disabled />,
+          component: <Input value={editValues.name} onChange={(e) => handleEdit('name', e.target.value)} disabled={!isEditingMode} />,
         },
         {
           label: 'Image URL',
-          component: (
+          component: isEditingMode ? (
+            <Input onChange={(e) => handleEdit('imgUrl', e.target.value)} value={editValues.imgUrl} />
+          ) : (
             <a href={brand.imgUrl} target="_blank" rel="noreferrer">
               {brand.imgUrl}
             </a>
@@ -73,9 +99,35 @@ const Brand = () => {
 
         <Divider />
 
-        <Button onClick={deleteBrand} danger type="primary" loading={isLoading}>
-          Delete brand
-        </Button>
+        <div className="flex-between">
+          {isEditingMode ? (
+            <>
+              <Button
+                onClick={() => {
+                  setIsEditingMode(false);
+                  resetEditValues();
+                }}
+                icon={<StopOutlined />}
+                type="primary"
+                loading={isLoading}
+              >
+                Cancel editing
+              </Button>
+              <Button onClick={() => {}} icon={<EditOutlined />} loading={isLoading}>
+                Confirm edit
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={() => setIsEditingMode(true)} icon={<EditOutlined />} type="primary" loading={isLoading}>
+                Edit brand
+              </Button>
+              <Button onClick={deleteBrand} danger icon={<DeleteOutlined />} loading={isLoading}>
+                Delete brand
+              </Button>
+            </>
+          )}
+        </div>
       </FormWrap>
     </>
   );

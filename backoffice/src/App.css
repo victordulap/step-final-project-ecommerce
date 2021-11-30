@@ -36,3 +36,8 @@
 .mb-2 {
   margin-bottom: 2rem !important;
 }
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
