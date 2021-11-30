@@ -17,9 +17,14 @@ const removeBrand = (id) => {
   return request.delete(`${BASE_URL}/brands/${id}`);
 };
 
+const editBrand = (id, editedBrand) => {
+  return request.put(`${BASE_URL}/brands/${id}`, editedBrand);
+};
+
 export const brandsService = {
   getAllBrands,
   getBrand,
   addBrand,
   removeBrand,
+  editBrand,
 };

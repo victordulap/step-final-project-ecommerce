@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import WrappedSpinner from './WrappedSpinner';
 import { STATE_STATUSES } from '../util/constants';
 import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
+import { editBrand } from '../features/Brands/BrandsActions';
 
 /**
  * @param model from state
@@ -16,15 +17,28 @@ import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
  * @param title to show
  * @param getAction async action to get state
  * @param deleteAction async action to delete model
+ * @param editAction async action to edit model
  * @param resetStatus async action to reset status
  * @param navUrl url to nav on succes delete
  * @param formFieldsArr form fields
  */
-const ModelPage = ({ model, isLoading, status, id, modelObject, title, getAction, resetStatus, deleteAction, navUrl, formFieldsArr }) => {
+const ModelPage = ({
+  stateMessage,
+  model,
+  isLoading,
+  status,
+  id,
+  modelObject,
+  title,
+  resetStatus,
+  deleteAction,
+  editAction,
+  navUrl,
+  formFieldsArr,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isEditingMode, setIsEditingMode] = useState(false);
-
+  const [isEditingMode, setIsEditingMode] = useState(stateMessage === 'edit');
   const [editValues, setEditValues] = useState(modelObject);
 
   const resetEditValues = useCallback(() => {
@@ -39,15 +53,21 @@ const ModelPage = ({ model, isLoading, status, id, modelObject, title, getAction
 
   useEffect(() => {
     if (status === STATE_STATUSES.SUCCESS) {
-      message.success(`${title} deleted!`);
-      dispatch(resetStatus());
+      message.success(`${title} ${isEditingMode ? 'edited' : 'deleted'}!`);
       navigate(navUrl);
-    } else if (status === STATE_STATUSES.ERROR) message.error(`error occured deleting ${title}!`);
-  }, [dispatch, navUrl, navigate, resetStatus, status, title]);
+      dispatch(resetStatus());
+    } else if (status === STATE_STATUSES.ERROR) message.error(`error occured ${isEditingMode ? 'editing' : 'deleting'} ${title}!`);
+  }, [dispatch, isEditingMode, navUrl, navigate, resetStatus, status, title]);
 
   const deleteBrand = () => {
     if (model) {
       dispatch(deleteAction(model._id));
+    }
+  };
+
+  const editModel = () => {
+    if (model) {
+      dispatch(editAction({ id: model._id, editedModel: editValues }));
     }
   };
 
@@ -60,7 +80,6 @@ const ModelPage = ({ model, isLoading, status, id, modelObject, title, getAction
         const Component = f.component;
         return {
           label: f.label,
-          // component: <Input />,
           component: f.isId ? (
             <Input defaultValue={model._id} disabled />
           ) : (
@@ -115,7 +134,13 @@ const ModelPage = ({ model, isLoading, status, id, modelObject, title, getAction
               >
                 Cancel editing
               </Button>
-              <Button onClick={() => {}} icon={<EditOutlined />} loading={isLoading}>
+              <Button
+                onClick={() => {
+                  editModel();
+                }}
+                icon={<EditOutlined />}
+                loading={isLoading}
+              >
                 Confirm edit
               </Button>
             </>

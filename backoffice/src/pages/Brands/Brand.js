@@ -3,12 +3,12 @@ import { Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import WrappedSpinner from '../../components/WrappedSpinner';
-import { getBrand, removeBrand } from '../../features/Brands/BrandsActions';
+import { editBrand, getBrand, removeBrand } from '../../features/Brands/BrandsActions';
 import { brandActions } from '../../features/Brands/BrandsSlice';
 import ModelPage from '../../components/ModelPage';
 
 const Brand = () => {
-  const { brand, isLoading, status } = useSelector(({ brands }) => brands);
+  const { brand, isLoading, status, message } = useSelector(({ brands }) => brands);
   const { brandId } = useParams();
   const dispatch = useDispatch();
 
@@ -45,11 +45,11 @@ const Brand = () => {
       model={brand}
       isLoading={isLoading}
       status={status}
+      stateMessage={message}
       deleteAction={removeBrand}
-      getAction={getBrand}
-      id={brandId}
       navUrl="/brands"
       resetStatus={brandActions.resetStatus}
+      editAction={editBrand}
       title="brand"
       modelObject={{
         name: '',

@@ -20,3 +20,8 @@ export const removeBrand = createAsyncThunk('delete/brand', async (id) => {
   const res = await brandsService.removeBrand(id);
   return res.data;
 });
+
+export const editBrand = createAsyncThunk('put/brand', async ({ id, editedModel }) => {
+  const res = await brandsService.editBrand(id, editedModel);
+  return res.data;
+});
