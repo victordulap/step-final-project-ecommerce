@@ -43,9 +43,23 @@ const removeBrand = async (req, res) => {
   res.status(200).json({ brand, deletedItemsNb: deletedCount });
 };
 
+const updateBrand = async (req, res) => {
+  const { id } = req.params;
+  const brand = await Brand.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!brand) {
+    throw new NotFoundError(`No brand with id : ${id}`);
+  }
+
+  res.status(200).json({ brand });
+};
+
 module.exports = {
   getAllBrands,
   getBrand,
   addBrand,
   removeBrand,
+  updateBrand,
 };
