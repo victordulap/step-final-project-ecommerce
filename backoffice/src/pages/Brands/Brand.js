@@ -13,10 +13,6 @@ const Brand = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('rerender brand');
-  });
-
-  useEffect(() => {
     dispatch(getBrand(brandId));
   }, [brandId, dispatch]);
 
@@ -60,7 +56,6 @@ const Brand = () => {
         imgUrl: '',
       }}
       formFieldsArr={formFields}
-      imgUrl={brand.imgUrl}
     />
   );
 };
