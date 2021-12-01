@@ -42,9 +42,23 @@ const removeCategory = async (req, res) => {
   res.status(200).json({ category, deletedItemsNb: deletedCount });
 };
 
+const updateCategory = async (req, res) => {
+  const { id } = req.params;
+  const category = await Category.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!category) {
+    throw new NotFoundError(`No category with id : ${id}`);
+  }
+
+  res.status(200).json({ category });
+};
+
 module.exports = {
   getAllCategories,
   getCategory,
   addCategory,
   removeCategory,
+  updateCategory,
 };
