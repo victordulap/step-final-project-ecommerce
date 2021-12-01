@@ -298,7 +298,13 @@ const getItemById = async (req, res) => {
   res.status(200).json({ item: item[0] });
 };
 
+const addItem = async (req, res) => {
+  const item = await Item.create(req.body);
+  res.status(201).json({ item });
+};
+
 module.exports = {
   getAllItems,
   getItemById,
+  addItem,
 };
