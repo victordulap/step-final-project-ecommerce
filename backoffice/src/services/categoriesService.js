@@ -16,9 +16,15 @@ const addCategory = (category) => {
 const removeCategory = (id) => {
   return request.delete(`${BASE_URL}/categories/${id}`);
 };
+
+const updateCategory = (id, editedCategory) => {
+  return request.put(`${BASE_URL}/categories/${id}`, editedCategory);
+};
+
 export const categoriesService = {
   getAllCategories,
   getCategory,
   addCategory,
   removeCategory,
+  updateCategory,
 };

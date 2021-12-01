@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { STATE_STATUSES } from '../../util/constants';
-import { addCategory, getAllCategories, getCategory, removeCategory } from './CategoriesActions';
+import { addCategory, getAllCategories, getCategory, removeCategory, updateCategory } from './CategoriesActions';
 
 const initialState = {
   value: [],
@@ -62,6 +62,19 @@ export const CategoriesSlice = createSlice({
       state.status = STATE_STATUSES.SUCCESS;
     },
     [removeCategory.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.ERROR;
+    },
+
+    [updateCategory.pending]: (state, action) => {
+      state.isLoading = true;
+      state.status = STATE_STATUSES.LOADING;
+    },
+    [updateCategory.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.status = STATE_STATUSES.SUCCESS;
+    },
+    [updateCategory.rejected]: (state, action) => {
       state.isLoading = false;
       state.status = STATE_STATUSES.ERROR;
     },

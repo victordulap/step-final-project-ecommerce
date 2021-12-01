@@ -20,3 +20,8 @@ export const removeCategory = createAsyncThunk('delete/category', async (id) => 
   const res = await categoriesService.removeCategory(id);
   return res.data;
 });
+
+export const updateCategory = createAsyncThunk('put/category', async ({ id, editedModel }) => {
+  const res = await categoriesService.updateCategory(id, editedModel);
+  return res.data;
+});
