@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import WrappedSpinner from '../../components/WrappedSpinner';
 import { getItemById } from '../../features/Items/ItemsActions';
 import { Link } from 'react-router-dom';
+import SizesTable from './components/SizesTable';
 
 const Item = () => {
   const { item, isLoading } = useSelector(({ items }) => items);
@@ -58,6 +59,10 @@ const Item = () => {
                 {item.imgUrl}
               </a>
             ),
+          },
+          {
+            label: 'sizes',
+            component: <SizesTable defaultSizes={item.sizes} />,
           },
         ]
       : [];
