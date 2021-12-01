@@ -6,13 +6,11 @@ import { useNavigate } from 'react-router';
 import WrappedSpinner from './WrappedSpinner';
 import { STATE_STATUSES } from '../util/constants';
 import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
-import { editBrand } from '../features/Brands/BrandsActions';
 
 /**
  * @param model from state
  * @param isLoading from state
  * @param status from state
- * @param id from url
  * @param modelObject empty model with empty strings
  * @param title to show
  * @param getAction async action to get state
@@ -22,23 +20,10 @@ import { editBrand } from '../features/Brands/BrandsActions';
  * @param navUrl url to nav on succes delete
  * @param formFieldsArr form fields
  */
-const ModelPage = ({
-  stateMessage,
-  model,
-  isLoading,
-  status,
-  id,
-  modelObject,
-  title,
-  resetStatus,
-  deleteAction,
-  editAction,
-  navUrl,
-  formFieldsArr,
-}) => {
+const ModelPage = ({ model, isLoading, status, modelObject, title, resetStatus, deleteAction, editAction, navUrl, formFieldsArr }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isEditingMode, setIsEditingMode] = useState(stateMessage === 'edit');
+  const [isEditingMode, setIsEditingMode] = useState(false);
   const [editValues, setEditValues] = useState(modelObject);
 
   const resetEditValues = useCallback(() => {

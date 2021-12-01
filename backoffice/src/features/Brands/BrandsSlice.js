@@ -13,7 +13,6 @@ export const BrandSlice = createSlice({
   reducers: {
     resetStatus(state) {
       state.status = STATE_STATUSES.IDLE;
-      state.message = '';
     },
   },
   extraReducers: {
@@ -74,7 +73,6 @@ export const BrandSlice = createSlice({
     [editBrand.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.status = STATE_STATUSES.SUCCESS;
-      state.message = 'edit';
     },
     [editBrand.rejected]: (state, action) => {
       state.isLoading = false;

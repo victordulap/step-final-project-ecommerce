@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import WrappedSpinner from '../../components/WrappedSpinner';
 import { editBrand, getBrand, removeBrand } from '../../features/Brands/BrandsActions';
 import { brandActions } from '../../features/Brands/BrandsSlice';
 import ModelPage from '../../components/ModelPage';
@@ -35,12 +34,7 @@ const Brand = () => {
     },
   ];
 
-  if (isLoading) {
-    return <WrappedSpinner />;
-  }
-
   return (
-    // <></>
     <ModelPage
       model={brand}
       isLoading={isLoading}
