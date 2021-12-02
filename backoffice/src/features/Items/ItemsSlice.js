@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getItems, getItemById } from './ItemsActions';
+import { STATE_STATUSES } from '../../util/constants';
+import { getItems, getItemById, addItem } from './ItemsActions';
 
 const initialState = {
   value: [],
   item: {},
+  status: STATE_STATUSES.IDLE,
 };
 
 export const ItemsSlice = createSlice({
@@ -13,6 +15,9 @@ export const ItemsSlice = createSlice({
     resetState: (state, action) => {
       state.value = [];
       state.item = {};
+    },
+    resetStatus: (state) => {
+      state.status = STATE_STATUSES.IDLE;
     },
   },
   extraReducers: {
@@ -37,6 +42,19 @@ export const ItemsSlice = createSlice({
     },
     [getItemById.rejected]: (state, action) => {
       state.item = [];
+      state.isLoading = false;
+    },
+
+    [addItem.pending]: (state, action) => {
+      state.isLoading = true;
+      state.status = STATE_STATUSES.LOADING;
+    },
+    [addItem.fulfilled]: (state, action) => {
+      state.status = STATE_STATUSES.SUCCESS;
+      state.isLoading = false;
+    },
+    [addItem.rejected]: (state, action) => {
+      state.status = STATE_STATUSES.ERROR;
       state.isLoading = false;
     },
   },
