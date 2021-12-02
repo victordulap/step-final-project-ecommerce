@@ -51,7 +51,9 @@ const AddItem = () => {
       component: (
         <Select placeholder="Nike" showSearch filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
           {brands.map((brand) => (
-            <Select.Option value={brand._id}>{brand.name}</Select.Option>
+            <Select.Option key={`item-brand-${brand._id}`} value={brand._id}>
+              {brand.name}
+            </Select.Option>
           ))}
         </Select>
       ),
@@ -62,7 +64,9 @@ const AddItem = () => {
       component: (
         <Select placeholder="Shoes" showSearch filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
           {categories.map((category) => (
-            <Select.Option value={category._id}>{category.name}</Select.Option>
+            <Select.Option key={`item-category-${category._id}`} value={category._id}>
+              {category.name}
+            </Select.Option>
           ))}
         </Select>
       ),
@@ -75,7 +79,7 @@ const AddItem = () => {
     {
       label: 'Price',
       name: 'price',
-      component: <InputNumber min={1} placeholder="100" addonAfter="$" />,
+      component: <InputNumber addonAfter="$" min={1} placeholder="100" />,
     },
     {
       label: 'Description',
