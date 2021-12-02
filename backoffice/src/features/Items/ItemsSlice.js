@@ -60,6 +60,6 @@ export const ItemsSlice = createSlice({
   },
 });
 
-export const { resetState } = ItemsSlice.actions;
+export const { resetState, resetStatus } = ItemsSlice.actions;
 
 export default ItemsSlice.reducer;

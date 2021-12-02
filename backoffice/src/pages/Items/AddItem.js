@@ -8,10 +8,13 @@ import { getAllCategories } from '../../features/Categories/CategoriesActions';
 import SizesTable from './components/SizesTable';
 import { getAllBrands } from '../../features/Brands/BrandsActions';
 import WrappedSpinner from '../../components/WrappedSpinner';
+import { resetStatus } from '../../features/Items/ItemsSlice';
+import { addItem } from '../../features/Items/ItemsActions';
 
 const AddItem = () => {
   const { isLoading: isLoadingCategories, value: categories } = useSelector(({ categories }) => categories);
   const { isLoading: isLoadingBrands, value: brands } = useSelector(({ brands }) => brands);
+  const { isLoading, status } = useSelector(({ items }) => items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,14 +26,12 @@ const AddItem = () => {
     dispatch(getAllCategories());
   }, [dispatch]);
 
-  const status = '';
-
   useEffect(() => {
     if (status === STATE_STATUSES.SUCCESS) {
-      message.success('category added!');
-      // dispatch(categoryActions.resetStatus());
-      navigate('/categories');
-    } else if (status === STATE_STATUSES.ERROR) message.error('category not added!');
+      message.success('item added!');
+      dispatch(resetStatus());
+      navigate('/items');
+    } else if (status === STATE_STATUSES.ERROR) message.error('item not added!');
   }, [dispatch, navigate, status]);
 
   if (isLoadingBrands || isLoadingCategories) return <WrappedSpinner />;
@@ -77,9 +78,9 @@ const AddItem = () => {
       component: <Input placeholder="white" />,
     },
     {
-      label: 'Price',
-      name: 'price',
-      component: <InputNumber addonAfter="$" min={1} placeholder="100" />,
+      label: 'Image URL',
+      name: 'imgUrl',
+      component: <Input placeholder="https://linktoimg.com/img-name.png" />,
     },
     {
       label: 'Description',
@@ -87,25 +88,29 @@ const AddItem = () => {
       component: <Input.TextArea placeholder="Matte leather upper" />,
     },
     {
+      label: 'Sizes',
+      name: 'sizes',
+      component: <SizesTable onChange={handleSizeChange} />,
+    },
+    {
+      label: 'Price',
+      name: 'price',
+      component: <InputNumber addonAfter="$" min={1} placeholder="100" />,
+    },
+    {
       label: 'Available',
       name: 'available',
       valuePropName: 'checked',
       component: <Checkbox />,
     },
-    {
-      label: 'Image URL',
-      name: 'imgUrl',
-      component: <Input placeholder="https://linktoimg.com/img-name.png" />,
-    },
-    {
-      label: 'Sizes',
-      name: 'sizes',
-      component: <SizesTable onChange={handleSizeChange} />,
-    },
   ];
 
   const onSubmit = (values) => {
-    console.log(values);
+    const newItem = { ...values };
+    newItem.categoryIds = [newItem.categoryIds];
+    newItem.available = !!newItem.available;
+    console.log(newItem);
+    dispatch(addItem(newItem));
   };
 
   return (
@@ -133,11 +138,7 @@ const AddItem = () => {
             </Form.Item>
           ))}
           <Form.Item>
-            <Button
-              // loading={isLoading}
-              type="primary"
-              htmlType="submit"
-            >
+            <Button loading={isLoading} type="primary" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
