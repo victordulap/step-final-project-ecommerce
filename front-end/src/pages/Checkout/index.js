@@ -47,12 +47,9 @@ const Checkout = () => {
       key: fieldKeys.cardNumber,
       component: (
         <>
-          {formErrors[fieldKeys.cardNumber] && (
-            <p className="input-error">{formErrors[fieldKeys.cardNumber]}</p>
-          )}
+          {formErrors[fieldKeys.cardNumber] && <p className="input-error">{formErrors[fieldKeys.cardNumber]}</p>}
           <input
             className={formErrors[fieldKeys.cardNumber] ? 'error-border' : ''}
-            defaultValue={'4012 8888 8888 1881'}
             placeholder="4012 8888 8888 1881"
             type="text"
             name={fieldKeys.cardNumber}
@@ -65,19 +62,12 @@ const Checkout = () => {
       key: 'expiryDate',
       component: (
         <>
-          {(formErrors[fieldKeys.expiryMonth] ||
-            formErrors[fieldKeys.expiryYear]) && (
-            <p className="input-error">
-              {formErrors[fieldKeys.expiryMonth] ||
-                formErrors[fieldKeys.expiryYear]}
-            </p>
+          {(formErrors[fieldKeys.expiryMonth] || formErrors[fieldKeys.expiryYear]) && (
+            <p className="input-error">{formErrors[fieldKeys.expiryMonth] || formErrors[fieldKeys.expiryYear]}</p>
           )}
           <div className="split-inputs">
             <input
-              className={
-                formErrors[fieldKeys.expiryMonth] ? 'error-border' : ''
-              }
-              defaultValue={12}
+              className={formErrors[fieldKeys.expiryMonth] ? 'error-border' : ''}
               type="number"
               name={fieldKeys.expiryMonth}
               placeholder="Month"
@@ -86,7 +76,6 @@ const Checkout = () => {
             />
             <input
               className={formErrors[fieldKeys.expiryYear] ? 'error-border' : ''}
-              defaultValue={new Date().getFullYear() + 2}
               type="number"
               name={fieldKeys.expiryYear}
               placeholder="Year"
@@ -102,15 +91,8 @@ const Checkout = () => {
       key: fieldKeys.nameOnCard,
       component: (
         <>
-          {formErrors[fieldKeys.nameOnCard] && (
-            <p className="input-error">{formErrors[fieldKeys.nameOnCard]}</p>
-          )}
-          <input
-            defaultValue={'John Doge'}
-            className={formErrors[fieldKeys.nameOnCard] ? 'error-border' : ''}
-            type="text"
-            name={fieldKeys.nameOnCard}
-          />
+          {formErrors[fieldKeys.nameOnCard] && <p className="input-error">{formErrors[fieldKeys.nameOnCard]}</p>}
+          <input className={formErrors[fieldKeys.nameOnCard] ? 'error-border' : ''} type="text" name={fieldKeys.nameOnCard} />
         </>
       ),
     },
@@ -119,17 +101,8 @@ const Checkout = () => {
       key: fieldKeys.cvv,
       component: (
         <>
-          {formErrors[fieldKeys.cvv] && (
-            <p className="input-error">{formErrors[fieldKeys.cvv]}</p>
-          )}
-          <input
-            className={formErrors[fieldKeys.cvv] ? 'error-border' : ''}
-            defaultValue={123}
-            type="password"
-            name={fieldKeys.cvv}
-            maxLength={3}
-            minLength={3}
-          />
+          {formErrors[fieldKeys.cvv] && <p className="input-error">{formErrors[fieldKeys.cvv]}</p>}
+          <input className={formErrors[fieldKeys.cvv] ? 'error-border' : ''} type="password" name={fieldKeys.cvv} maxLength={3} minLength={3} />
         </>
       ),
     },
@@ -140,15 +113,8 @@ const Checkout = () => {
       key: fieldKeys.email,
       component: (
         <>
-          {formErrors[fieldKeys.email] && (
-            <p className="input-error">{formErrors[fieldKeys.email]}</p>
-          )}
-          <input
-            className={formErrors[fieldKeys.email] ? 'error-border' : ''}
-            defaultValue={'test.email@gmail.com'}
-            type="email"
-            name={fieldKeys.email}
-          />
+          {formErrors[fieldKeys.email] && <p className="input-error">{formErrors[fieldKeys.email]}</p>}
+          <input className={formErrors[fieldKeys.email] ? 'error-border' : ''} type="email" name={fieldKeys.email} />
         </>
       ),
     },
@@ -157,15 +123,8 @@ const Checkout = () => {
       key: fieldKeys.firstName,
       component: (
         <>
-          {formErrors[fieldKeys.firstName] && (
-            <p className="input-error">{formErrors[fieldKeys.firstName]}</p>
-          )}
-          <input
-            className={formErrors[fieldKeys.firstName] ? 'error-border' : ''}
-            defaultValue={'John'}
-            type="text"
-            name={fieldKeys.firstName}
-          />
+          {formErrors[fieldKeys.firstName] && <p className="input-error">{formErrors[fieldKeys.firstName]}</p>}
+          <input className={formErrors[fieldKeys.firstName] ? 'error-border' : ''} type="text" name={fieldKeys.firstName} />
         </>
       ),
     },
@@ -174,16 +133,9 @@ const Checkout = () => {
       key: fieldKeys.lastName,
       component: (
         <>
-          {formErrors[fieldKeys.lastName] && (
-            <p className="input-error">{formErrors[fieldKeys.lastName]}</p>
-          )}
+          {formErrors[fieldKeys.lastName] && <p className="input-error">{formErrors[fieldKeys.lastName]}</p>}
 
-          <input
-            defaultValue={'Doge'}
-            type="text"
-            name={fieldKeys.lastName}
-            className={formErrors[fieldKeys.lastName] ? 'error-border' : ''}
-          />
+          <input type="text" name={fieldKeys.lastName} className={formErrors[fieldKeys.lastName] ? 'error-border' : ''} />
         </>
       ),
     },
@@ -192,17 +144,9 @@ const Checkout = () => {
       key: fieldKeys.mobile,
       component: (
         <>
-          {formErrors[fieldKeys.mobile] && (
-            <p className="input-error">{formErrors[fieldKeys.mobile]}</p>
-          )}
+          {formErrors[fieldKeys.mobile] && <p className="input-error">{formErrors[fieldKeys.mobile]}</p>}
 
-          <input
-            defaultValue={'+373 781 201 29'}
-            type="tel"
-            name={fieldKeys.mobile}
-            placeholder="+373 781 201 29"
-            className={formErrors[fieldKeys.mobile] ? 'error-border' : ''}
-          />
+          <input type="tel" name={fieldKeys.mobile} placeholder="+373 781 201 29" className={formErrors[fieldKeys.mobile] ? 'error-border' : ''} />
         </>
       ),
     },
@@ -211,16 +155,9 @@ const Checkout = () => {
       key: fieldKeys.country,
       component: (
         <>
-          {formErrors[fieldKeys.country] && (
-            <p className="input-error">{formErrors[fieldKeys.country]}</p>
-          )}
+          {formErrors[fieldKeys.country] && <p className="input-error">{formErrors[fieldKeys.country]}</p>}
 
-          <input
-            className={formErrors[fieldKeys.country] ? 'error-border' : ''}
-            defaultValue={'Moldova'}
-            type="text"
-            name={fieldKeys.country}
-          />
+          <input className={formErrors[fieldKeys.country] ? 'error-border' : ''} type="text" name={fieldKeys.country} />
         </>
       ),
     },
@@ -229,15 +166,8 @@ const Checkout = () => {
       key: fieldKeys.city,
       component: (
         <>
-          {formErrors[fieldKeys.city] && (
-            <p className="input-error">{formErrors[fieldKeys.city]}</p>
-          )}
-          <input
-            className={formErrors[fieldKeys.city] ? 'error-border' : ''}
-            defaultValue={'Chisinau'}
-            type="text"
-            name={fieldKeys.city}
-          />
+          {formErrors[fieldKeys.city] && <p className="input-error">{formErrors[fieldKeys.city]}</p>}
+          <input className={formErrors[fieldKeys.city] ? 'error-border' : ''} type="text" name={fieldKeys.city} />
         </>
       ),
     },
@@ -246,15 +176,8 @@ const Checkout = () => {
       key: fieldKeys.address,
       component: (
         <>
-          {formErrors[fieldKeys.address] && (
-            <p className="input-error">{formErrors[fieldKeys.address]}</p>
-          )}
-          <input
-            className={formErrors[fieldKeys.address] ? 'error-border' : ''}
-            defaultValue={'Bd. Stefan cel Mare 1'}
-            type="text"
-            name={fieldKeys.address}
-          />
+          {formErrors[fieldKeys.address] && <p className="input-error">{formErrors[fieldKeys.address]}</p>}
+          <input className={formErrors[fieldKeys.address] ? 'error-border' : ''} type="text" name={fieldKeys.address} />
         </>
       ),
     },
@@ -263,15 +186,8 @@ const Checkout = () => {
       key: fieldKeys.postcode,
       component: (
         <>
-          {formErrors[fieldKeys.postcode] && (
-            <p className="input-error">{formErrors[fieldKeys.postcode]}</p>
-          )}
-          <input
-            className={formErrors[fieldKeys.postcode] ? 'error-border' : ''}
-            defaultValue={'MD-1337'}
-            type="text"
-            name={fieldKeys.postcode}
-          />
+          {formErrors[fieldKeys.postcode] && <p className="input-error">{formErrors[fieldKeys.postcode]}</p>}
+          <input className={formErrors[fieldKeys.postcode] ? 'error-border' : ''} type="text" name={fieldKeys.postcode} />
         </>
       ),
     },
@@ -375,9 +291,7 @@ const Checkout = () => {
             <h1 className="letter-spacing">thanks for ordering</h1>
           </section>
           <section style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '1.4em', paddingBottom: '1em' }}>
-              We've sent you a email with your order!
-            </p>
+            <p style={{ fontSize: '1.4em', paddingBottom: '1em' }}>We've sent you a email with your order!</p>
             <Button linkTo={'/'} size="l" text="MORE ITEMS" />
           </section>
         </div>
@@ -393,9 +307,7 @@ const Checkout = () => {
             <h1 className="letter-spacing">oops!</h1>
           </section>
           <section className="checkout-error">
-            <p className="letter-spacing">
-              something strange occured, try again later
-            </p>
+            <p className="letter-spacing">something strange occured, try again later</p>
           </section>
         </div>
       </main>
@@ -417,27 +329,15 @@ const Checkout = () => {
             <form ref={form} onSubmit={handleSubmit}>
               <section className="form-section shipping-address">
                 <header>
-                  <h2 className="form-title letter-spacing">
-                    shipping details
-                  </h2>
+                  <h2 className="form-title letter-spacing">shipping details</h2>
                   {isShippingFormHidden ? (
-                    <FaChevronDown
-                      className="toggle-form"
-                      onClick={() => setIsShippingFormHidden(false)}
-                    />
+                    <FaChevronDown className="toggle-form" onClick={() => setIsShippingFormHidden(false)} />
                   ) : (
-                    <FaChevronUp
-                      className="toggle-form"
-                      onClick={() => setIsShippingFormHidden(true)}
-                    />
+                    <FaChevronUp className="toggle-form" onClick={() => setIsShippingFormHidden(true)} />
                   )}
                 </header>
                 {shippingFormFields.map((field) => (
-                  <div
-                    style={isShippingFormHidden ? { display: 'none' } : {}}
-                    className="form-item"
-                    key={`form-item-ship-${field.key}`}
-                  >
+                  <div style={isShippingFormHidden ? { display: 'none' } : {}} className="form-item" key={`form-item-ship-${field.key}`}>
                     <label htmlFor={field.key}>{field.label} :</label>
                     {field.component}
                   </div>
@@ -447,23 +347,13 @@ const Checkout = () => {
                 <header>
                   <h2 className="form-title letter-spacing">payment details</h2>
                   {isPaymentFormHidden ? (
-                    <FaChevronDown
-                      className="toggle-form"
-                      onClick={() => setIsPaymentFormHidden(false)}
-                    />
+                    <FaChevronDown className="toggle-form" onClick={() => setIsPaymentFormHidden(false)} />
                   ) : (
-                    <FaChevronUp
-                      className="toggle-form"
-                      onClick={() => setIsPaymentFormHidden(true)}
-                    />
+                    <FaChevronUp className="toggle-form" onClick={() => setIsPaymentFormHidden(true)} />
                   )}
                 </header>
                 {paymentFormFields.map((field) => (
-                  <div
-                    style={isPaymentFormHidden ? { display: 'none' } : {}}
-                    className="form-item"
-                    key={`form-item-pay-${field.key}`}
-                  >
+                  <div style={isPaymentFormHidden ? { display: 'none' } : {}} className="form-item" key={`form-item-pay-${field.key}`}>
                     <label className="letter-spacing" htmlFor={field.key}>
                       {field.label} :
                     </label>
@@ -472,12 +362,7 @@ const Checkout = () => {
                 ))}
               </section>
               <section className="submit-form">
-                <Button
-                  loading={checkoutStatus === REDUX_STATUS.LOADING}
-                  text="PLACE ORDER"
-                  onSubmit={handleSubmit}
-                  type="submit"
-                />
+                <Button loading={checkoutStatus === REDUX_STATUS.LOADING} text="PLACE ORDER" onSubmit={handleSubmit} type="submit" />
               </section>
             </form>
           </>

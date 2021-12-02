@@ -1,16 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import './style.scss';
 
 import { DELIEVERY_PRICE } from '../../utils/constants';
-import {
-  decrementCount,
-  getCartFromLocalStorage,
-  incrementCount,
-  removeFromCart,
-} from '../../features/cartSlice';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { decrementCount, getCartFromLocalStorage, incrementCount, removeFromCart } from '../../features/cartSlice';
 import CartItem from './components/CartItem';
 import CartEmpty from '../../components/CartEmpty';
 
@@ -38,21 +32,13 @@ const Cart = () => {
                   cartItemId={cartItem.id}
                   itemId={cartItem.item._id}
                   imgUrl={cartItem.item.imgUrl}
-                  title={
-                    cartItem.item.brand[0].name + ' ' + cartItem.item.title
-                  }
-                  cartItemPrice={(cartItem.item.price * cartItem.count).toFixed(
-                    2
-                  )}
+                  title={cartItem.item.brand.name + ' ' + cartItem.item.title}
+                  cartItemPrice={(cartItem.item.price * cartItem.count).toFixed(2)}
                   color={cartItem.item.color}
                   selectedSize={cartItem.selectedSize}
                   count={cartItem.count}
-                  decrementCallback={() =>
-                    dispatch(decrementCount({ id: cartItem.id }))
-                  }
-                  incrementCallback={() =>
-                    dispatch(incrementCount({ id: cartItem.id }))
-                  }
+                  decrementCallback={() => dispatch(decrementCount({ id: cartItem.id }))}
+                  incrementCallback={() => dispatch(incrementCount({ id: cartItem.id }))}
                   removeCallback={() => {
                     dispatch(
                       removeFromCart({
@@ -73,9 +59,7 @@ const Cart = () => {
             </section>
             <section className="checkout">
               <h2 className="letter-spacing">
-                <strong>
-                  total: &#36;{(cartTotal + DELIEVERY_PRICE).toFixed(2)}
-                </strong>
+                <strong>total: &#36;{(cartTotal + DELIEVERY_PRICE).toFixed(2)}</strong>
               </h2>
               <div className="checkout-price">
                 <p className="letter-spacing">
@@ -93,14 +77,7 @@ const Cart = () => {
                 className="checkout-btn
           "
               >
-                <Button
-                  dark
-                  size="l"
-                  block
-                  text="CHECKOUT"
-                  disabled={cartTotal <= 0}
-                  linkTo="/checkout"
-                />
+                <Button dark size="l" block text="CHECKOUT" disabled={cartTotal <= 0} linkTo="/checkout" />
               </div>
             </section>
           </>

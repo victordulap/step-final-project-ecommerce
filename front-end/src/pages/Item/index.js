@@ -32,9 +32,7 @@ const Item = () => {
   if (!item || !item.title) {
     return (
       <main style={{ position: 'relative' }}>
-        <h1 style={{ fontSize: 20, textAlign: 'center', lineHeight: 10 }}>
-          Item not found
-        </h1>
+        <h1 style={{ fontSize: 20, textAlign: 'center', lineHeight: 10 }}>Item not found</h1>
       </main>
     );
   }
@@ -72,7 +70,7 @@ const Item = () => {
       </div>
       <div className="container">
         <h1 className="item-title">
-          {item.brand[0].name} {item.title}
+          {item.brand.name} {item.title}
         </h1>
         <p className="item-price">&#36;{item.price}</p>
         <p className="item-color">
@@ -101,18 +99,8 @@ const Item = () => {
           <p className="item-description-text">{item.description}</p>
         </div>
 
-        {addedToCart && (
-          <div className="added-to-cart-notification">
-            {addedToCart === 'more' ? 'Added more to cart' : 'Added to cart'}
-          </div>
-        )}
-        <Button
-          onClick={handleAddToCard}
-          block
-          size={'l'}
-          text={addedToCart ? 'ADD MORE' : 'ADD TO CART'}
-          dark
-        />
+        {addedToCart && <div className="added-to-cart-notification">{addedToCart === 'more' ? 'Added more to cart' : 'Added to cart'}</div>}
+        <Button onClick={handleAddToCard} block size={'l'} text={addedToCart ? 'ADD MORE' : 'ADD TO CART'} dark />
       </div>
     </main>
   );
