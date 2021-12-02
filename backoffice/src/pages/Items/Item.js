@@ -50,7 +50,7 @@ const Item = () => {
           },
           {
             label: 'Available',
-            component: <Checkbox checked={`${item.available} $`} disabled />,
+            component: <Checkbox checked={item.available} disabled />,
           },
           {
             label: 'Image URL',
