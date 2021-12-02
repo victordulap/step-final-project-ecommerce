@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 const { Option } = Select;
 
-const SizesTable = ({ defaultSizes, disabled }) => {
+const SizesTable = ({ defaultSizes, disabled, onChange }) => {
   const [sizes, setSizes] = useState([]);
 
   useEffect(() => {
@@ -17,8 +17,9 @@ const SizesTable = ({ defaultSizes, disabled }) => {
       defaultValue={Array.isArray(defaultSizes) ? defaultSizes : []}
       mode="tags"
       style={{ width: '100%' }}
-      placeholder="Select sizes or enter new ones"
+      placeholder="Select sizes or enter new ones (ex: 41 eu, 42 eu, s, m)"
       disabled={disabled}
+      onChange={onChange}
     >
       {sizes.map((size) => (
         <Option value={size} key={`item-size-${size}`}>

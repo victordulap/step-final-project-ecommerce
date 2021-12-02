@@ -14,6 +14,7 @@ import Brand from './pages/Brands/Brand';
 import Order from './pages/Orders/Order';
 import AddBrand from './pages/Brands/AddBrand';
 import AddCategory from './pages/Categories/AddCategory';
+import AddItem from './pages/Items/AddItem';
 
 const { Title } = Typography;
 
@@ -40,6 +41,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Items />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/items/add"
+            element={
+              <PrivateRoute>
+                <AddItem />
               </PrivateRoute>
             }
           />
