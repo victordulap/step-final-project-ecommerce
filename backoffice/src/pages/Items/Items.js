@@ -138,6 +138,23 @@ const Items = () => {
       // width: '8%',
       sorter: (a, b) => a.price - b.price,
     },
+    {
+      title: 'Available',
+      dataIndex: 'available',
+      key: 'available',
+      render: (key) => <span>{key ? 'Yes' : 'No'}</span>,
+      filters: [
+        {
+          text: 'Yes',
+          value: true,
+        },
+        {
+          text: 'No',
+          value: false,
+        },
+      ],
+      onFilter: (value, record) => record.available === value,
+    },
   ];
 
   return (
