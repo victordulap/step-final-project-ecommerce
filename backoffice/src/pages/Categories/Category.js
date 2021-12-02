@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { Input, Typography, Form, Button, message, Divider } from 'antd';
+import { Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, removeCategory, updateCategory } from '../../features/Categories/CategoriesActions';
-import FormWrap from '../../components/FormWrap';
-import { useNavigate, useParams } from 'react-router';
-import WrappedSpinner from '../../components/WrappedSpinner';
-import { STATE_STATUSES } from '../../util/constants';
+import { useParams } from 'react-router';
 import { categoryActions } from '../../features/Categories/CategoriesSlice';
 import ModelPage from '../../components/ModelPage';
 
