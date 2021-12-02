@@ -61,8 +61,8 @@ const Item = () => {
             ),
           },
           {
-            label: 'sizes',
-            component: <SizesTable defaultSizes={item.sizes} />,
+            label: 'Sizes',
+            component: <SizesTable defaultSizes={item.sizes} disabled />,
           },
         ]
       : [];
