@@ -5,6 +5,8 @@ import { getItems } from '../../features/Items/ItemsActions';
 import { Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
+import moment from 'moment';
+import { DATE_TIME_FORMAT, DEFAULT_DATE } from '../../util/constants';
 
 const Items = () => {
   const { value, isLoading } = useSelector(({ items }) => items);
@@ -82,13 +84,13 @@ const Items = () => {
       dataIndex: '_id',
       key: '_id',
       render: (id) => <Link to={`/items/${id}`}>{id}</Link>,
-      width: '23%',
+      width: '15%',
     },
     {
       title: 'Name',
       dataIndex: 'title',
       key: 'title',
-      width: '23%',
+      // width: '23%',
       ...getColumnSearchProps('title'),
     },
     {
@@ -103,7 +105,7 @@ const Items = () => {
             .map((res) => ({ text: res.name, value: res.name }))
         : [],
       onFilter: (value, record) => record.brand.name.indexOf(value) === 0,
-      width: '23%',
+      // width: '23%',
     },
     {
       title: 'Category',
@@ -117,14 +119,23 @@ const Items = () => {
             .map((res) => ({ text: res.name, value: res.name }))
         : [],
       onFilter: (value, record) => record.category.name.indexOf(value) === 0,
-      width: '23%',
+      // width: '23%',
+    },
+    {
+      title: 'Created at',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (createdAt) => <span>{createdAt ? moment(createdAt).format(DATE_TIME_FORMAT) : moment(DEFAULT_DATE).format(DATE_TIME_FORMAT)}</span>,
+      // width: '8%',
+      sorter: (a, b) => moment(a.createdAt || DEFAULT_DATE) - moment(b.createdAt || DEFAULT_DATE),
+      defaultSortOrder: 'descend',
     },
     {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
       render: (price) => <span>{price} $</span>,
-      width: '8%',
+      // width: '8%',
       sorter: (a, b) => a.price - b.price,
     },
   ];
