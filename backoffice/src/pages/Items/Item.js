@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Input, Typography, Form, Checkbox, Row, Col, Image } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Input, Typography, Form, Checkbox, Row, Col, Image, Button, Divider, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
 import { useParams } from 'react-router';
@@ -7,15 +7,51 @@ import WrappedSpinner from '../../components/WrappedSpinner';
 import { getItemById } from '../../features/Items/ItemsActions';
 import { Link } from 'react-router-dom';
 import SizesTable from './components/SizesTable';
+import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
+import { getAllBrands } from '../../features/Brands/BrandsActions';
+import { getAllCategories } from '../../features/Categories/CategoriesActions';
 
 const Item = () => {
+  const { isLoading: isLoadingCategories, value: categories } = useSelector(({ categories }) => categories);
+  const { isLoading: isLoadingBrands, value: brands } = useSelector(({ brands }) => brands);
   const { item, isLoading } = useSelector(({ items }) => items);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [isEditingMode, setIsEditingMode] = useState(false);
+  const [editValues, setEditValues] = useState({
+    title: '',
+    brandId: '',
+    categoryIds: [''],
+    color: '',
+    price: 0,
+    sizes: [''],
+    description: '',
+    available: false,
+    imgUrl: '',
+  });
 
   useEffect(() => {
     dispatch(getItemById(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(getAllBrands());
+    dispatch(getAllCategories());
+  }, [dispatch]);
+
+  const resetEditValues = useCallback(() => {
+    if (item) {
+      setEditValues(item);
+    }
+  }, [item]);
+
+  useEffect(() => {
+    resetEditValues();
+  }, [resetEditValues]);
+
+  const handleEdit = (key, newValue) => {
+    setEditValues((old) => ({ ...old, [key]: newValue }));
+  };
 
   const formFields =
     item && item.brand
@@ -26,48 +62,80 @@ const Item = () => {
           },
           {
             label: 'Name',
-            component: <Input value={item.title} disabled />,
+            component: <Input value={editValues['title']} onChange={(e) => handleEdit('title', e.target.value)} disabled={!isEditingMode} />,
           },
           {
             label: 'Brand',
-            component: <Link to={`/brands/${item.brand._id}`}>{item.brand.name}</Link>,
-          },
-          {
-            label: 'Category',
-            component: <Link to={`/categories/${item.category._id}`}>{item.category.name}</Link>,
-          },
-          {
-            label: 'Color',
-            component: <Input value={item.color} disabled />,
-          },
-          {
-            label: 'Price',
-            component: <Input value={`${item.price} $`} disabled />,
-          },
-          {
-            label: 'Description',
-            component: <Input.TextArea value={`${item.description} $`} disabled />,
-          },
-          {
-            label: 'Available',
-            component: <Checkbox checked={item.available} disabled />,
-          },
-          {
-            label: 'Image URL',
             component: (
-              <a href={item.imgUrl} target="_blank" rel="noreferrer">
-                {item.imgUrl}
-              </a>
+              <Select
+                disabled={!isEditingMode}
+                value={editValues['brandId']}
+                onChange={(e) => handleEdit('brandId', e)}
+                showSearch
+                filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+              >
+                {brands.map((brand) => (
+                  <Select.Option key={`item-brand-${brand._id}`} value={brand._id}>
+                    {brand.name}
+                  </Select.Option>
+                ))}
+              </Select>
             ),
           },
           {
+            label: 'Category',
+            component: (
+              <Select
+                showSearch
+                value={editValues['categoryIds']}
+                onChange={(e) => handleEdit('categoryIds', e)}
+                disabled={!isEditingMode}
+                filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+              >
+                {categories.map((category) => (
+                  <Select.Option key={`item-category-${category._id}`} value={category._id}>
+                    {category.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            ),
+          },
+          {
+            label: 'Color',
+            component: <Input value={editValues['color']} onChange={(e) => handleEdit('color', e.target.value)} disabled={!isEditingMode} />,
+          },
+          {
+            label: 'Price',
+            component: <Input value={editValues['price']} onChange={(e) => handleEdit('price', e.target.value)} disabled={!isEditingMode} />,
+          },
+          {
+            label: 'Description',
+            component: (
+              <Input.TextArea
+                value={editValues['description']}
+                onChange={(e) => handleEdit('description', e.target.value)}
+                disabled={!isEditingMode}
+              />
+            ),
+          },
+          {
+            label: 'Available',
+            component: (
+              <Checkbox checked={editValues['available']} onChange={(e) => handleEdit('available', e.target.checked)} disabled={!isEditingMode} />
+            ),
+          },
+          {
+            label: 'Image URL',
+            component: <Input value={editValues['imgUrl']} onChange={(e) => handleEdit('imgUrl', e.target.value)} disabled={!isEditingMode} />,
+          },
+          {
             label: 'Sizes',
-            component: <SizesTable defaultSizes={item.sizes} disabled />,
+            component: <SizesTable onChange={(e) => handleEdit('sizes', e)} sizesState={editValues['sizes']} disabled={!isEditingMode} />,
           },
         ]
       : [];
 
-  if (isLoading || !item) {
+  if (isLoading || isLoadingBrands || isLoadingCategories) {
     return <WrappedSpinner />;
   }
 
@@ -96,6 +164,51 @@ const Item = () => {
             </div>
           </Col>
         </Row>
+        <Divider />
+
+        <div className="flex-between">
+          {isEditingMode ? (
+            <>
+              <Button
+                onClick={() => {
+                  setIsEditingMode(false);
+                  resetEditValues();
+                }}
+                icon={<StopOutlined />}
+                type="primary"
+                loading={isLoading}
+              >
+                Cancel editing
+              </Button>
+              <Button
+                onClick={() => {
+                  // editModel();
+                  // dispatch edit item
+                }}
+                icon={<EditOutlined />}
+                loading={isLoading}
+              >
+                Confirm edit
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={() => setIsEditingMode(true)} icon={<EditOutlined />} type="primary" loading={isLoading}>
+                Edit item
+              </Button>
+              <Button
+                onClick={() => {
+                  // deleteBrand
+                }}
+                danger
+                icon={<DeleteOutlined />}
+                loading={isLoading}
+              >
+                Delete item
+              </Button>
+            </>
+          )}
+        </div>
       </FormWrap>
     </>
   );

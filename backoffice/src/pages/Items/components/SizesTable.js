@@ -3,18 +3,18 @@ import React, { useEffect, useState } from 'react';
 
 const { Option } = Select;
 
-const SizesTable = ({ defaultSizes, disabled, onChange }) => {
-  const [sizes, setSizes] = useState([]);
+const SizesTable = ({ sizesState, disabled, onChange }) => {
+  const [sizes, setSizes] = useState(sizesState || []);
 
   useEffect(() => {
-    if (defaultSizes && defaultSizes.length) {
-      setSizes(defaultSizes);
+    if (sizesState && sizesState.length) {
+      setSizes(sizesState);
     }
-  }, [defaultSizes]);
+  }, [sizesState]);
 
   return (
     <Select
-      defaultValue={Array.isArray(defaultSizes) ? defaultSizes : []}
+      value={Array.isArray(sizesState) ? sizesState : []}
       mode="tags"
       style={{ width: '100%' }}
       placeholder="Select sizes or enter new ones (ex: 41 eu, 42 eu, s, m)"
