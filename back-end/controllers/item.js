@@ -3,6 +3,7 @@ const Brand = require('../models/Brand');
 const Category = require('../models/Category');
 const mongoose = require('mongoose');
 const { validate } = require('../models/Item');
+const { NotFoundError } = require('../errors');
 const { ObjectId, Array: MongoArray } = mongoose.Types;
 
 const getFilters = async (queryObj) => {
@@ -316,9 +317,20 @@ const updateItem = async (req, res) => {
   res.status(200).json({ item });
 };
 
+const removeItem = async (req, res) => {
+  const { id } = req.params;
+  const item = await Item.findOneAndDelete({ _id: id });
+  if (!item) {
+    throw new NotFoundError(`No item with id : ${id}`);
+  }
+
+  res.status(200).json({ item });
+};
+
 module.exports = {
   getAllItems,
   getItemById,
   addItem,
   updateItem,
+  removeItem,
 };
