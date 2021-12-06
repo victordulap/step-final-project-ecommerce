@@ -90,7 +90,7 @@ const AddItem = () => {
     {
       label: 'Sizes',
       name: 'sizes',
-      component: <SizesTable onChange={handleSizeChange} />,
+      component: <SizesTable sizesState={sizeValues} onChange={handleSizeChange} />,
     },
     {
       label: 'Price',
