@@ -303,8 +303,22 @@ const addItem = async (req, res) => {
   res.status(201).json({ item });
 };
 
+const updateItem = async (req, res) => {
+  const { id } = req.params;
+  const item = await Item.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!item) {
+    throw new NotFoundError(`No item with id : ${id}`);
+  }
+
+  res.status(200).json({ item });
+};
+
 module.exports = {
   getAllItems,
   getItemById,
   addItem,
+  updateItem,
 };
