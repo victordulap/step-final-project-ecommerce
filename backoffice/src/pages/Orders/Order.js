@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Input, Table, Typography, Form, Checkbox, DatePicker, Divider, Row, Col } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Input, Table, Typography, Form, Checkbox, DatePicker, Divider, Row, Col, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
 import { useParams } from 'react-router';
@@ -7,6 +7,7 @@ import WrappedSpinner from '../../components/WrappedSpinner';
 import { getOrder } from '../../features/Orders/OrdersActions';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -14,10 +15,18 @@ const Order = () => {
   const { order, isLoading } = useSelector(({ orders }) => orders);
   const dispatch = useDispatch();
   const { orderId } = useParams();
+  const [isEditingMode, setIsEditingMode] = useState(false);
+  const [isShippedState, setIsShippedState] = useState();
 
   useEffect(() => {
     dispatch(getOrder(orderId));
   }, [dispatch, orderId]);
+
+  useEffect(() => {
+    if (order) {
+      setIsShippedState(order.isShipped);
+    }
+  }, [order]);
 
   const formFields = order
     ? [
@@ -35,18 +44,18 @@ const Order = () => {
           component: <DatePicker value={moment(order.createdAt)} showTime disabled />,
         },
         {
-          label: 'Shipped',
-          component: (
-            <Checkbox checked={order.isShipped} disabled>
-              {`${!!order.isShipped}`}
-            </Checkbox>
-          ),
-        },
-        {
           label: 'Payment success',
           component: (
             <Checkbox checked={order.paymentStatusSuccess} disabled>
               {`${!!order.paymentStatusSuccess}`}
+            </Checkbox>
+          ),
+        },
+        {
+          label: 'Shipped',
+          component: (
+            <Checkbox checked={isShippedState} onChange={(e) => setIsShippedState(e.target.checked)} disabled={!isEditingMode}>
+              {`${!!isShippedState}`}
             </Checkbox>
           ),
         },
@@ -149,8 +158,6 @@ const Order = () => {
             </Col>
           </Row>
 
-          {/* <Divider /> */}
-
           <Divider />
 
           <Title className="mb-2" level={3}>
@@ -158,6 +165,51 @@ const Order = () => {
           </Title>
           <Table loading={isLoading} dataSource={order.cart} columns={cartColumns} />
         </Form>
+
+        <Divider />
+
+        <div className="flex-between">
+          {isEditingMode ? (
+            <>
+              <Button
+                onClick={() => {
+                  setIsEditingMode(false);
+                  setIsShippedState(order.isShipped);
+                }}
+                icon={<StopOutlined />}
+                type="primary"
+                loading={isLoading}
+              >
+                Cancel editing
+              </Button>
+              <Button
+                onClick={
+                  () => {} //handleEditSubmit()
+                }
+                icon={<EditOutlined />}
+                loading={isLoading}
+              >
+                Confirm edit
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={() => setIsEditingMode(true)} icon={<EditOutlined />} type="primary" loading={isLoading}>
+                Edit order
+              </Button>
+              <Button
+                onClick={() => {
+                  // dispatch(deleteItem(id));
+                }}
+                danger
+                icon={<DeleteOutlined />}
+                loading={isLoading}
+              >
+                Delete order
+              </Button>
+            </>
+          )}
+        </div>
       </FormWrap>
     </>
   );
