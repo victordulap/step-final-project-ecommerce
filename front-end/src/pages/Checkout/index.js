@@ -253,7 +253,7 @@ const Checkout = () => {
       };
       const cartInfo = cart.map((cartItem) => ({
         itemId: cartItem.item._id,
-        itemName: cartItem.item.brand[0].name + ' ' + cartItem.item.title,
+        itemName: cartItem.item.brand.name + ' ' + cartItem.item.title,
         selectedSize: cartItem.selectedSize,
         count: cartItem.count,
         price: cartItem.count * cartItem.item.price,
