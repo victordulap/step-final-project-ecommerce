@@ -1,21 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Input, Typography, Form, Checkbox, Row, Col, Image, Button, Divider, Select } from 'antd';
+import { Input, Typography, Form, Checkbox, Row, Col, Image, Button, Divider, Select, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router-dom';
 import WrappedSpinner from '../../components/WrappedSpinner';
-import { getItemById } from '../../features/Items/ItemsActions';
-import { Link } from 'react-router-dom';
+import { deleteItem, getItemById } from '../../features/Items/ItemsActions';
 import SizesTable from './components/SizesTable';
 import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
 import { getAllBrands } from '../../features/Brands/BrandsActions';
 import { getAllCategories } from '../../features/Categories/CategoriesActions';
+import { STATE_STATUSES } from '../../util/constants';
+import { resetStatus } from '../../features/Items/ItemsSlice';
 
 const Item = () => {
   const { isLoading: isLoadingCategories, value: categories } = useSelector(({ categories }) => categories);
   const { isLoading: isLoadingBrands, value: brands } = useSelector(({ brands }) => brands);
-  const { item, isLoading } = useSelector(({ items }) => items);
+  const { item, isLoading, status } = useSelector(({ items }) => items);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [editValues, setEditValues] = useState({
@@ -52,6 +54,14 @@ const Item = () => {
   const handleEdit = (key, newValue) => {
     setEditValues((old) => ({ ...old, [key]: newValue }));
   };
+
+  useEffect(() => {
+    if (status === STATE_STATUSES.SUCCESS) {
+      message.success(`item ${isEditingMode ? 'edited' : 'deleted'}!`);
+      navigate('/items');
+      dispatch(resetStatus());
+    } else if (status === STATE_STATUSES.ERROR) message.error(`error occured ${isEditingMode ? 'editing' : 'deleting'} item!`);
+  }, [dispatch, isEditingMode, navigate, status]);
 
   const formFields =
     item && item.brand
@@ -198,7 +208,7 @@ const Item = () => {
               </Button>
               <Button
                 onClick={() => {
-                  // deleteBrand
+                  dispatch(deleteItem(id));
                 }}
                 danger
                 icon={<DeleteOutlined />}

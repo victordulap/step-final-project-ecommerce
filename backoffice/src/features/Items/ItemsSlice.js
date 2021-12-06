@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { STATE_STATUSES } from '../../util/constants';
-import { getItems, getItemById, addItem } from './ItemsActions';
+import { getItems, getItemById, addItem, updateItem, deleteItem } from './ItemsActions';
 
 const initialState = {
   value: [],
@@ -54,6 +54,32 @@ export const ItemsSlice = createSlice({
       state.isLoading = false;
     },
     [addItem.rejected]: (state, action) => {
+      state.status = STATE_STATUSES.ERROR;
+      state.isLoading = false;
+    },
+
+    [updateItem.pending]: (state, action) => {
+      state.isLoading = true;
+      state.status = STATE_STATUSES.LOADING;
+    },
+    [updateItem.fulfilled]: (state, action) => {
+      state.status = STATE_STATUSES.SUCCESS;
+      state.isLoading = false;
+    },
+    [updateItem.rejected]: (state, action) => {
+      state.status = STATE_STATUSES.ERROR;
+      state.isLoading = false;
+    },
+
+    [deleteItem.pending]: (state, action) => {
+      state.isLoading = true;
+      state.status = STATE_STATUSES.LOADING;
+    },
+    [deleteItem.fulfilled]: (state, action) => {
+      state.status = STATE_STATUSES.SUCCESS;
+      state.isLoading = false;
+    },
+    [deleteItem.rejected]: (state, action) => {
       state.status = STATE_STATUSES.ERROR;
       state.isLoading = false;
     },

@@ -15,3 +15,13 @@ export const addItem = createAsyncThunk('post/item', async (item) => {
   const res = await itemsService.addItem(item);
   return res.data;
 });
+
+export const updateItem = createAsyncThunk('put/item', async ({ id, newItem }) => {
+  const res = await itemsService.updateItem(id, newItem);
+  return res.data;
+});
+
+export const deleteItem = createAsyncThunk('delete/item', async (id) => {
+  const res = await itemsService.deleteItem(id);
+  return res.data;
+});
