@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders } from '../../features/Orders/OrdersActions';
 import { formatToDateTime } from '../../util/date';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { DEFAULT_DATE } from '../../util/constants';
 
 const columns = [
   {
@@ -18,6 +20,8 @@ const columns = [
     dataIndex: 'total',
     key: 'total',
     width: '10%',
+    render: (text) => <>{text} $</>,
+    sorter: (a, b) => a.total - b.total,
   },
   {
     title: 'Total items',
@@ -25,6 +29,7 @@ const columns = [
     key: 'total_items',
     render: (cart) => cart.length,
     width: '10%',
+    sorter: (a, b) => a.cart.length - b.cart.length,
   },
   {
     title: 'Shipping country',
@@ -37,12 +42,25 @@ const columns = [
     dataIndex: 'createdAt',
     key: 'order_date',
     render: (createdAt) => formatToDateTime(createdAt),
+    sorter: (a, b) => moment(a.createdAt) - moment(b.createdAt),
+    defaultSortOrder: 'descend',
   },
   {
     title: 'Shipped',
     dataIndex: 'isShipped',
     key: 'isShipped',
-    render: (isShipped) => `${isShipped}`,
+    render: (key) => <span>{key ? 'Yes' : 'No'}</span>,
+    filters: [
+      {
+        text: 'Yes',
+        value: true,
+      },
+      {
+        text: 'No',
+        value: false,
+      },
+    ],
+    onFilter: (value, record) => record.isShipped === value,
   },
 ];
 
@@ -59,7 +77,7 @@ const Orders = () => {
       <Typography.Title className="mt-1" level={1}>
         Orders
       </Typography.Title>
-      <Table columns={columns} loading={isLoading} dataSource={value} />
+      <Table rowKey="_id" columns={columns} loading={isLoading} dataSource={value} />
     </div>
   );
 };
