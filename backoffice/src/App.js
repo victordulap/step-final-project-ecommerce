@@ -117,7 +117,7 @@ function App() {
             }
           />
           <Route
-            path="/orders/:orderId"
+            path="/orders/:id"
             element={
               <PrivateRoute>
                 <Order />

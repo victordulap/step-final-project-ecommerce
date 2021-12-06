@@ -16,9 +16,12 @@ const _delete = (url) => instance.delete(url);
 
 const put = (url, body) => instance.put(url, body);
 
+const patch = (url, body) => instance.patch(url, body);
+
 export const request = {
   get,
   post,
   delete: _delete,
   put,
+  patch,
 };

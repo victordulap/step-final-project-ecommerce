@@ -1,32 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Table, Typography, Form, Checkbox, DatePicker, Divider, Row, Col, Button } from 'antd';
+import { Input, Table, Typography, Form, Checkbox, DatePicker, Divider, Row, Col, Button, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import WrappedSpinner from '../../components/WrappedSpinner';
-import { getOrder } from '../../features/Orders/OrdersActions';
+import { deleteOrder, getOrder, updateOrder } from '../../features/Orders/OrdersActions';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
+import { STATE_STATUSES } from '../../util/constants';
+import { resetStatus } from '../../features/Orders/OrdersSlice';
 
 const { Title } = Typography;
 
 const Order = () => {
-  const { order, isLoading } = useSelector(({ orders }) => orders);
+  const { order, isLoading, status } = useSelector(({ orders }) => orders);
   const dispatch = useDispatch();
-  const { orderId } = useParams();
+  const { id } = useParams();
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isShippedState, setIsShippedState] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getOrder(orderId));
-  }, [dispatch, orderId]);
+    dispatch(getOrder(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (order) {
       setIsShippedState(order.isShipped);
     }
   }, [order]);
+
+  useEffect(() => {
+    if (status === STATE_STATUSES.SUCCESS) {
+      message.success(`order ${isEditingMode ? 'edited' : 'deleted'}!`);
+      navigate('/orders');
+      dispatch(resetStatus());
+    } else if (status === STATE_STATUSES.ERROR) {
+      message.error(`error occured ${isEditingMode ? 'editing' : 'deleting'} order!`);
+      dispatch(resetStatus());
+    }
+  }, [dispatch, isEditingMode, navigate, status]);
 
   const formFields = order
     ? [
@@ -188,13 +202,7 @@ const Order = () => {
               >
                 Cancel editing
               </Button>
-              <Button
-                onClick={
-                  () => {} //handleEditSubmit()
-                }
-                icon={<EditOutlined />}
-                loading={isLoading}
-              >
+              <Button onClick={() => dispatch(updateOrder({ id, order: { isShipped: isShippedState } }))} icon={<EditOutlined />} loading={isLoading}>
                 Confirm edit
               </Button>
             </>
@@ -205,7 +213,7 @@ const Order = () => {
               </Button>
               <Button
                 onClick={() => {
-                  // dispatch(deleteItem(id));
+                  dispatch(deleteOrder(id));
                 }}
                 danger
                 icon={<DeleteOutlined />}
