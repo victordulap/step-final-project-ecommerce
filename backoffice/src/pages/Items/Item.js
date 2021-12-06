@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FormWrap from '../../components/FormWrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import WrappedSpinner from '../../components/WrappedSpinner';
-import { deleteItem, getItemById } from '../../features/Items/ItemsActions';
+import { deleteItem, getItemById, updateItem } from '../../features/Items/ItemsActions';
 import SizesTable from './components/SizesTable';
 import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons';
 import { getAllBrands } from '../../features/Brands/BrandsActions';
@@ -43,7 +43,8 @@ const Item = () => {
 
   const resetEditValues = useCallback(() => {
     if (item) {
-      setEditValues(item);
+      const { title, brandId, categoryIds, color, price, sizes, description, available, imgUrl } = item;
+      setEditValues({ title, brandId, categoryIds, color, price, sizes, description, available, imgUrl });
     }
   }, [item]);
 
@@ -60,7 +61,10 @@ const Item = () => {
       message.success(`item ${isEditingMode ? 'edited' : 'deleted'}!`);
       navigate('/items');
       dispatch(resetStatus());
-    } else if (status === STATE_STATUSES.ERROR) message.error(`error occured ${isEditingMode ? 'editing' : 'deleting'} item!`);
+    } else if (status === STATE_STATUSES.ERROR) {
+      message.error(`error occured ${isEditingMode ? 'editing' : 'deleting'} item!`);
+      dispatch(resetStatus());
+    }
   }, [dispatch, isEditingMode, navigate, status]);
 
   const formFields =
@@ -149,6 +153,11 @@ const Item = () => {
     return <WrappedSpinner />;
   }
 
+  const handleEditSubmit = () => {
+    console.log(editValues);
+    dispatch(updateItem({ id, newItem: editValues }));
+  };
+
   return (
     <>
       <Typography.Title className="mt-1" level={1}>
@@ -190,14 +199,7 @@ const Item = () => {
               >
                 Cancel editing
               </Button>
-              <Button
-                onClick={() => {
-                  // editModel();
-                  // dispatch edit item
-                }}
-                icon={<EditOutlined />}
-                loading={isLoading}
-              >
+              <Button onClick={() => handleEditSubmit()} icon={<EditOutlined />} loading={isLoading}>
                 Confirm edit
               </Button>
             </>

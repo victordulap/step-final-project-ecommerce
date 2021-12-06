@@ -41,7 +41,10 @@ const ModelPage = ({ model, isLoading, status, modelObject, title, resetStatus, 
       message.success(`${title} ${isEditingMode ? 'edited' : 'deleted'}!`);
       navigate(navUrl);
       dispatch(resetStatus());
-    } else if (status === STATE_STATUSES.ERROR) message.error(`error occured ${isEditingMode ? 'editing' : 'deleting'} ${title}!`);
+    } else if (status === STATE_STATUSES.ERROR) {
+      message.error(`error occured ${isEditingMode ? 'editing' : 'deleting'} ${title}!`);
+      dispatch(resetStatus());
+    }
   }, [dispatch, isEditingMode, navUrl, navigate, resetStatus, status, title]);
 
   const deleteBrand = () => {
