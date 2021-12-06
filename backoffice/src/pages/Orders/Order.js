@@ -104,6 +104,12 @@ const Order = () => {
           render: (id) => <Link to={`/items/${id}`}>{id}</Link>,
         },
         {
+          title: 'name',
+          dataIndex: 'itemName',
+          key: 'itemName',
+          render: (text) => <>{text || 'N/A'}</>,
+        },
+        {
           title: 'count',
           dataIndex: 'count',
           key: 'count',
