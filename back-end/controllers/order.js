@@ -1,3 +1,4 @@
+const { NotFoundError } = require('../errors');
 const Order = require('../models/Order');
 const transporter = require('../utils/emailTransporter');
 
@@ -86,8 +87,33 @@ const createOrder = async (req, res) => {
   // res.status(201).json({ order, cart });
 };
 
+const updateOrder = async (req, res) => {
+  const { id } = req.params;
+  const order = await Order.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!order) {
+    throw new NotFoundError(`No order with id : ${id}`);
+  }
+
+  res.status(200).json({ order });
+};
+
+const removeOrder = async (req, res) => {
+  const { id } = req.params;
+  const order = await Order.findOneAndDelete({ _id: id });
+  if (!order) {
+    throw new NotFoundError(`No order with id : ${id}`);
+  }
+
+  res.status(200).json({ order });
+};
+
 module.exports = {
   getAllOrders,
   createOrder,
   getOrder,
+  updateOrder,
+  removeOrder,
 };
