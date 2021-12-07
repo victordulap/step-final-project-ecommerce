@@ -153,6 +153,14 @@ const Item = () => {
     return <WrappedSpinner />;
   }
 
+  if (!item) {
+    return (
+      <Typography.Title className="mt-1" level={1}>
+        Item not found
+      </Typography.Title>
+    );
+  }
+
   const handleEditSubmit = () => {
     console.log(editValues);
     dispatch(updateItem({ id, newItem: editValues }));

@@ -76,68 +76,78 @@ const Order = () => {
       ]
     : [];
 
-  const shippingFormFields = order.shippingDetails
-    ? [
-        {
-          label: 'Client Name',
-          component: <Input value={order.shippingDetails.firstName + ' ' + order.shippingDetails.lastName} disabled />,
-        },
-        {
-          label: 'Mobile nr',
-          component: <Input value={order.shippingDetails.mobile} disabled />,
-        },
-        {
-          label: 'Email',
-          component: <Input value={order.shippingDetails.email} disabled />,
-        },
-        {
-          label: 'Country',
-          component: <Input value={order.shippingDetails.country} disabled />,
-        },
-        {
-          label: 'City',
-          component: <Input value={order.shippingDetails.city} disabled />,
-        },
-        {
-          label: 'Postcode',
-          component: <Input value={order.shippingDetails.postcode} disabled />,
-        },
-        {
-          label: 'Address',
-          component: <Input value={order.shippingDetails.address} disabled />,
-        },
-      ]
-    : [];
+  const shippingFormFields =
+    order && order.shippingDetails
+      ? [
+          {
+            label: 'Client Name',
+            component: <Input value={order.shippingDetails.firstName + ' ' + order.shippingDetails.lastName} disabled />,
+          },
+          {
+            label: 'Mobile nr',
+            component: <Input value={order.shippingDetails.mobile} disabled />,
+          },
+          {
+            label: 'Email',
+            component: <Input value={order.shippingDetails.email} disabled />,
+          },
+          {
+            label: 'Country',
+            component: <Input value={order.shippingDetails.country} disabled />,
+          },
+          {
+            label: 'City',
+            component: <Input value={order.shippingDetails.city} disabled />,
+          },
+          {
+            label: 'Postcode',
+            component: <Input value={order.shippingDetails.postcode} disabled />,
+          },
+          {
+            label: 'Address',
+            component: <Input value={order.shippingDetails.address} disabled />,
+          },
+        ]
+      : [];
 
-  const cartColumns = order.cart
-    ? [
-        {
-          title: 'Item id',
-          dataIndex: 'itemId',
-          key: 'itemId',
-          render: (id) => <Link to={`/items/${id}`}>{id}</Link>,
-        },
-        {
-          title: 'name',
-          dataIndex: 'itemName',
-          key: 'itemName',
-          render: (text) => <>{text || 'N/A'}</>,
-        },
-        {
-          title: 'count',
-          dataIndex: 'count',
-          key: 'count',
-        },
-        {
-          title: 'Selected size',
-          dataIndex: 'selectedSize',
-          key: 'selectedSize',
-        },
-      ]
-    : [];
+  const cartColumns =
+    order && order.cart
+      ? [
+          {
+            title: 'Item id',
+            dataIndex: 'itemId',
+            key: 'itemId',
+            render: (id) => <Link to={`/items/${id}`}>{id}</Link>,
+          },
+          {
+            title: 'name',
+            dataIndex: 'itemName',
+            key: 'itemName',
+            render: (text) => <>{text || 'N/A'}</>,
+          },
+          {
+            title: 'count',
+            dataIndex: 'count',
+            key: 'count',
+          },
+          {
+            title: 'Selected size',
+            dataIndex: 'selectedSize',
+            key: 'selectedSize',
+          },
+        ]
+      : [];
 
   if (isLoading) {
     return <WrappedSpinner />;
+  }
+
+  if (!order) {
+    return (
+      <Title className="mt-1" level={1}>
+        Order not found
+      </Title>
+    );
   }
 
   const layout = {

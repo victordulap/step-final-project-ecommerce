@@ -81,6 +81,14 @@ const ModelPage = ({ model, isLoading, status, modelObject, title, resetStatus, 
     return <WrappedSpinner />;
   }
 
+  if (!model) {
+    return (
+      <Typography.Title className="mt-1" level={1}>
+        {title} not found
+      </Typography.Title>
+    );
+  }
+
   return (
     <>
       <Typography.Title className="mt-1" style={{ textTransform: 'capitalize' }} level={1}>

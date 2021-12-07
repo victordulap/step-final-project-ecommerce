@@ -17,8 +17,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (authStatus === STATE_STATUSES.ERROR)
-      message.error('login or password incorrect');
+    if (authStatus === STATE_STATUSES.ERROR) message.error('login or password incorrect');
   });
 
   const onFinish = (values) => {
@@ -52,10 +51,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
-            />
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
           </Form.Item>
           <Form.Item
             name="password"
@@ -66,19 +62,11 @@ const Login = () => {
               },
             ]}
           >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
-            />
+            <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
           </Form.Item>
 
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
+            <Button type="primary" htmlType="submit" className="login-form-button" loading={authStatus === STATE_STATUSES.LOADING}>
               Log in
             </Button>
           </Form.Item>
