@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/step-final-project-ecommerce-backoffice/static/css/main.535e8068.chunk.css",
+    "main.js": "/step-final-project-ecommerce-backoffice/static/js/main.e00bee5d.chunk.js",
+    "main.js.map": "/step-final-project-ecommerce-backoffice/static/js/main.e00bee5d.chunk.js.map",
+    "runtime-main.js": "/step-final-project-ecommerce-backoffice/static/js/runtime-main.372f4e47.js",
+    "runtime-main.js.map": "/step-final-project-ecommerce-backoffice/static/js/runtime-main.372f4e47.js.map",
+    "static/css/2.2b8316e7.chunk.css": "/step-final-project-ecommerce-backoffice/static/css/2.2b8316e7.chunk.css",
+    "static/js/2.4423b47e.chunk.js": "/step-final-project-ecommerce-backoffice/static/js/2.4423b47e.chunk.js",
+    "static/js/2.4423b47e.chunk.js.map": "/step-final-project-ecommerce-backoffice/static/js/2.4423b47e.chunk.js.map",
+    "index.html": "/step-final-project-ecommerce-backoffice/index.html",
+    "static/css/2.2b8316e7.chunk.css.map": "/step-final-project-ecommerce-backoffice/static/css/2.2b8316e7.chunk.css.map",
+    "static/css/main.535e8068.chunk.css.map": "/step-final-project-ecommerce-backoffice/static/css/main.535e8068.chunk.css.map",
+    "static/js/2.4423b47e.chunk.js.LICENSE.txt": "/step-final-project-ecommerce-backoffice/static/js/2.4423b47e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.372f4e47.js",
+    "static/css/2.2b8316e7.chunk.css",
+    "static/js/2.4423b47e.chunk.js",
+    "static/css/main.535e8068.chunk.css",
+    "static/js/main.e00bee5d.chunk.js"
+  ]
+}

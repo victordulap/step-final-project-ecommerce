@@ -26,6 +26,19 @@ const App = () => (
         <Route path="/shop">
           <Shop />
         </Route>
+        <Route path="/*">
+          <main>
+            <h1
+              style={{
+                fontSize: '5rem',
+                textAlign: 'center',
+                padding: '5rem 0',
+              }}
+            >
+              404 not found
+            </h1>
+          </main>
+        </Route>
       </Switch>
       <Footer />
     </div>
