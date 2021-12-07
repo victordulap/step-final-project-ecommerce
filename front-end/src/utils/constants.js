@@ -15,7 +15,7 @@ export const SORT_OPTIONS = {
   },
 };
 
-export const BASE_URL = 'http://localhost:5000/api/v1';
+export const BASE_URL = 'https://step-project-ecomm-back-end.herokuapp.com/api/v1'; //'http://localhost:5000/api/v1';
 
 export const REDUX_STATUS = {
   IDLE: 'idle',
