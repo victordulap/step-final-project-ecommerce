@@ -1,9 +1,7 @@
 import { BASE_URL } from '../../util/constants';
 
-const baseURL = process.env.BASE_URL || BASE_URL;
-
 const defaultOptions = {
-  baseURL: baseURL,
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -30,11 +28,6 @@ const interceptorResponseError = (error) => {
   return Promise.reject(error);
 };
 
-export {
-  interceptorRequest,
-  interceptorRequestError,
-  interceptorResponse,
-  interceptorResponseError,
-};
+export { interceptorRequest, interceptorRequestError, interceptorResponse, interceptorResponseError };
 
 export default defaultOptions;
