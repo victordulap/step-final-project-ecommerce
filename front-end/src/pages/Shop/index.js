@@ -1,11 +1,7 @@
 import './style.scss';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getItems,
-  getItemsByPage,
-  resetState,
-} from '../../features/shopItemsSlice';
+import { getItems, getItemsByPage, resetState } from '../../features/shopItemsSlice';
 import { SORT_OPTIONS } from '../../utils/constants';
 import Button from '../../components/Button';
 import ShopItemCard from '../../components/ShopItemCard';
@@ -70,7 +66,7 @@ const Shop = () => {
       .join('&');
 
     const newUrl = `/shop?${searchQuery}`;
-    if (searchQuery) {
+    if (searchQuery && !(Object.values(query).length === 1 && (query.categoryIds || query.brandIds))) {
       history.push(newUrl);
     }
   }, [history, query]);
@@ -91,10 +87,7 @@ const Shop = () => {
     setSortOption(event.target.value);
     // set url to sort
     const selectedOption = event.target.value;
-    if (
-      selectedOption === SORT_OPTIONS.asc.param ||
-      selectedOption === SORT_OPTIONS.desc.param
-    ) {
+    if (selectedOption === SORT_OPTIONS.asc.param || selectedOption === SORT_OPTIONS.desc.param) {
       setQuery((old) => ({
         ...old,
         sort: selectedOption,
@@ -123,11 +116,7 @@ const Shop = () => {
   return (
     <main className={isFilterModalOpen ? 'modal-open' : ''}>
       {isFilterModalOpen && (
-        <FilterModal
-          options={filterFields}
-          closeModal={() => setIsFilterModalOpen(false)}
-          updateFilterOptions={setFilterOptions}
-        />
+        <FilterModal options={filterFields} closeModal={() => setIsFilterModalOpen(false)} updateFilterOptions={setFilterOptions} />
       )}
       <header className="header">
         <div className="container">
@@ -137,10 +126,7 @@ const Shop = () => {
           <div className="sort">
             <select name="sort" value={sortOption} onChange={handleSortSelect}>
               {Object.keys(SORT_OPTIONS).map((key) => (
-                <option
-                  key={`sort-option-${key}`}
-                  value={SORT_OPTIONS[key].param}
-                >
+                <option key={`sort-option-${key}`} value={SORT_OPTIONS[key].param}>
                   {SORT_OPTIONS[key].text}
                 </option>
               ))}
@@ -157,9 +143,7 @@ const Shop = () => {
       </header>
       <section className="items">
         <div className="container">
-          <p className="items-found">
-            {!isLoading && shopItems.length === 0 && '0 items found'}
-          </p>
+          <p className="items-found">{!isLoading && shopItems.length === 0 && '0 items found'}</p>
           <div className="item-cards-container">
             {isLoading ? (
               <>
@@ -189,12 +173,7 @@ const Shop = () => {
             {noMoreToLoad ? (
               shopItems.length > 0 && <p>{shopItems.length} items above</p>
             ) : (
-              <Button
-                loading={isLoading}
-                onClick={loadMore}
-                text="LOAD MORE"
-                size="l"
-              />
+              <Button loading={isLoading} onClick={loadMore} text="LOAD MORE" size="l" />
             )}
           </div>
         </div>
