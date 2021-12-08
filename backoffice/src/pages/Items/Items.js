@@ -94,6 +94,11 @@ const Items = () => {
       ...getColumnSearchProps('title'),
     },
     {
+      title: 'Color',
+      dataIndex: 'color',
+      key: 'color',
+    },
+    {
       title: 'Brand',
       dataIndex: 'brandId',
       key: 'brandId',
