@@ -67,6 +67,7 @@
     padding-block: 0.5em;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 
     &-checked {
       background-color: $neutral-light-900;
