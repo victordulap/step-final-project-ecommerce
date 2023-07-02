@@ -5,7 +5,7 @@ export const STATE_STATUSES = {
   ERROR: 'error',
 };
 
-export const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:5000/api/v1';
+export const BASE_URL = process.env.REACT_API_BASE_URL || 'http://localhost:5000/api';
 
 export const DATE_TIME_FORMAT = 'DD/MM/YYYY HH:mm';
 

@@ -29,13 +29,13 @@ app.get('/', (req, res) => {
   res.send('ecommerce backend');
 });
 
-app.use('/api/v1/categories', categoryRoute);
-app.use('/api/v1/brands', brandRoute);
-app.use('/api/v1/items', itemRoute);
-app.use('/api/v1/orders', orderRoute);
+app.use('/api/categories', categoryRoute);
+app.use('/api/brands', brandRoute);
+app.use('/api/items', itemRoute);
+app.use('/api/orders', orderRoute);
 
 // back office routes
-app.use('/api/v1/auth', authRoute);
+app.use('/api/auth', authRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
