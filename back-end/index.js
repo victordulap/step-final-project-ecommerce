@@ -53,4 +53,5 @@ const start = async () => {
   }
 };
 
-start();
+// start();
+app.listen(port)
