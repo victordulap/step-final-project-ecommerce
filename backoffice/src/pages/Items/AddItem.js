@@ -19,7 +19,7 @@ const AddItem = () => {
   const navigate = useNavigate();
 
   const [sizeValues, setSizeValues] = useState([]);
-  const [isSizesValid, setIsSizesValid] = useState(false);
+  const [isSizesValid] = useState(false);
 
   useEffect(() => {
     dispatch(getAllBrands());

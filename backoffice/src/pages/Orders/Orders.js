@@ -5,7 +5,6 @@ import { getAllOrders } from '../../features/Orders/OrdersActions';
 import { formatToDateTime } from '../../util/date';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { DEFAULT_DATE } from '../../util/constants';
 
 const columns = [
   {

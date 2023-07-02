@@ -9,7 +9,7 @@ import {
 import Text from 'antd/lib/typography/Text';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthActions } from '../features/Auth/AuthSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -20,7 +20,6 @@ const CustomLayout = ({ children }) => {
   const [user, setUser] = useState();
   const dispatch = useDispatch();
   const token = useSelector(({ auth }) => auth.token);
-  const navigate = useNavigate();
 
   useEffect(() => {
     (() => {

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { categoriesService } from '../services/categoriesService';
 import { checkoutService } from '../services/checkoutService';
 import { REDUX_STATUS } from '../utils/constants';
 
