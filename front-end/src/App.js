@@ -26,7 +26,7 @@ const App = () => (
         <Route path="/shop">
           <Shop />
         </Route>
-        {/* <Route path="/*">
+        <Route path="/*">
           <main>
             <h1
               style={{
@@ -38,7 +38,7 @@ const App = () => (
               404 not found
             </h1>
           </main>
-        </Route> */}
+        </Route>
       </Switch>
       <Footer />
     </div>
