@@ -6,7 +6,6 @@
       "source": "/api/(.*)",
       "destination": "/back-end/app.js"
     },
-    {"source": "/(.*)", "destination": "/"},
-    {"source": "/admin/(.*)", "destination": "/backoffice/index.js"}
+    { "source": "/admin/(.*)", "destination": "/backoffice/index.js" }
   ]
 }
