@@ -4,9 +4,9 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/app.js"
+      "destination": "/back-end/app.js"
     },
     {"source": "/(.*)", "destination": "/"},
-    {"source": "/admin/(.*)", "destination": "/backoffice/$1"}
+    {"source": "/admin/(.*)", "destination": "/backoffice/index.js"}
   ]
 }
