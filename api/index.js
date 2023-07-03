@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 app.use('/api/categories', categoryRoute);
 app.use('/api/brands', brandRoute);
 app.use('/api/items', itemRoute);
-// app.use('/api/orders', orderRoute);
+app.use('/api/orders', orderRoute);
 
 // back office routes
 // app.use('/api/auth', authRoute);
