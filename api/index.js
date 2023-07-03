@@ -25,9 +25,9 @@ app.use(express.json());
 // extra packages
 
 // routes
-app.get('/', (req, res) => {
-  res.send('ecommerce backend');
-});
+// app.get('/', (req, res) => {
+//   res.send('ecommerce backend');
+// });
 
 app.use('/api/categories', categoryRoute);
 app.use('/api/brands', brandRoute);
@@ -37,8 +37,8 @@ app.use('/api/orders', orderRoute);
 // back office routes
 // app.use('/api/auth', authRoute);
 
-app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
+// app.use(notFoundMiddleware);
+// app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
 
