@@ -35,7 +35,7 @@ app.use('/api/items', itemRoute);
 app.use('/api/orders', orderRoute);
 
 // back office routes
-// app.use('/api/auth', authRoute);
+app.use('/api/auth', authRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
